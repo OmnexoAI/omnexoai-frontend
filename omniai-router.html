@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OMNI AI — Smart Router</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#040507;--bg2:#080b10;--card:#0d1117;--border:rgba(255,255,255,0.07);--accent:#00e5ff;--accent2:#7c3aed;--accent3:#f59e0b;--text:#f0f4f8;--muted:#64748b;--success:#22c55e;--error:#ef4444;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+  .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+  .orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;animation:breathe 8s ease-in-out infinite;}
+  .orb1{width:400px;height:400px;background:rgba(0,229,255,0.06);top:-80px;left:-80px;}
+  .orb2{width:300px;height:300px;background:rgba(124,58,237,0.08);bottom:0;right:0;animation-delay:4s;}
+  @keyframes breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+
+  /* SIDEBAR */
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:rgba(8,11,16,0.98);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;padding:24px 16px;transition:transform 0.3s;}
+  .sidebar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.5px;margin-bottom:32px;padding-left:8px;}
+  .sidebar-logo span{color:var(--accent);}
+  .nav-section{font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:0 8px;margin-bottom:8px;margin-top:16px;}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:0.85rem;color:var(--muted);cursor:pointer;transition:all 0.2s;text-decoration:none;margin-bottom:2px;}
+  .nav-item:hover{background:rgba(255,255,255,0.04);color:var(--text);}
+  .nav-item.active{background:rgba(0,229,255,0.08);color:var(--accent);border:1px solid rgba(0,229,255,0.12);}
+  .nav-item .icon{font-size:1rem;width:20px;text-align:center;}
+  .sidebar-bottom{margin-top:auto;padding-top:16px;border-top:1px solid var(--border);}
+  .user-chip{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:var(--card);border:1px solid var(--border);}
+  .avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:#000;flex-shrink:0;}
+  .user-name{font-size:0.8rem;font-weight:600;}
+  .user-plan{font-size:0.68rem;color:var(--accent);}
+
+  /* TOPBAR mobile */
+  .topbar{display:none;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(4,5,7,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 20px;align-items:center;justify-content:space-between;}
+  .topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;}
+  .topbar-logo span{color:var(--accent);}
+  .hamburger{background:none;border:none;color:var(--text);font-size:1.3rem;cursor:pointer;}
+
+  /* MAIN */
+  .main{margin-left:220px;min-height:100vh;position:relative;z-index:1;}
+  .page-header{padding:32px 28px 0;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+  .page-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.5px;}
+  .page-sub{font-size:0.82rem;color:var(--muted);margin-top:4px;}
+  .status-badge{display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:var(--success);padding:8px 16px;border-radius:100px;font-size:0.78rem;font-weight:600;}
+  .status-dot{width:7px;height:7px;background:var(--success);border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.4);}}
+  .content{padding:24px 28px 60px;}
+
+  /* ANALYTICS TOP ROW */
+  .analytics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;animation:fadeUp 0.5s ease both;}
+  .analytics-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 16px;transition:all 0.2s;position:relative;overflow:hidden;}
+  .analytics-card:hover{border-color:rgba(0,229,255,0.2);transform:translateY(-2px);}
+  .analytics-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+  .analytics-card:nth-child(1)::before{background:linear-gradient(90deg,var(--accent),transparent);}
+  .analytics-card:nth-child(2)::before{background:linear-gradient(90deg,var(--success),transparent);}
+  .analytics-card:nth-child(3)::before{background:linear-gradient(90deg,var(--accent3),transparent);}
+  .analytics-card:nth-child(4)::before{background:linear-gradient(90deg,var(--accent2),transparent);}
+  .analytics-icon{font-size:1.3rem;margin-bottom:8px;display:block;}
+  .analytics-val{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;line-height:1;margin-bottom:4px;}
+  .analytics-lbl{font-size:0.72rem;color:var(--muted);line-height:1.3;}
+  .analytics-change{font-size:0.68rem;margin-top:4px;font-weight:600;}
+  .analytics-change.up{color:var(--success);}
+  .analytics-change.down{color:var(--error);}
+
+  /* LIVE DEMO */
+  .router-demo{background:var(--card);border:1px solid rgba(0,229,255,0.15);border-radius:20px;overflow:hidden;margin-bottom:20px;position:relative;animation:fadeUp 0.5s ease both;}
+  .router-demo::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+  .demo-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .demo-title{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:800;}
+  .demo-subtitle{font-size:0.75rem;color:var(--muted);margin-top:2px;}
+  .test-btn{background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;padding:9px 16px;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;cursor:pointer;transition:all 0.2s;}
+  .test-btn:hover{transform:translateY(-1px);}
+  .demo-input-row{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center;}
+  .demo-input{flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+  .demo-input:focus{border-color:var(--accent);}
+  .demo-input::placeholder{color:#2d3748;}
+  .route-btn{background:var(--accent2);color:#fff;border:none;padding:10px 16px;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .route-btn:hover{background:#6d28d9;}
+
+  /* ROUTING STEPS */
+  .routing-viz{padding:18px 22px;}
+  .routing-steps{display:flex;flex-direction:column;gap:8px;}
+  .routing-step{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;opacity:0.4;transition:all 0.4s;}
+  .routing-step.active{opacity:1;border-color:var(--accent);background:rgba(0,229,255,0.04);}
+  .routing-step.done{opacity:1;border-color:var(--success);background:rgba(34,197,94,0.04);}
+  .step-icon{width:34px;height:34px;border-radius:9px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+  .routing-step.active .step-icon{border-color:var(--accent);background:rgba(0,229,255,0.1);animation:stepPulse 1s infinite;}
+  .routing-step.done .step-icon{border-color:var(--success);background:rgba(34,197,94,0.1);}
+  @keyframes stepPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,229,255,0.3);}50%{box-shadow:0 0 0 6px rgba(0,229,255,0);}}
+  .step-info{flex:1;}
+  .step-label{font-size:0.78rem;font-weight:600;margin-bottom:2px;}
+  .step-detail{font-size:0.68rem;color:var(--muted);}
+  .step-status{font-size:0.68rem;font-weight:700;padding:3px 9px;border-radius:6px;white-space:nowrap;}
+  .step-status.pending{background:rgba(100,116,139,0.15);color:var(--muted);}
+  .step-status.processing{background:rgba(0,229,255,0.1);color:var(--accent);}
+  .step-status.done-s{background:rgba(34,197,94,0.1);color:var(--success);}
+
+  /* LATENCY BAR */
+  .latency-row{display:flex;align-items:center;gap:8px;margin-top:4px;}
+  .latency-bar{flex:1;height:3px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;}
+  .latency-fill{height:100%;border-radius:10px;transition:width 0.6s ease;}
+  .latency-val{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);white-space:nowrap;}
+
+  /* RESULT BOX */
+  .result-box{margin-top:12px;padding:14px;background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(124,58,237,0.05));border:1px solid rgba(0,229,255,0.2);border-radius:12px;display:none;}
+  .result-box.show{display:block;animation:fadeUp 0.4s ease;}
+  .result-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+  .result-model{display:flex;align-items:center;gap:10px;}
+  .result-emoji{font-size:1.5rem;}
+  .result-model-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;}
+  .result-model-reason{font-size:0.7rem;color:var(--muted);margin-top:1px;}
+  .result-savings{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:var(--success);padding:4px 10px;border-radius:8px;font-size:0.7rem;font-weight:700;}
+  .result-metrics{display:flex;gap:10px;flex-wrap:wrap;}
+  .metric-chip{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:0.7rem;display:flex;align-items:center;gap:5px;}
+  .metric-chip strong{color:var(--accent);font-family:'Syne',sans-serif;}
+
+  /* API LATENCY DISPLAY */
+  .latency-section{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;animation:fadeUp 0.5s 0.1s ease both;}
+  .section-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);}
+  .section-head-title{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;}
+  .section-head-badge{font-size:0.65rem;background:rgba(34,197,94,0.1);color:var(--success);border:1px solid rgba(34,197,94,0.2);padding:2px 8px;border-radius:6px;}
+  .latency-grid{display:flex;flex-direction:column;gap:0;}
+  .latency-item{display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.15s;}
+  .latency-item:hover{background:rgba(255,255,255,0.02);}
+  .latency-item:last-child{border-bottom:none;}
+  .latency-model-emoji{font-size:1.1rem;width:28px;text-align:center;flex-shrink:0;}
+  .latency-model-name{font-size:0.8rem;font-weight:500;width:140px;flex-shrink:0;}
+  .latency-bar-wrap{flex:1;}
+  .latency-bar-track{height:5px;background:rgba(255,255,255,0.05);border-radius:10px;overflow:hidden;}
+  .latency-bar-f{height:100%;border-radius:10px;transition:width 1.2s ease;}
+  .latency-ms{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;width:60px;text-align:right;flex-shrink:0;}
+  .latency-status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
+  /* TWO COL */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+
+  /* SETTINGS */
+  .settings-section{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;animation:fadeUp 0.5s 0.15s ease both;}
+  .setting-row{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid rgba(255,255,255,0.03);}
+  .setting-row:last-child{border-bottom:none;}
+  .setting-info{flex:1;}
+  .setting-name{font-size:0.82rem;font-weight:500;margin-bottom:2px;}
+  .setting-desc{font-size:0.68rem;color:var(--muted);}
+  .toggle{position:relative;width:40px;height:22px;flex-shrink:0;}
+  .toggle input{opacity:0;width:0;height:0;}
+  .toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:100px;cursor:pointer;transition:0.3s;}
+  .toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:0.3s;}
+  .toggle input:checked+.toggle-slider{background:var(--accent);}
+  .toggle input:checked+.toggle-slider::before{transform:translateX(18px);}
+  .setting-select{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:8px;font-size:0.75rem;outline:none;cursor:pointer;}
+
+  /* ROUTING RULES */
+  .rules-section{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;animation:fadeUp 0.5s 0.2s ease both;}
+  .rule-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.03);}
+  .rule-item:last-child{border-bottom:none;}
+  .rule-icon-box{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .rule-content{flex:1;}
+  .rule-name{font-size:0.82rem;font-weight:600;margin-bottom:3px;}
+  .rule-models-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:4px;}
+  .rule-chip{font-size:0.65rem;padding:2px 7px;border-radius:5px;font-weight:600;}
+  .rule-chip.primary{background:rgba(0,229,255,0.1);color:var(--accent);border:1px solid rgba(0,229,255,0.2);}
+  .rule-chip.secondary{background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid var(--border);}
+  .rule-desc{font-size:0.68rem;color:var(--muted);}
+  .rule-edit-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:7px;padding:4px 10px;font-size:0.68rem;cursor:pointer;transition:all 0.2s;flex-shrink:0;}
+  .rule-edit-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* CUSTOM RULES */
+  .custom-rules-section{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;animation:fadeUp 0.5s 0.25s ease both;}
+  .custom-rule-item{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.03);}
+  .custom-rule-item:last-child{border-bottom:none;}
+  .cr-handle{color:var(--muted);font-size:0.8rem;cursor:grab;}
+  .cr-info{flex:1;}
+  .cr-name{font-size:0.8rem;font-weight:600;margin-bottom:2px;}
+  .cr-condition{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);}
+  .cr-model{font-size:0.7rem;color:var(--accent);background:rgba(0,229,255,0.08);padding:2px 7px;border-radius:5px;font-weight:600;}
+  .cr-delete{background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.85rem;transition:color 0.2s;}
+  .cr-delete:hover{color:var(--error);}
+  .add-rule-btn{width:calc(100% - 36px);margin:12px 18px;padding:10px;background:transparent;border:1px dashed rgba(0,229,255,0.2);color:var(--accent);border-radius:10px;font-family:'Syne',sans-serif;font-weight:600;font-size:0.78rem;cursor:pointer;transition:all 0.2s;}
+  .add-rule-btn:hover{background:rgba(0,229,255,0.05);}
+
+  /* MODEL COMPARISON */
+  .comparison-section{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;animation:fadeUp 0.5s 0.3s ease both;}
+  .comparison-section::before{content:'PRO ONLY';position:absolute;}
+  .pro-badge{display:inline-block;background:linear-gradient(135deg,var(--accent2),#5b21b6);color:#fff;font-size:0.6rem;font-weight:800;padding:2px 8px;border-radius:5px;letter-spacing:0.5px;margin-left:8px;vertical-align:middle;}
+  .comparison-input-row{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:center;}
+  .comparison-input{flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:9px;font-size:0.82rem;outline:none;transition:border-color 0.2s;}
+  .comparison-input:focus{border-color:var(--accent);}
+  .comparison-btn{background:linear-gradient(135deg,var(--accent2),#5b21b6);color:#fff;border:none;padding:9px 14px;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.75rem;cursor:pointer;white-space:nowrap;}
+  .comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border);}
+  .comparison-model{padding:16px 18px;border-right:1px solid var(--border);}
+  .comparison-model:last-child{border-right:none;}
+  .cm-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .cm-emoji{font-size:1.2rem;}
+  .cm-name{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;}
+  .cm-cost{font-size:0.65rem;color:var(--accent);background:rgba(0,229,255,0.08);padding:2px 6px;border-radius:5px;}
+  .cm-response{font-size:0.78rem;color:var(--muted);line-height:1.6;min-height:80px;}
+  .cm-metrics{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+  .cm-metric{font-size:0.65rem;color:var(--muted);background:rgba(255,255,255,0.03);padding:3px 8px;border-radius:5px;}
+  .cm-typing{display:flex;gap:3px;padding:6px 0;}
+  .cm-dot{width:5px;height:5px;background:var(--muted);border-radius:50%;animation:typingB 1.2s infinite;}
+  .cm-dot:nth-child(2){animation-delay:0.2s;}
+  .cm-dot:nth-child(3){animation-delay:0.4s;}
+  @keyframes typingB{0%,60%,100%{transform:translateY(0);opacity:0.4;}30%{transform:translateY(-4px);opacity:1;}}
+  .comparison-note{padding:10px 18px;font-size:0.7rem;color:var(--muted);background:rgba(245,158,11,0.04);border-top:1px solid rgba(245,158,11,0.1);display:flex;gap:6px;align-items:center;}
+
+  /* LOG */
+  .log-section{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;animation:fadeUp 0.5s 0.35s ease both;}
+  .log-body{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:14px 18px;max-height:200px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.06) transparent;}
+  .log-line{display:flex;gap:10px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.02);animation:logIn 0.3s ease both;}
+  @keyframes logIn{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:translateX(0);}}
+  .log-time{color:var(--muted);flex-shrink:0;width:68px;}
+  .log-level{flex-shrink:0;width:54px;font-weight:700;}
+  .log-level.info{color:var(--accent);}
+  .log-level.success{color:var(--success);}
+  .log-level.warn{color:var(--accent3);}
+  .log-level.route{color:#a78bfa;}
+  .log-level.latency{color:#fb923c;}
+  .log-msg{color:var(--text);opacity:0.8;flex:1;}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+  .modal-overlay.open{opacity:1;pointer-events:all;}
+  .modal{background:var(--card);border:1px solid rgba(0,229,255,0.15);border-radius:18px;padding:24px 22px;width:100%;max-width:380px;position:relative;transform:translateY(16px);transition:transform 0.25s;}
+  .modal-overlay.open .modal{transform:translateY(0);}
+  .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:18px 18px 0 0;}
+  .modal-close{position:absolute;top:14px;right:14px;background:var(--bg2);border:1px solid var(--border);color:var(--muted);width:26px;height:26px;border-radius:7px;cursor:pointer;font-size:0.75rem;display:flex;align-items:center;justify-content:center;}
+  .modal-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:5px;}
+  .modal-sub{font-size:0.76rem;color:var(--muted);margin-bottom:16px;}
+  .modal-input{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:9px;font-size:0.82rem;outline:none;margin-bottom:10px;transition:border-color 0.2s;}
+  .modal-input:focus{border-color:var(--accent);}
+  .modal-select{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:9px;font-size:0.82rem;outline:none;margin-bottom:14px;cursor:pointer;}
+  .modal-save-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:24px;right:24px;z-index:300;background:var(--success);color:#000;padding:11px 18px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;opacity:0;transform:translateY(10px);transition:all 0.3s;pointer-events:none;}
+  .toast.show{opacity:1;transform:translateY(0);}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  @media(max-width:768px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .topbar{display:flex;}
+    .main{margin-left:0;padding-top:60px;}
+    .analytics-row{grid-template-columns:repeat(2,1fr);}
+    .two-col{grid-template-columns:1fr;}
+    .comparison-grid{grid-template-columns:1fr;}
+    .page-header{padding:20px 16px 0;}
+    .content{padding:16px 16px 40px;}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="toast" id="toast"></div>
+
+<div class="topbar">
+  <div class="topbar-logo">OMNI<span>AI</span></div>
+  <button class="hamburger" onclick="toggleSidebar()">☰</button>
+</div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">OMNI<span>AI</span></div>
+  <div class="nav-section">Main</div>
+  <a class="nav-item" href="omniai-chat.html"><span class="icon">💬</span> Chat</a>
+  <a class="nav-item" href="omniai-wallet.html"><span class="icon">👛</span> Wallet</a>
+  <a class="nav-item" href="#"><span class="icon">📊</span> Usage</a>
+  <a class="nav-item active" href="#"><span class="icon">🤖</span> Smart Router</a>
+  <div class="nav-section">Account</div>
+  <a class="nav-item" href="#"><span class="icon">👤</span> Profile</a>
+  <a class="nav-item" href="#"><span class="icon">⚙️</span> Settings</a>
+  <a class="nav-item" href="#"><span class="icon">🎁</span> Refer & Earn</a>
+  <div class="nav-section">Support</div>
+  <a class="nav-item" href="#"><span class="icon">❓</span> Help</a>
+  <a class="nav-item" href="omniai-auth.html"><span class="icon">🚪</span> Logout</a>
+  <div class="sidebar-bottom">
+    <div class="user-chip">
+      <div class="avatar">B</div>
+      <div><div class="user-name">Baudh Singh</div><div class="user-plan">⚡ Power · 2.6x</div></div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Smart Router 🤖</div>
+      <div class="page-sub">AI automatically picks cheapest + best model — every query optimized</div>
+    </div>
+    <div class="status-badge"><div class="status-dot"></div>Router Active — All 9 Models Online</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ANALYTICS ROW -->
+    <div class="analytics-row">
+      <div class="analytics-card">
+        <span class="analytics-icon">⚡</span>
+        <div class="analytics-val" style="color:var(--accent)">147</div>
+        <div class="analytics-lbl">Credits Saved<br/>by Smart Router</div>
+        <div class="analytics-change up">↑ +23 vs last month</div>
+      </div>
+      <div class="analytics-card">
+        <span class="analytics-icon">₹</span>
+        <div class="analytics-val" style="color:var(--success)">₹14.7</div>
+        <div class="analytics-lbl">Money Saved<br/>in API costs</div>
+        <div class="analytics-change up">↑ +₹3.2 vs last month</div>
+      </div>
+      <div class="analytics-card">
+        <span class="analytics-icon">🎯</span>
+        <div class="analytics-val" style="color:var(--accent3)">83%</div>
+        <div class="analytics-lbl">Queries Routed<br/>to cheap models</div>
+        <div class="analytics-change up">↑ +5% accuracy</div>
+      </div>
+      <div class="analytics-card">
+        <span class="analytics-icon">⚡</span>
+        <div class="analytics-val" style="color:var(--accent2)">1.2s</div>
+        <div class="analytics-lbl">Avg Response<br/>Time (all models)</div>
+        <div class="analytics-change up">↓ 0.3s faster</div>
+      </div>
+    </div>
+
+    <!-- LIVE ROUTING DEMO -->
+    <div class="router-demo">
+      <div class="demo-header">
+        <div>
+          <div class="demo-title">⚡ Live Routing Demo</div>
+          <div class="demo-subtitle">Type any query — watch Smart Router decide in real time with latency</div>
+        </div>
+        <button class="test-btn" onclick="runRandom()">🎲 Random Test</button>
+      </div>
+      <div class="demo-input-row">
+        <input class="demo-input" id="demoInput" placeholder="e.g. 'Mera email likhdo' ya 'Complex Python algorithm...'"/>
+        <button class="route-btn" onclick="runRouting()">Route →</button>
+      </div>
+      <div class="routing-viz">
+        <div class="routing-steps">
+          <div class="routing-step" id="step1">
+            <div class="step-icon">🔍</div>
+            <div class="step-info"><div class="step-label">Query Analysis</div><div class="step-detail" id="s1d">Waiting for input...</div></div>
+            <span class="step-status pending" id="s1s">Waiting</span>
+          </div>
+          <div class="routing-step" id="step2">
+            <div class="step-icon">⚖️</div>
+            <div class="step-info"><div class="step-label">Complexity Scoring</div><div class="step-detail" id="s2d">Complexity: —</div></div>
+            <span class="step-status pending" id="s2s">Waiting</span>
+          </div>
+          <div class="routing-step" id="step3">
+            <div class="step-icon">📡</div>
+            <div class="step-info">
+              <div class="step-label">API Latency Check</div>
+              <div class="step-detail" id="s3d">Pinging all 9 models...</div>
+              <div class="latency-row" id="latencyRow" style="display:none;">
+                <div class="latency-bar"><div class="latency-fill" id="latFill" style="width:0%;background:var(--accent);"></div></div>
+                <div class="latency-val" id="latVal">— ms</div>
+              </div>
+            </div>
+            <span class="step-status pending" id="s3s">Waiting</span>
+          </div>
+          <div class="routing-step" id="step4">
+            <div class="step-icon">💰</div>
+            <div class="step-info"><div class="step-label">Cost Optimization</div><div class="step-detail" id="s4d">Best price/quality ratio...</div></div>
+            <span class="step-status pending" id="s4s">Waiting</span>
+          </div>
+          <div class="routing-step" id="step5">
+            <div class="step-icon">✅</div>
+            <div class="step-info"><div class="step-label">Model Selected</div><div class="step-detail" id="s5d">Best model will appear here</div></div>
+            <span class="step-status pending" id="s5s">Waiting</span>
+          </div>
+        </div>
+        <div class="result-box" id="resultBox">
+          <div class="result-top">
+            <div class="result-model">
+              <span class="result-emoji" id="rEmoji">🔴</span>
+              <div><div class="result-model-name" id="rName">DeepSeek V4</div><div class="result-model-reason" id="rReason">Best for this query</div></div>
+            </div>
+            <div class="result-savings" id="rSavings">Saved 6 credits!</div>
+          </div>
+          <div class="result-metrics">
+            <div class="metric-chip">⚡ Cost: <strong id="mCost">2 cr</strong></div>
+            <div class="metric-chip">🎯 Accuracy: <strong id="mAcc">94%</strong></div>
+            <div class="metric-chip">⏱️ Latency: <strong id="mLat">180ms</strong></div>
+            <div class="metric-chip">💰 Saved: <strong id="mSaved">₹0.6</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- API LATENCY DISPLAY -->
+    <div class="latency-section">
+      <div class="section-head">
+        <div class="section-head-title">📡 Live API Latency — All Models</div>
+        <span class="section-head-badge" id="latencyBadge">● Live</span>
+      </div>
+      <div class="latency-grid" id="latencyGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- TWO COL — Settings + Rules -->
+    <div class="two-col">
+
+      <!-- ROUTER SETTINGS -->
+      <div class="settings-section">
+        <div class="section-head"><div class="section-head-title">⚙️ Router Settings</div></div>
+        <div class="setting-row">
+          <div class="setting-info"><div class="setting-name">Smart Routing</div><div class="setting-desc">Auto-select best model based on query</div></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info"><div class="setting-name">Cost Priority</div><div class="setting-desc">Prefer cheaper models when quality similar</div></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info"><div class="setting-name">Latency Priority</div><div class="setting-desc">Avoid slow models during peak hours</div></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info"><div class="setting-name">Fallback Model</div><div class="setting-desc">If primary fails, use this</div></div>
+          <select class="setting-select"><option>DeepSeek V4</option><option>Gemini 2.5 Flash</option><option>Llama 4</option><option>Qwen 3</option></select>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info"><div class="setting-name">Max Credits/Message</div><div class="setting-desc">Never spend more than this</div></div>
+          <select class="setting-select"><option>5 credits</option><option selected>8 credits</option><option>10 credits</option><option>No limit</option></select>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info"><div class="setting-name">Language Detection</div><div class="setting-desc">Hindi/English auto-detect for routing</div></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <!-- ROUTING RULES -->
+      <div class="rules-section">
+        <div class="section-head"><div class="section-head-title">📋 Default Routing Rules</div></div>
+        <div class="rule-item">
+          <div class="rule-icon-box" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.15);">⚡</div>
+          <div class="rule-content">
+            <div class="rule-name">Simple Queries</div>
+            <div class="rule-models-chips"><span class="rule-chip primary">DeepSeek V4</span><span class="rule-chip secondary">Qwen 3</span><span class="rule-chip secondary">Llama 4</span></div>
+            <div class="rule-desc">Definitions, translations, short answers</div>
+          </div>
+          <button class="rule-edit-btn" onclick="editRule('Simple')">Edit</button>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon-box" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.15);">💻</div>
+          <div class="rule-content">
+            <div class="rule-name">Coding Tasks</div>
+            <div class="rule-models-chips"><span class="rule-chip primary">Claude Sonnet</span><span class="rule-chip secondary">GPT-5</span><span class="rule-chip secondary">DeepSeek</span></div>
+            <div class="rule-desc">Code gen, debugging, code review</div>
+          </div>
+          <button class="rule-edit-btn" onclick="editRule('Coding')">Edit</button>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon-box" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.15);">🔬</div>
+          <div class="rule-content">
+            <div class="rule-name">Research & Analysis</div>
+            <div class="rule-models-chips"><span class="rule-chip primary">Gemini 2.5</span><span class="rule-chip secondary">Grok 4</span><span class="rule-chip secondary">Kimi K2</span></div>
+            <div class="rule-desc">Deep research, summaries, comparisons</div>
+          </div>
+          <button class="rule-edit-btn" onclick="editRule('Research')">Edit</button>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon-box" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.15);">✍️</div>
+          <div class="rule-content">
+            <div class="rule-name">Creative Writing</div>
+            <div class="rule-models-chips"><span class="rule-chip primary">GPT-5</span><span class="rule-chip secondary">Claude</span><span class="rule-chip secondary">Mistral</span></div>
+            <div class="rule-desc">Stories, emails, marketing content</div>
+          </div>
+          <button class="rule-edit-btn" onclick="editRule('Creative')">Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOM RULES (User-defined) -->
+    <div class="custom-rules-section">
+      <div class="section-head">
+        <div class="section-head-title">🎛️ Custom Routing Rules <span style="font-size:0.65rem;color:var(--muted);font-weight:400;">(Your personal rules)</span></div>
+        <button onclick="openAddRule()" style="background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.2);color:var(--accent);border-radius:7px;padding:4px 12px;font-size:0.72rem;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;">+ Add Rule</button>
+      </div>
+      <div id="customRulesList">
+        <div class="custom-rule-item">
+          <span class="cr-handle">⠿</span>
+          <div class="cr-info">
+            <div class="cr-name">Business emails</div>
+            <div class="cr-condition">IF: contains "email" OR "letter" OR "professional"</div>
+          </div>
+          <span class="cr-model">→ GPT-5</span>
+          <button class="cr-delete" onclick="deleteRule(this)" title="Delete">✕</button>
+        </div>
+        <div class="custom-rule-item">
+          <span class="cr-handle">⠿</span>
+          <div class="cr-info">
+            <div class="cr-name">Hindi queries</div>
+            <div class="cr-condition">IF: language detected = Hindi</div>
+          </div>
+          <span class="cr-model">→ DeepSeek V4</span>
+          <button class="cr-delete" onclick="deleteRule(this)" title="Delete">✕</button>
+        </div>
+        <div class="custom-rule-item">
+          <span class="cr-handle">⠿</span>
+          <div class="cr-info">
+            <div class="cr-name">Finance queries</div>
+            <div class="cr-condition">IF: contains "tax" OR "GST" OR "finance" OR "profit"</div>
+          </div>
+          <span class="cr-model">→ Claude Sonnet</span>
+          <button class="cr-delete" onclick="deleteRule(this)" title="Delete">✕</button>
+        </div>
+      </div>
+      <button class="add-rule-btn" onclick="openAddRule()">+ Add Custom Rule</button>
+    </div>
+
+    <!-- MODEL COMPARISON (Pro Only) -->
+    <div class="comparison-section" style="position:relative;">
+      <div class="section-head">
+        <div class="section-head-title">🆚 Model Comparison Mode <span class="pro-badge">PRO ONLY</span></div>
+        <span style="font-size:0.7rem;color:var(--muted);">Credits: 2x per query</span>
+      </div>
+      <div class="comparison-input-row">
+        <input class="comparison-input" id="compareInput" placeholder="Same query — 2 models compare karein..."/>
+        <select id="compareModel1" style="background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;font-size:0.75rem;outline:none;cursor:pointer;">
+          <option value="claude">🟠 Claude Sonnet</option>
+          <option value="gpt5">🟢 GPT-5</option>
+          <option value="gemini">🔵 Gemini 2.5</option>
+          <option value="deepseek">🔴 DeepSeek V4</option>
+        </select>
+        <select id="compareModel2" style="background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;font-size:0.75rem;outline:none;cursor:pointer;">
+          <option value="gpt5">🟢 GPT-5</option>
+          <option value="claude">🟠 Claude Sonnet</option>
+          <option value="deepseek">🔴 DeepSeek V4</option>
+          <option value="gemini">🔵 Gemini 2.5</option>
+        </select>
+        <button class="comparison-btn" onclick="runComparison()">Compare →</button>
+      </div>
+      <div class="comparison-grid" id="comparisonGrid">
+        <div class="comparison-model" id="cm1">
+          <div class="cm-header"><span class="cm-emoji">🟠</span><span class="cm-name">Claude Sonnet</span><span class="cm-cost">8 cr</span></div>
+          <div class="cm-response" id="cm1Response" style="color:rgba(100,116,139,0.5);font-style:italic;">Response yahan aayega...</div>
+        </div>
+        <div class="comparison-model" id="cm2">
+          <div class="cm-header"><span class="cm-emoji">🟢</span><span class="cm-name">GPT-5</span><span class="cm-cost">6 cr</span></div>
+          <div class="cm-response" id="cm2Response" style="color:rgba(100,116,139,0.5);font-style:italic;">Response yahan aayega...</div>
+        </div>
+      </div>
+      <div class="comparison-note">⚠️ Comparison mode Pro plan mein available hai. Credits 2x katenge — dono models simultaneously query karenge.</div>
+    </div>
+
+    <!-- ACTIVITY LOG -->
+    <div class="log-section">
+      <div class="section-head">
+        <div class="section-head-title">📋 Router Activity Log</div>
+        <span style="font-size:0.72rem;color:var(--accent);cursor:pointer;" onclick="clearLog()">Clear</span>
+      </div>
+      <div class="log-body" id="logBody">
+        <div class="log-line"><span class="log-time">16:31:02</span><span class="log-level success">SUCCESS</span><span class="log-msg">Router initialized — 9 models online, latency check complete</span></div>
+        <div class="log-line"><span class="log-time">16:31:05</span><span class="log-level info">INFO</span><span class="log-msg">Smart routing ON — cost priority: HIGH, latency threshold: 2000ms</span></div>
+        <div class="log-line"><span class="log-time">16:31:08</span><span class="log-level latency">LATENCY</span><span class="log-msg">DeepSeek: 180ms | Claude: 420ms | GPT-5: 380ms | Gemini: 210ms</span></div>
+        <div class="log-line"><span class="log-time">16:32:14</span><span class="log-level route">ROUTE</span><span class="log-msg">Query: "email likhdo" → DeepSeek V4 [simple, 2cr, 180ms]</span></div>
+        <div class="log-line"><span class="log-time">16:33:40</span><span class="log-level route">ROUTE</span><span class="log-msg">Query: "Python algo" → Claude Sonnet [code, 8cr, 420ms]</span></div>
+        <div class="log-line"><span class="log-time">16:34:55</span><span class="log-level warn">SAVED</span><span class="log-msg">Cost saved: 6 credits vs GPT-5 on simple query</span></div>
+        <div class="log-line"><span class="log-time">16:35:10</span><span class="log-level latency">LATENCY</span><span class="log-msg">Grok 4 slow (1840ms) — auto-deprioritized for next 5 minutes</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADD RULE MODAL -->
+<div class="modal-overlay" id="addRuleModal" onclick="closeAddRuleOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAddRule()">✕</button>
+    <div class="modal-title">🎛️ Add Custom Rule</div>
+    <div class="modal-sub">Apna custom routing rule banao</div>
+    <label style="font-size:0.72rem;color:var(--muted);display:block;margin-bottom:5px;">Rule Name</label>
+    <input class="modal-input" id="ruleName" placeholder="e.g. My coding rule"/>
+    <label style="font-size:0.72rem;color:var(--muted);display:block;margin-bottom:5px;">Trigger Condition (keywords)</label>
+    <input class="modal-input" id="ruleCondition" placeholder="e.g. python, javascript, code, debug"/>
+    <label style="font-size:0.72rem;color:var(--muted);display:block;margin-bottom:5px;">Route to Model</label>
+    <select class="modal-select" id="ruleModel">
+      <option value="deepseek">🔴 DeepSeek V4 (2 cr — cheapest)</option>
+      <option value="gpt5">🟢 GPT-5 (6 cr — popular)</option>
+      <option value="claude" selected>🟠 Claude Sonnet (8 cr — best reasoning)</option>
+      <option value="gemini">🔵 Gemini 2.5 (3 cr — research)</option>
+      <option value="grok">⚡ Grok 4 (5 cr — real-time)</option>
+      <option value="llama">🦙 Llama 4 (2 cr — budget)</option>
+      <option value="mistral">🌊 Mistral Large (4 cr — business)</option>
+      <option value="kimi">🌙 Kimi K2 (3 cr — quality)</option>
+      <option value="qwen">🐉 Qwen 3 (2 cr — multilingual)</option>
+    </select>
+    <button class="modal-save-btn" onclick="saveCustomRule()">Save Rule →</button>
+  </div>
+</div>
+
+<div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;" onclick="toggleSidebar()"></div>
+
+<script>
+  // ── LATENCY DATA (simulated live) ──
+  const models=[
+    {emoji:'🔴',name:'DeepSeek V4',key:'deepseek',baseLatency:180,color:'#ef4444'},
+    {emoji:'🟢',name:'GPT-5',key:'gpt5',baseLatency:380,color:'#10b981'},
+    {emoji:'🟠',name:'Claude Sonnet',key:'claude',baseLatency:420,color:'#f59e0b'},
+    {emoji:'🔵',name:'Gemini 2.5 Flash',key:'gemini',baseLatency:210,color:'#3b82f6'},
+    {emoji:'⚡',name:'Grok 4',key:'grok',baseLatency:340,color:'#8b5cf6'},
+    {emoji:'🦙',name:'Llama 4',key:'llama',baseLatency:160,color:'#06b6d4'},
+    {emoji:'🌊',name:'Mistral Large',key:'mistral',baseLatency:290,color:'#ec4899'},
+    {emoji:'🌙',name:'Kimi K2',key:'kimi',baseLatency:240,color:'#f97316'},
+    {emoji:'🐉',name:'Qwen 3',key:'qwen',baseLatency:200,color:'#84cc16'},
+  ];
+
+  function buildLatencyGrid(){
+    const grid=document.getElementById('latencyGrid');
+    grid.innerHTML='';
+    models.forEach(m=>{
+      const lat=m.baseLatency+Math.floor(Math.random()*80-40);
+      const pct=Math.min(100,(lat/600)*100);
+      const status=lat<250?'#22c55e':lat<500?'#f59e0b':'#ef4444';
+      grid.innerHTML+=`<div class="latency-item">
+        <span class="latency-model-emoji">${m.emoji}</span>
+        <span class="latency-model-name">${m.name}</span>
+        <div class="latency-bar-wrap"><div class="latency-bar-track"><div class="latency-bar-f" style="width:0%;background:${m.color};" data-pct="${pct}"></div></div></div>
+        <span class="latency-ms" style="color:${status};">${lat}ms</span>
+        <span class="latency-status-dot" style="background:${status};"></span>
+      </div>`;
+    });
+    setTimeout(()=>{
+      grid.querySelectorAll('.latency-bar-f').forEach(el=>{el.style.width=el.dataset.pct+'%';});
+    },200);
+  }
+
+  buildLatencyGrid();
+  setInterval(()=>{buildLatencyGrid();addLog('LATENCY','Latency refresh — all 9 models pinged');},15000);
+
+  // ── ROUTING RULES ──
+  const routingRules=[
+    {type:'simple',keywords:['kya hai','what is','define','matlab','translate','batao','short','quick','ek line','simple','basic'],model:{emoji:'🔴',name:'DeepSeek V4',cost:2,reason:'Simple query — cheapest model saves credits',speed:'Fast',accuracy:'92%',latency:'180ms'},saved:6},
+    {type:'coding',keywords:['code','python','javascript','algorithm','debug','program','function','api','script','develop','html','css','sql'],model:{emoji:'🟠',name:'Claude Sonnet',cost:8,reason:'Coding task — Claude best for code understanding',speed:'Medium',accuracy:'97%',latency:'420ms'},saved:0},
+    {type:'research',keywords:['research','analysis','compare','difference','explain','summarize','report','study','market','article'],model:{emoji:'🔵',name:'Gemini 2.5',cost:3,reason:'Research query — Gemini excels at deep analysis',speed:'Fast',accuracy:'95%',latency:'210ms'},saved:5},
+    {type:'creative',keywords:['write','likhao','story','email','content','marketing','creative','blog','poem','kahani','letter'],model:{emoji:'🟢',name:'GPT-5',cost:6,reason:'Creative task — GPT-5 best for writing',speed:'Medium',accuracy:'94%',latency:'380ms'},saved:2},
+    {type:'math',keywords:['calculate','math','formula','equation','solve','number','percentage','profit','loss','tax','gst'],model:{emoji:'🔴',name:'DeepSeek V4',cost:2,reason:'Math — DeepSeek handles numbers excellently',speed:'Fast',accuracy:'96%',latency:'180ms'},saved:6},
+    {type:'realtime',keywords:['latest','news','today','current','trending','2026','recent','stock','price','live'],model:{emoji:'⚡',name:'Grok 4',cost:5,reason:'Real-time info — Grok has live web access',speed:'Fast',accuracy:'93%',latency:'340ms'},saved:3},
+  ];
+
+  const randomTests=['Python mein sorting algorithm banao','Aaj ka news kya hai?','Napoleon ka janm kab hua?','Mere business ke liye email campaign','GST calculation karo ₹4999 par','DeepSeek vs ChatGPT difference?','Ek romantic Hindi story likhao','JavaScript mein REST API banao'];
+
+  function detectRoute(q){
+    const l=q.toLowerCase();
+    for(const r of routingRules){if(r.keywords.some(k=>l.includes(k)))return r;}
+    return{type:'general',model:{emoji:'🔴',name:'DeepSeek V4',cost:2,reason:'General query — cost-efficient default',speed:'Fast',accuracy:'91%',latency:'180ms'},saved:6};
+  }
+
+  function runRandom(){document.getElementById('demoInput').value=randomTests[Math.floor(Math.random()*randomTests.length)];runRouting();}
+
+  function runRouting(){
+    const q=document.getElementById('demoInput').value.trim();
+    if(!q)return;
+    const rule=detectRoute(q);
+    resetSteps();
+    document.getElementById('resultBox').classList.remove('show');
+
+    setTimeout(()=>activateStep('step1','s1d','s1s',`Detected: "${q.substring(0,28)}${q.length>28?'...':''}"`, 'Analyzing'),100);
+    setTimeout(()=>{doneStep('step1','s1d','s1s',`Type: ${rule.type.toUpperCase()}`, 'Done ✓');activateStep('step2','s2d','s2s',`Complexity: ${getComplexity(rule.type)} | Score: ${getScore(rule.type)}/10`,'Scoring');},800);
+    setTimeout(()=>{
+      doneStep('step2','s2d','s2s',`Score: ${getScore(rule.type)}/10`,'Done ✓');
+      activateStep('step3','s3d','s3s','Pinging all 9 models for latency...','Pinging');
+      document.getElementById('latencyRow').style.display='flex';
+      let pct=0; const li=setInterval(()=>{pct+=5;document.getElementById('latFill').style.width=pct+'%';if(pct>=100)clearInterval(li);},30);
+    },1500);
+    setTimeout(()=>{
+      const lat=rule.model.latency;
+      document.getElementById('latVal').textContent=lat;
+      doneStep('step3','s3d','s3s',`Best latency: ${lat} (${rule.model.name})`,'Done ✓');
+      activateStep('step4','s4d','s4s',`Cheapest viable: ${rule.model.cost} cr/msg`,'Optimizing');
+    },2400);
+    setTimeout(()=>{doneStep('step4','s4d','s4s','Best cost-quality found','Done ✓');activateStep('step5','s5d','s5s',`→ ${rule.model.name} selected!`,'Selected!');},3100);
+    setTimeout(()=>{
+      doneStep('step5','s5d','s5s',`${rule.model.name} — routing complete`,'Done ✓');
+      document.getElementById('rEmoji').textContent=rule.model.emoji;
+      document.getElementById('rName').textContent=rule.model.name;
+      document.getElementById('rReason').textContent=rule.model.reason;
+      document.getElementById('rSavings').textContent=rule.saved>0?`Saved ${rule.saved} credits!`:'Best quality pick';
+      document.getElementById('mCost').textContent=rule.model.cost+' cr';
+      document.getElementById('mAcc').textContent=rule.model.accuracy;
+      document.getElementById('mLat').textContent=rule.model.latency;
+      document.getElementById('mSaved').textContent='₹'+(rule.model.cost*0.1).toFixed(1);
+      document.getElementById('resultBox').classList.add('show');
+      addLog('ROUTE',`"${q.substring(0,24)}..." → ${rule.model.name} [${rule.type}, ${rule.model.cost}cr, ${rule.model.latency}]`);
+    },3700);
+  }
+
+  function getComplexity(t){const m={simple:'LOW',math:'LOW',general:'LOW',research:'MEDIUM',creative:'MEDIUM',realtime:'MEDIUM',coding:'HIGH'};return m[t]||'MEDIUM';}
+  function getScore(t){const m={simple:2,math:3,general:3,research:6,creative:6,realtime:5,coding:9};return m[t]||4;}
+
+  function resetSteps(){
+    ['step1','step2','step3','step4','step5'].forEach(id=>{
+      const el=document.getElementById(id);
+      el.classList.remove('active','done');
+      el.querySelector('.step-status').className='step-status pending';
+      el.querySelector('.step-status').textContent='Waiting';
+    });
+    document.getElementById('latencyRow').style.display='none';
+    document.getElementById('latFill').style.width='0%';
+    document.getElementById('latVal').textContent='— ms';
+  }
+
+  function activateStep(id,dId,sId,detail,status){
+    const el=document.getElementById(id);
+    el.classList.add('active');
+    document.getElementById(dId).textContent=detail;
+    const s=document.getElementById(sId);
+    s.className='step-status processing';
+    s.textContent=status;
+  }
+
+  function doneStep(id,dId,sId,detail,status){
+    const el=document.getElementById(id);
+    el.classList.remove('active'); el.classList.add('done');
+    document.getElementById(dId).textContent=detail;
+    const s=document.getElementById(sId);
+    s.className='step-status done-s';
+    s.textContent=status;
+  }
+
+  // ── MODEL COMPARISON ──
+  const comparisonResponses={
+    claude:{prefix:'<strong>Claude Sonnet:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Reasoning: step-by-step analysis | 420ms</em>'},
+    gpt5:{prefix:'<strong>GPT-5:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Style: direct & comprehensive | 380ms</em>'},
+    gemini:{prefix:'<strong>Gemini 2.5:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Focus: structured research | 210ms</em>'},
+    deepseek:{prefix:'<strong>DeepSeek V4:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Style: concise & fast | 180ms</em>'},
+  };
+
+  const modelEmojis={claude:'🟠',gpt5:'🟢',gemini:'🔵',deepseek:'🔴',grok:'⚡',llama:'🦙',mistral:'🌊',kimi:'🌙',qwen:'🐉'};
+  const modelNames={claude:'Claude Sonnet',gpt5:'GPT-5',gemini:'Gemini 2.5',deepseek:'DeepSeek V4',grok:'Grok 4',llama:'Llama 4',mistral:'Mistral Large',kimi:'Kimi K2',qwen:'Qwen 3'};
+  const modelCosts={claude:8,gpt5:6,gemini:3,deepseek:2,grok:5,llama:2,mistral:4,kimi:3,qwen:2};
+
+  function runComparison(){
+    const q=document.getElementById('compareInput').value.trim();
+    if(!q){showToast('Pehle query enter karein!');return;}
+    const m1=document.getElementById('compareModel1').value;
+    const m2=document.getElementById('compareModel2').value;
+
+    // Update headers
+    document.getElementById('cm1').querySelector('.cm-header').innerHTML=`<span class="cm-emoji">${modelEmojis[m1]||'🤖'}</span><span class="cm-name">${modelNames[m1]||m1}</span><span class="cm-cost">${modelCosts[m1]||3} cr</span>`;
+    document.getElementById('cm2').querySelector('.cm-header').innerHTML=`<span class="cm-emoji">${modelEmojis[m2]||'🤖'}</span><span class="cm-name">${modelNames[m2]||m2}</span><span class="cm-cost">${modelCosts[m2]||3} cr</span>`;
+
+    // Show typing
+    document.getElementById('cm1Response').innerHTML='<div class="cm-typing"><div class="cm-dot"></div><div class="cm-dot"></div><div class="cm-dot"></div></div>';
+    document.getElementById('cm2Response').innerHTML='<div class="cm-typing"><div class="cm-dot"></div><div class="cm-dot"></div><div class="cm-dot"></div></div>';
+
+    const getResp=(model,query)=>{
+      const r=comparisonResponses[model]||{prefix:`<strong>${modelNames[model]}:</strong> `,suffix:''};
+      return r.prefix+generateResp(query)+r.suffix;
+    };
+
+    setTimeout(()=>{document.getElementById('cm1Response').innerHTML=getResp(m1,q);},1400+Math.random()*600);
+    setTimeout(()=>{document.getElementById('cm2Response').innerHTML=getResp(m2,q);},1800+Math.random()*800);
+
+    const totalCost=(modelCosts[m1]||3)+(modelCosts[m2]||3);
+    addLog('INFO',`Comparison: "${q.substring(0,20)}..." → ${modelNames[m1]} vs ${modelNames[m2]} [${totalCost} cr total]`);
+    showToast(`🆚 Comparing ${modelNames[m1]} vs ${modelNames[m2]}...`);
+  }
+
+  function generateResp(q){
+    const l=q.toLowerCase();
+    if(l.includes('email'))return 'Professional email template: Subject: [Topic] | Dear [Name], [Content] | Regards, [You]';
+    if(l.includes('python')||l.includes('code'))return '<code>def solution(n): return sorted(n, key=lambda x: x)</code> — clean implementation with O(n log n) complexity.';
+    if(l.includes('market')||l.includes('saas'))return 'Key strategy: 1) Target tier-2 India 2) Hindi content 3) Referral program 4) "6.6x more power" positioning.';
+    return 'Aapka sawaal: '+q.substring(0,40)+'... | Main is par detail mein jawab de sakta hoon. Kya aur specific karenge?';
+  }
+
+  // ── CUSTOM RULES ──
+  function openAddRule(){document.getElementById('addRuleModal').classList.add('open');}
+  function closeAddRule(){document.getElementById('addRuleModal').classList.remove('open');}
+  function closeAddRuleOutside(e){if(e.target===document.getElementById('addRuleModal'))closeAddRule();}
+
+  function saveCustomRule(){
+    const name=document.getElementById('ruleName').value.trim();
+    const cond=document.getElementById('ruleCondition').value.trim();
+    const model=document.getElementById('ruleModel').value;
+    if(!name||!cond){showToast('Rule name aur condition zaroor bharo!');return;}
+    const modelLabel=document.getElementById('ruleModel').options[document.getElementById('ruleModel').selectedIndex].text;
+    const list=document.getElementById('customRulesList');
+    const div=document.createElement('div');
+    div.className='custom-rule-item';
+    div.innerHTML=`<span class="cr-handle">⠿</span><div class="cr-info"><div class="cr-name">${name}</div><div class="cr-condition">IF: contains "${cond}"</div></div><span class="cr-model">→ ${modelLabel.split(' ')[1]||model}</span><button class="cr-delete" onclick="deleteRule(this)" title="Delete">✕</button>`;
+    list.appendChild(div);
+    closeAddRule();
+    document.getElementById('ruleName').value='';
+    document.getElementById('ruleCondition').value='';
+    addLog('INFO',`Custom rule added: "${name}" → ${model}`);
+    showToast('✅ Custom rule saved!');
+  }
+
+  function deleteRule(btn){
+    if(confirm('Is rule ko delete karein?')){btn.closest('.custom-rule-item').remove();showToast('🗑️ Rule deleted');}
+  }
+
+  function editRule(type){showToast(`✏️ "${type}" rule editor — coming soon in next update!`);}
+
+  // ── LOG ──
+  function addLog(level,msg){
+    const log=document.getElementById('logBody');
+    const t=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    const levelClass={INFO:'info',SUCCESS:'success',WARN:'warn',ROUTE:'route',LATENCY:'latency'}[level]||'info';
+    const line=document.createElement('div');
+    line.className='log-line';
+    line.innerHTML=`<span class="log-time">${t}</span><span class="log-level ${levelClass}">${level}</span><span class="log-msg">${msg}</span>`;
+    log.appendChild(line);
+    log.scrollTop=log.scrollHeight;
+  }
+
+  function clearLog(){
+    document.getElementById('logBody').innerHTML=`<div class="log-line"><span class="log-time">${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}</span><span class="log-level info">INFO</span><span class="log-msg">Log cleared — router still active</span></div>`;
+  }
+
+  function toggleSidebar(){
+    const sb=document.getElementById('sidebar');
+    const ov=document.getElementById('overlay');
+    const open=sb.classList.toggle('open');
+    ov.style.display=open?'block':'none';
+  }
+
+  function showToast(msg){
+    const t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2800);
+  }
+
+  document.getElementById('demoInput').addEventListener('keydown',e=>{if(e.key==='Enter')runRouting();});
+  document.getElementById('compareInput').addEventListener('keydown',e=>{if(e.key==='Enter')runComparison();});
+</script>
+</body>
+</html>

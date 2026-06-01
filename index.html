@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OMNI AI — Universal AI Control Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:#040507; --bg2:#080b10; --card:#0d1117;
+    --border:rgba(255,255,255,0.07); --accent:#00e5ff;
+    --accent2:#7c3aed; --text:#f0f4f8; --muted:#64748b;
+    --success:#22c55e; --gold:#fbbf24;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+  .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+  .orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;animation:breathe 8s ease-in-out infinite;}
+  .orb1{width:500px;height:500px;background:rgba(0,229,255,0.07);top:-100px;left:-100px;}
+  .orb2{width:400px;height:400px;background:rgba(124,58,237,0.09);bottom:-50px;right:-50px;animation-delay:3s;}
+  .orb3{width:300px;height:300px;background:rgba(245,158,11,0.05);top:40%;left:40%;animation-delay:5s;}
+  @keyframes breathe{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.15);opacity:0.7;}}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:rgba(4,5,7,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+  .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.5px;}
+  .logo span{color:var(--accent);}
+  .nav-badge{font-size:0.6rem;background:var(--accent);color:#000;padding:2px 6px;border-radius:4px;font-weight:700;margin-left:6px;vertical-align:middle;letter-spacing:0.5px;}
+  .nav-right{display:flex;align-items:center;gap:10px;}
+  .nav-link{font-size:0.82rem;color:var(--muted);text-decoration:none;transition:color 0.2s;display:none;}
+  .nav-link:hover{color:var(--text);}
+  .nav-cta{background:var(--accent);color:#000;border:none;padding:10px 20px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px;}
+  .nav-cta:hover{background:#fff;transform:translateY(-1px);}
+
+  /* COOKIE BANNER */
+  .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(13,17,23,0.98);border-top:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;backdrop-filter:blur(20px);}
+  .cookie-text{font-size:0.78rem;color:var(--muted);flex:1;}
+  .cookie-text a{color:var(--accent);text-decoration:none;}
+  .cookie-btns{display:flex;gap:8px;flex-shrink:0;}
+  .cookie-accept{background:var(--accent);color:#000;border:none;padding:8px 16px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;cursor:pointer;}
+  .cookie-decline{background:transparent;color:var(--muted);border:1px solid var(--border);padding:8px 14px;border-radius:8px;font-size:0.78rem;cursor:pointer;}
+
+  /* HERO */
+  .hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;}
+  .hero-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,229,255,0.3);background:rgba(0,229,255,0.05);color:var(--accent);padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:500;letter-spacing:0.5px;margin-bottom:28px;animation:fadeUp 0.6s ease both;}
+  .hero-tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.4);}}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,8vw,4.8rem);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:20px;animation:fadeUp 0.6s 0.1s ease both;}
+  h1 .line2{display:block;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub{font-size:clamp(0.95rem,2.5vw,1.15rem);color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:36px;animation:fadeUp 0.6s 0.2s ease both;}
+  .hero-sub strong{color:var(--text);}
+  .hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:fadeUp 0.6s 0.3s ease both;margin-bottom:28px;}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.25s;letter-spacing:0.2px;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,229,255,0.25);}
+  .btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border);padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.25s;}
+  .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+  .savings-strip{display:flex;align-items:center;gap:10px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:10px 18px;font-size:0.82rem;color:var(--gold);animation:fadeUp 0.6s 0.4s ease both;}
+
+  /* TICKER */
+  .models-row{position:relative;z-index:1;overflow:hidden;padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(13,17,23,0.8);}
+  .models-track{display:flex;gap:32px;animation:ticker 18s linear infinite;width:max-content;}
+  .model-chip{display:flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid var(--border);border-radius:100px;background:var(--card);white-space:nowrap;font-size:0.8rem;font-weight:500;color:var(--muted);}
+  .model-chip .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+  /* STATS */
+  .stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+  .stat-item{background:var(--bg2);padding:36px 24px;text-align:center;}
+  .stat-num{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--accent);display:block;line-height:1;margin-bottom:6px;}
+  .stat-label{font-size:0.78rem;color:var(--muted);line-height:1.4;}
+
+  /* SECTION */
+  .section{position:relative;z-index:1;padding:80px 24px;max-width:900px;margin:0 auto;}
+  .section-tag{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;}
+  h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:16px;}
+  .section-sub{color:var(--muted);font-size:1rem;line-height:1.7;max-width:540px;}
+
+  /* HOW IT WORKS */
+  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;}
+  .how-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 20px;position:relative;transition:all 0.2s;}
+  .how-card:hover{border-color:rgba(0,229,255,0.2);transform:translateY(-2px);}
+  .how-num{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:rgba(0,229,255,0.12);line-height:1;margin-bottom:12px;}
+  .how-icon{font-size:1.8rem;margin-bottom:10px;display:block;}
+  .how-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:6px;}
+  .how-desc{font-size:0.78rem;color:var(--muted);line-height:1.5;}
+
+  /* PAIN CARDS */
+  .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:36px;}
+  .pain-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;position:relative;overflow:hidden;}
+  .pain-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(239,68,68,0.6),transparent);}
+  .pain-icon{font-size:1.4rem;margin-bottom:10px;display:block;}
+  .pain-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:6px;}
+  .pain-desc{font-size:0.78rem;color:var(--muted);line-height:1.5;}
+  .pain-price{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#ef4444;display:block;margin-top:8px;}
+
+  .solution-card{background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(124,58,237,0.05));border:1px solid rgba(0,229,255,0.2);border-radius:20px;padding:36px 28px;margin-top:36px;position:relative;overflow:hidden;}
+  .solution-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+  .solution-headline{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:12px;}
+  .solution-headline span{color:var(--accent);}
+  .solution-desc{color:var(--muted);font-size:0.9rem;line-height:1.7;}
+
+  /* MODELS GRID */
+  .models-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:36px;}
+  .model-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 14px;text-align:center;transition:all 0.25s;cursor:default;}
+  .model-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,255,0.08);}
+  .model-emoji{font-size:1.6rem;margin-bottom:8px;display:block;}
+  .model-name{font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;margin-bottom:3px;}
+  .model-by{font-size:0.68rem;color:var(--muted);}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:36px;}
+  .price-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 20px;position:relative;transition:all 0.25s;}
+  .price-card.popular{border-color:var(--accent);background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(13,17,23,1));}
+  .popular-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;font-size:0.65rem;font-weight:800;padding:3px 12px;border-radius:100px;letter-spacing:0.5px;white-space:nowrap;}
+  .price-plan{font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+  .price-amount{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;line-height:1;margin-bottom:2px;}
+  .price-amount sup{font-size:1rem;vertical-align:top;margin-top:6px;display:inline-block;}
+  .price-period{font-size:0.75rem;color:var(--muted);margin-bottom:14px;}
+  .price-credits{display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.15);color:var(--accent);padding:5px 12px;border-radius:8px;font-size:0.78rem;font-weight:600;margin-bottom:14px;}
+  .price-features{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+  .price-features li{font-size:0.8rem;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.4;}
+  .price-features li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px;}
+  .price-btn{width:100%;padding:12px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;border:none;transition:all 0.2s;letter-spacing:0.3px;}
+  .price-btn.primary{background:var(--accent);color:#000;}
+  .price-btn.primary:hover{background:#fff;}
+  .price-btn.outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+  .price-btn.outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* TESTIMONIALS */
+  .testimonials-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:36px;}
+  .testimonial-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 20px;transition:all 0.2s;}
+  .testimonial-card:hover{border-color:rgba(0,229,255,0.15);}
+  .stars{color:var(--gold);font-size:0.9rem;margin-bottom:10px;letter-spacing:2px;}
+  .testimonial-text{font-size:0.85rem;color:var(--text);line-height:1.7;margin-bottom:14px;font-style:italic;}
+  .testimonial-author{display:flex;align-items:center;gap:10px;}
+  .author-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:700;color:#000;font-family:'Syne',sans-serif;flex-shrink:0;}
+  .author-name{font-size:0.82rem;font-weight:600;}
+  .author-role{font-size:0.7rem;color:var(--muted);}
+
+  /* REFERRAL */
+  .referral-card{background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(0,229,255,0.05));border:1px solid rgba(124,58,237,0.2);border-radius:20px;padding:32px 24px;margin-top:36px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+  .referral-icon{font-size:3rem;flex-shrink:0;}
+  .referral-content{flex:1;}
+  .referral-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:6px;}
+  .referral-desc{font-size:0.82rem;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+  .referral-steps{display:flex;gap:16px;flex-wrap:wrap;}
+  .ref-step{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:var(--muted);}
+  .ref-step-num{width:22px;height:22px;background:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:800;color:#fff;flex-shrink:0;}
+  .referral-btn{background:linear-gradient(135deg,var(--accent2),#5b21b6);color:#fff;border:none;padding:12px 22px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .referral-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(124,58,237,0.3);}
+
+  /* FAQ */
+  .faq-list{margin-top:36px;display:flex;flex-direction:column;gap:8px;}
+  .faq-item{border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .faq-q{padding:16px 18px;cursor:pointer;font-size:0.88rem;font-weight:500;display:flex;justify-content:space-between;align-items:center;transition:background 0.2s;}
+  .faq-q:hover{background:rgba(255,255,255,0.03);}
+  .faq-q.open{color:var(--accent);}
+  .faq-arrow{transition:transform 0.3s;font-size:0.7rem;color:var(--muted);}
+  .faq-q.open .faq-arrow{transform:rotate(180deg);}
+  .faq-a{font-size:0.82rem;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.2s;}
+  .faq-a.open{max-height:200px;padding:0 18px 16px;}
+
+  /* SECURITY BADGES */
+  .security-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:36px;}
+  .security-badge{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:0.75rem;color:var(--muted);}
+  .security-badge .badge-icon{font-size:1rem;}
+
+  /* COMPARISON TABLE */
+  .compare-table{width:100%;border-collapse:collapse;margin-top:28px;font-size:0.82rem;}
+  .compare-table th{padding:12px 16px;text-align:left;font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border);}
+  .compare-table td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--muted);vertical-align:middle;}
+  .compare-table td:first-child{color:var(--text);font-weight:500;}
+  .compare-table tr.omni td{background:rgba(0,229,255,0.04);}
+  .compare-table tr.omni td:first-child{color:var(--accent);font-weight:700;}
+  .tag-red{color:#ef4444;font-weight:600;}
+  .tag-green{color:#22c55e;font-weight:600;}
+
+  /* WHATSAPP + MOBILE */
+  .extra-features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px;}
+  .extra-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;align-items:flex-start;gap:14px;transition:all 0.2s;}
+  .extra-card:hover{border-color:rgba(0,229,255,0.15);}
+  .extra-icon{font-size:1.8rem;flex-shrink:0;}
+  .extra-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:6px;}
+  .extra-desc{font-size:0.78rem;color:var(--muted);line-height:1.5;}
+  .extra-tag{display:inline-block;font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:6px;margin-top:6px;letter-spacing:0.5px;}
+  .tag-live{background:rgba(34,197,94,0.1);color:var(--success);}
+  .tag-coming{background:rgba(245,158,11,0.1);color:var(--gold);}
+
+  /* INDIA STRIP */
+  .india-strip{position:relative;z-index:1;background:linear-gradient(135deg,rgba(255,153,0,0.08),rgba(19,136,8,0.08));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 24px;text-align:center;font-size:0.82rem;color:var(--muted);}
+  .india-strip strong{color:var(--text);}
+
+  /* CTA */
+  .cta-section{position:relative;z-index:1;padding:80px 24px;text-align:center;max-width:600px;margin:0 auto;}
+  .cta-section p{color:var(--muted);font-size:0.9rem;margin-bottom:28px;line-height:1.6;}
+
+  footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 24px;text-align:center;font-size:0.75rem;color:var(--muted);}
+  footer strong{color:var(--text);font-family:'Syne',sans-serif;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+  .divider{position:relative;z-index:1;height:1px;background:var(--border);}
+
+  @media(max-width:600px){
+    .pain-grid{grid-template-columns:1fr;}
+    .how-grid{grid-template-columns:1fr;}
+    .extra-features{grid-template-columns:1fr;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .referral-card{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-text">🍪 Hum cookies use karte hain aapka experience better banane ke liye. <a href="#">Privacy Policy</a> padhen.</div>
+  <div class="cookie-btns">
+    <button class="cookie-accept" onclick="acceptCookie()">Accept All</button>
+    <button class="cookie-decline" onclick="declineCookie()">Decline</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">OMNI<span>AI</span><span class="nav-badge">BETA</span></div>
+  <div class="nav-right">
+    <a href="omniai-pricing.html" class="nav-link" style="display:block;">Pricing</a>
+    <button class="nav-cta" onclick="window.location='omniai-auth.html'">Start Free →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">🇮🇳 India's First Universal AI Control Center</div>
+  <h1>9 Premium AI Models.<span class="line2">One Subscription.</span></h1>
+  <p class="hero-sub">Why pay <strong>₹12,000+/month</strong> for separate AI subscriptions? Get GPT, Claude, Gemini, DeepSeek & more — starting at just <strong>₹449/month.</strong></p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="window.location='omniai-auth.html'">🚀 Start Free Trial</button>
+    <button class="btn-secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Plans ↓</button>
+  </div>
+  <div class="savings-strip">💰 <strong>Save ₹11,651+/month</strong> vs buying all subscriptions separately</div>
+</section>
+
+<!-- TICKER -->
+<div class="models-row">
+  <div class="models-track">
+    <div class="model-chip"><span class="dot" style="background:#10b981"></span>GPT-5 (OpenAI)</div>
+    <div class="model-chip"><span class="dot" style="background:#f59e0b"></span>Claude Sonnet (Anthropic)</div>
+    <div class="model-chip"><span class="dot" style="background:#3b82f6"></span>Gemini 2.5 (Google)</div>
+    <div class="model-chip"><span class="dot" style="background:#ef4444"></span>DeepSeek V4</div>
+    <div class="model-chip"><span class="dot" style="background:#8b5cf6"></span>Grok 4 (xAI)</div>
+    <div class="model-chip"><span class="dot" style="background:#06b6d4"></span>Llama 4 (Meta)</div>
+    <div class="model-chip"><span class="dot" style="background:#f97316"></span>Mistral Large 3</div>
+    <div class="model-chip"><span class="dot" style="background:#ec4899"></span>Kimi K2</div>
+    <div class="model-chip"><span class="dot" style="background:#84cc16"></span>Qwen 3 (Alibaba)</div>
+    <div class="model-chip"><span class="dot" style="background:#10b981"></span>GPT-5 (OpenAI)</div>
+    <div class="model-chip"><span class="dot" style="background:#f59e0b"></span>Claude Sonnet (Anthropic)</div>
+    <div class="model-chip"><span class="dot" style="background:#3b82f6"></span>Gemini 2.5 (Google)</div>
+    <div class="model-chip"><span class="dot" style="background:#ef4444"></span>DeepSeek V4</div>
+    <div class="model-chip"><span class="dot" style="background:#8b5cf6"></span>Grok 4 (xAI)</div>
+    <div class="model-chip"><span class="dot" style="background:#06b6d4"></span>Llama 4 (Meta)</div>
+    <div class="model-chip"><span class="dot" style="background:#f97316"></span>Mistral Large 3</div>
+    <div class="model-chip"><span class="dot" style="background:#ec4899"></span>Kimi K2</div>
+    <div class="model-chip"><span class="dot" style="background:#84cc16"></span>Qwen 3 (Alibaba)</div>
+  </div>
+</div>
+
+<!-- ANIMATED STATS -->
+<div class="stats">
+  <div class="stat-item fade-in"><span class="stat-num" data-target="9">0</span><span class="stat-label">Premium AI Models<br/>in one place</span></div>
+  <div class="stat-item fade-in"><span class="stat-num" style="font-size:1.6rem;">₹449</span><span class="stat-label">Starting price<br/>per month</span></div>
+  <div class="stat-item fade-in"><span class="stat-num" data-target="93">0</span><span class="stat-label" id="usersLabel">% Cheaper than<br/>buying separately</span></div>
+  <div class="stat-item fade-in"><span class="stat-num" data-target="10000">0</span><span class="stat-label">Happy users<br/>& counting 🚀</span></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section fade-in">
+  <span class="section-tag">How It Works</span>
+  <h2>3 steps mein shuru karo ⚡</h2>
+  <p class="section-sub">No technical knowledge needed. Sirf sign up karo, recharge karo, aur chat karo!</p>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <span class="how-icon">📝</span>
+      <div class="how-title">Sign Up Free</div>
+      <div class="how-desc">Email ya Google se 30 seconds mein account banao. No credit card required.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <span class="how-icon">💳</span>
+      <div class="how-title">Recharge Credits</div>
+      <div class="how-desc">UPI, Card ya NetBanking se ₹449 se recharge karo. Instant credits milenge.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <span class="how-icon">🤖</span>
+      <div class="how-title">Chat with 9 AIs</div>
+      <div class="how-desc">Smart Router automatically best model choose karta hai. Aap sirf type karo!</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<section class="section fade-in">
+  <span class="section-tag">The Problem</span>
+  <h2>AI subscriptions are bleeding you dry 💸</h2>
+  <p class="section-sub">Har model ka alag subscription. Sirf 10-15 prompts/day ke liye poora mahina pay karo?</p>
+  <div class="pain-grid">
+    <div class="pain-card"><span class="pain-icon">🤖</span><div class="pain-title">ChatGPT Plus</div><div class="pain-desc">1 model only</div><span class="pain-price">$20/mo</span></div>
+    <div class="pain-card"><span class="pain-icon">🧠</span><div class="pain-title">Claude Pro</div><div class="pain-desc">1 model only</div><span class="pain-price">$20/mo</span></div>
+    <div class="pain-card"><span class="pain-icon">✨</span><div class="pain-title">Gemini Advanced</div><div class="pain-desc">1 model only</div><span class="pain-price">$20/mo</span></div>
+    <div class="pain-card"><span class="pain-icon">⚡</span><div class="pain-title">Grok Premium</div><div class="pain-desc">1 model only</div><span class="pain-price">$30/mo</span></div>
+  </div>
+  <div class="solution-card">
+    <div class="solution-headline">OMNI AI gives you <span>all 9 models</span> — Pay only what you use</div>
+    <p class="solution-desc">No more fixed subscriptions. Recharge credits like a mobile plan. Smart Router cheapest model auto-choose karta hai — aapke credits bachata hai.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MODELS -->
+<section class="section fade-in">
+  <span class="section-tag">9 Powerful Models</span>
+  <h2>Every AI you need,<br/>in one dashboard</h2>
+  <div class="models-grid">
+    <div class="model-card"><span class="model-emoji">🟢</span><div class="model-name">GPT-5</div><div class="model-by">OpenAI</div></div>
+    <div class="model-card"><span class="model-emoji">🟠</span><div class="model-name">Claude Sonnet</div><div class="model-by">Anthropic</div></div>
+    <div class="model-card"><span class="model-emoji">🔵</span><div class="model-name">Gemini 2.5</div><div class="model-by">Google</div></div>
+    <div class="model-card"><span class="model-emoji">🔴</span><div class="model-name">DeepSeek V4</div><div class="model-by">DeepSeek AI</div></div>
+    <div class="model-card"><span class="model-emoji">⚡</span><div class="model-name">Grok 4</div><div class="model-by">xAI</div></div>
+    <div class="model-card"><span class="model-emoji">🦙</span><div class="model-name">Llama 4</div><div class="model-by">Meta</div></div>
+    <div class="model-card"><span class="model-emoji">🌊</span><div class="model-name">Mistral Large</div><div class="model-by">Mistral AI</div></div>
+    <div class="model-card"><span class="model-emoji">🌙</span><div class="model-name">Kimi K2</div><div class="model-by">Moonshot AI</div></div>
+    <div class="model-card"><span class="model-emoji">🐉</span><div class="model-name">Qwen 3</div><div class="model-by">Alibaba</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section class="section fade-in" id="pricing">
+  <span class="section-tag">Pricing</span>
+  <h2>Simple. Honest.<br/>No surprises.</h2>
+  <p class="section-sub">Updated pricing — more features, still India's best value for AI!</p>
+
+  <!-- CATCHY COMPARISON BANNER -->
+  <div style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(0,229,255,0.06));border:1px solid rgba(0,229,255,0.15);border-radius:14px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="text-align:center;padding:10px 16px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;">
+        <div style="font-size:0.65rem;color:#ef4444;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">ChatGPT Plus</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#ef4444;">$20</div>
+        <div style="font-size:0.65rem;color:var(--muted);">1 model only</div>
+      </div>
+      <div style="font-size:1.4rem;color:var(--muted);">vs</div>
+      <div style="text-align:center;padding:10px 16px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.25);border-radius:10px;">
+        <div style="font-size:0.65rem;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">OMNI AI Pro</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--accent);">$39</div>
+        <div style="font-size:0.65rem;color:var(--muted);">9 models + 6x power</div>
+      </div>
+    </div>
+    <div style="font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;color:var(--success);background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);padding:8px 14px;border-radius:10px;text-align:center;">
+      Pro Plan = 6x more power.<br/>Same price as ONE ChatGPT sub — but 9 models! 🚀
+    </div>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-plan">Starter</div>
+      <div class="price-amount"><sup>₹</sup>449</div>
+      <div class="price-period">per month</div>
+      <div class="price-credits">⚡ 150 Credits/month</div>
+      <div style="display:inline-block;background:rgba(100,116,139,0.1);border:1px solid rgba(100,116,139,0.2);color:var(--muted);font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:12px;">Base Power</div>
+      <ul class="price-features">
+        <li>All 9 AI models access</li>
+        <li>Smart Router included</li>
+        <li>~75 conversations/month</li>
+        <li>Voice input (basic)</li>
+        <li>UPI / Card payment</li>
+      </ul>
+      <button class="price-btn outline" onclick="window.location='omniai-auth.html'">Get Starter</button>
+    </div>
+    <div class="price-card popular">
+      <div class="popular-badge">⭐ MOST POPULAR</div>
+      <div class="price-plan">Power</div>
+      <div class="price-amount"><sup>₹</sup>899</div>
+      <div class="price-period">per month</div>
+      <div class="price-credits">⚡ 400 Credits/month</div>
+      <div style="display:inline-block;background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.25);color:var(--accent);font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:12px;">⚡ 2.6x more than Starter</div>
+      <ul class="price-features">
+        <li>Everything in Starter</li>
+        <li>File & image upload</li>
+        <li>In-app AI support</li>
+        <li>Chat export</li>
+        <li>GST invoice</li>
+      </ul>
+      <button class="price-btn primary" onclick="window.location='omniai-auth.html'">Get Power →</button>
+    </div>
+    <div class="price-card">
+      <div class="price-plan">Pro</div>
+      <div class="price-amount"><sup>₹</sup>1,999</div>
+      <div class="price-period">per month</div>
+      <div class="price-credits">⚡ 1000 Credits/month</div>
+      <div style="display:inline-block;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);color:#a78bfa;font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:12px;">🚀 6.6x more than Starter</div>
+      <ul class="price-features">
+        <li>Everything in Power</li>
+        <li>API access for developers</li>
+        <li>Model comparison mode</li>
+        <li>Custom routing rules</li>
+        <li>Business invoice + priority support</li>
+      </ul>
+      <button class="price-btn outline" onclick="window.location='omniai-auth.html'">Get Pro</button>
+    </div>
+  </div>
+  <table class="compare-table" style="margin-top:28px;">
+    <thead><tr><th>Platform</th><th>Models</th><th>Price/mo</th><th>Power</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>ChatGPT Plus</td><td>1 model</td><td class="tag-red">$20 (₹1,700)</td><td class="tag-red">1x</td><td class="tag-red">Low</td></tr>
+      <tr><td>Claude Pro</td><td>1 model</td><td class="tag-red">$20 (₹1,700)</td><td class="tag-red">1x</td><td class="tag-red">Low</td></tr>
+      <tr><td>Gemini Advanced</td><td>1 model</td><td class="tag-red">$20 (₹1,700)</td><td class="tag-red">1x</td><td class="tag-red">Low</td></tr>
+      <tr class="omni"><td>OMNI AI Pro</td><td>9 models ✓</td><td class="tag-green">$39 (₹1,999)</td><td class="tag-green">6.6x 🚀</td><td class="tag-green">Best ✓</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section class="section fade-in">
+  <span class="section-tag">Testimonials</span>
+  <h2>Log kya bol rahe hain 💬</h2>
+  <p class="section-sub">Hamare early users ki real feedback.</p>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"Pehle main ChatGPT Plus aur Claude Pro dono le raha tha — ₹3,400/month. Ab OMNI AI se sab kuch ₹899 mein ho jaata hai. Smart Router toh kamaal ka hai!"</div>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:linear-gradient(135deg,#00e5ff,#7c3aed);">R</div>
+        <div><div class="author-name">Rahul Sharma</div><div class="author-role">Freelance Developer, Noida</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"As a content creator, mujhe different AI tools ke liye alag accounts manage karne padte the. OMNI AI ne sab ek jagah kar diya. Hindi support bhi bahut achha hai!"</div>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">P</div>
+        <div><div class="author-name">Priya Mishra</div><div class="author-role">Content Creator, Lucknow</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"International users ke liye $19 mein 9 models — yeh deal kahin nahi milti. Customer support bhi WhatsApp par hai, jo bahut convenient hai!"</div>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:linear-gradient(135deg,#22c55e,#0099bb);">A</div>
+        <div><div class="author-name">Arjun Patel</div><div class="author-role">Startup Founder, Bangalore</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REFERRAL -->
+<section class="section fade-in">
+  <span class="section-tag">Referral Program</span>
+  <h2>Refer karo, credits kamao 🎁</h2>
+  <div class="referral-card">
+    <div class="referral-icon">🎁</div>
+    <div class="referral-content">
+      <div class="referral-title">Dono ko milenge 50 Free Credits!</div>
+      <div class="referral-desc">Apne friend ko OMNI AI refer karo — jab woh pehla plan lete hain, aap dono ko 50 free credits milenge. Unlimited referrals, unlimited credits!</div>
+      <div class="referral-steps">
+        <div class="ref-step"><div class="ref-step-num">1</div>Apna referral link copy karo</div>
+        <div class="ref-step"><div class="ref-step-num">2</div>Friend ko share karo</div>
+        <div class="ref-step"><div class="ref-step-num">3</div>Dono ko 50 credits milenge!</div>
+      </div>
+    </div>
+    <button class="referral-btn" onclick="window.location='omniai-auth.html'">Start Referring →</button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXTRA FEATURES -->
+<section class="section fade-in">
+  <span class="section-tag">More Features</span>
+  <h2>OMNI AI sirf ek chat tool nahi 🌟</h2>
+  <div class="extra-features">
+    <div class="extra-card">
+      <div class="extra-icon">📱</div>
+      <div>
+        <div class="extra-title">WhatsApp AI Support</div>
+        <div class="extra-desc">Directly WhatsApp par apne AI se baat karo. India ka pehla AI tool jo WhatsApp integrate karta hai!</div>
+        <span class="extra-tag tag-live">● Live</span>
+      </div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">📲</div>
+      <div>
+        <div class="extra-title">Mobile App — Coming Soon!</div>
+        <div class="extra-desc">iOS aur Android app jaldi aa raha hai. Abhi website bhi fully mobile-optimized hai — app jaisi feel!</div>
+        <span class="extra-tag tag-coming">⏳ Coming Soon</span>
+      </div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🌐</div>
+      <div>
+        <div class="extra-title">Hindi + English Interface</div>
+        <div class="extra-desc">Poora app Hindi ya English mein use karo — apni bhasha mein AI se baat karo!</div>
+        <span class="extra-tag tag-live">● Live</span>
+      </div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🔒</div>
+      <div>
+        <div class="extra-title">DPDP Act 2023 Compliant</div>
+        <div class="extra-desc">Aapka data India mein safe hai. Digital Personal Data Protection Act ke anusaar fully compliant.</div>
+        <span class="extra-tag tag-live">● Certified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECURITY BADGES -->
+<section class="section fade-in" style="text-align:center;">
+  <span class="section-tag">Trust & Security</span>
+  <h2>Aapka data safe hai 🔐</h2>
+  <div class="security-row">
+    <div class="security-badge"><span class="badge-icon">🔒</span>SSL Encrypted</div>
+    <div class="security-badge"><span class="badge-icon">🇮🇳</span>DPDP Act 2023</div>
+    <div class="security-badge"><span class="badge-icon">💳</span>Razorpay Secured</div>
+    <div class="security-badge"><span class="badge-icon">🌍</span>Stripe Secured</div>
+    <div class="security-badge"><span class="badge-icon">📋</span>GST Registered</div>
+    <div class="security-badge"><span class="badge-icon">⚡</span>99.9% Uptime</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="section fade-in">
+  <span class="section-tag">FAQ</span>
+  <h2>Aksar pooche jaane waale sawaal 🙋</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Credits kya hote hain aur kaise khatam hote hain? <span class="faq-arrow">▾</span></div><div class="faq-a">Credits OMNI AI ki currency hai. Har model alag credits leta hai — DeepSeek sirf 2 cr/msg, Claude Sonnet 8 cr/msg. Smart Router automatically cheap model choose karta hai!</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Kya credits expire hote hain? <span class="faq-arrow">▾</span></div><div class="faq-a">Monthly plan ke credits monthly reset hote hain. Extra recharge kiye gaye credits 6 mahine tak valid rehte hain!</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Refund policy kya hai? <span class="faq-arrow">▾</span></div><div class="faq-a">7 din ke andar full refund. Baad mein pro-rata refund milega. support@omniai.in par contact karein.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Kya plan kabhi bhi change kar sakte hain? <span class="faq-arrow">▾</span></div><div class="faq-a">Bilkul! Upgrade turant hota hai. Downgrade next billing cycle se apply hota hai. Koi lock-in period nahi!</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">International users ke liye payment kaise karein? <span class="faq-arrow">▾</span></div><div class="faq-a">Stripe ke through Visa, Mastercard, PayPal sab accept hote hain. Automatic USD pricing milti hai.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">WhatsApp support kaise kaam karta hai? <span class="faq-arrow">▾</span></div><div class="faq-a">Power aur Pro users directly WhatsApp par AI se baat kar sakte hain — AI automatically reply karta hai 24/7. Koi human agent nahi — pure AI automation!</div></div>
+  </div>
+</section>
+
+<!-- INDIA PRIDE -->
+<div class="india-strip">🇮🇳 &nbsp;Proudly built in <strong>Auraiya, Uttar Pradesh, India</strong> &nbsp;·&nbsp; UPI payments &nbsp;·&nbsp; Hindi + English &nbsp;·&nbsp; DPDP Act 2023 &nbsp;·&nbsp; support@omniai.in</div>
+
+<!-- CTA -->
+<section class="cta-section fade-in">
+  <h2>Start using all 9 AI models today</h2>
+  <p>Join thousands of Indians who stopped overpaying for AI. Free trial — no credit card required.</p>
+  <button class="btn-primary" style="font-size:1rem;padding:16px 36px;" onclick="window.location='omniai-auth.html'">🚀 Get Started Free</button>
+</section>
+
+<footer>
+  <strong>OMNI AI</strong> — Universal AI Control Center<br/><br/>
+  © 2026 OMNI AI · Founder: Baudh Singh Gautam · Auraiya, UP, India<br/>
+  <a href="#" style="color:var(--accent);text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp;
+  <a href="#" style="color:var(--accent);text-decoration:none;">Terms of Service</a> &nbsp;·&nbsp;
+  <a href="#" style="color:var(--accent);text-decoration:none;">Refund Policy</a> &nbsp;·&nbsp;
+  support@omniai.in &nbsp;·&nbsp; DPDP Compliant
+</footer>
+
+<script>
+  // Intersection observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
+  },{threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+  // Animated counters
+  function animateCounter(el){
+    const target=parseInt(el.dataset.target);
+    if(!target)return;
+    let current=0;
+    const step=Math.ceil(target/60);
+    const timer=setInterval(()=>{
+      current=Math.min(current+step,target);
+      if(target===10000){el.textContent=current.toLocaleString('en-IN')+'+';}
+      else if(el.nextElementSibling&&el.nextElementSibling.textContent.includes('%')){el.textContent=current+'%';}
+      else{el.textContent=current;}
+      if(current>=target)clearInterval(timer);
+    },25);
+  }
+
+  const statObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.querySelectorAll('[data-target]').forEach(animateCounter);
+        statObserver.unobserve(e.target);
+      }
+    });
+  },{threshold:0.5});
+  document.querySelectorAll('.stats').forEach(el=>statObserver.observe(el));
+
+  // FAQ
+  function toggleFaq(el){
+    const ans=el.nextElementSibling;
+    const isOpen=ans.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
+    if(!isOpen){ans.classList.add('open');el.classList.add('open');}
+  }
+
+  // Cookie
+  function acceptCookie(){document.getElementById('cookieBanner').style.display='none';localStorage.setItem('cookie','accepted');}
+  function declineCookie(){document.getElementById('cookieBanner').style.display='none';}
+  if(localStorage.getItem('cookie'))document.getElementById('cookieBanner').style.display='none';
+</script>
+
+<!-- ═══════════════════════════════════════
+     IN-APP AI SUPPORT CHAT WIDGET
+═══════════════════════════════════════ -->
+<style>
+  /* FLOATING BUTTON */
+  .support-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 24px;
+    z-index: 500;
+    width: 58px;
+    height: 58px;
+    background: linear-gradient(135deg, #00e5ff, #7c3aed);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 8px 32px rgba(0,229,255,0.3);
+    transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+    animation: fabPop 0.6s 1.5s cubic-bezier(0.175,0.885,0.32,1.275) both;
+  }
+  .support-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 40px rgba(0,229,255,0.4);
+  }
+  .support-fab.open { border-radius: 14px; font-size: 1rem; }
+
+  @keyframes fabPop {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* UNREAD BADGE */
+  .fab-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    background: #ef4444;
+    border-radius: 50%;
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #040507;
+    animation: badgePop 0.4s 2s ease both;
+  }
+  @keyframes badgePop {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+  }
+
+  /* CHAT WINDOW */
+  .support-window {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    z-index: 499;
+    width: 340px;
+    max-width: calc(100vw - 32px);
+    background: #0d1117;
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    display: none;
+    flex-direction: column;
+    max-height: 480px;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+  }
+
+  .support-window.open {
+    display: flex;
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  /* TOP BAR */
+  .sw-header {
+    background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(124,58,237,0.1));
+    border-bottom: 1px solid rgba(0,229,255,0.1);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+  }
+
+  .sw-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00e5ff, #7c3aed);
+  }
+
+  .sw-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #00e5ff, #7c3aed);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .sw-online {
+    position: absolute;
+    bottom: 1px; right: 1px;
+    width: 9px; height: 9px;
+    background: #22c55e;
+    border-radius: 50%;
+    border: 2px solid #0d1117;
+  }
+
+  .sw-info { flex: 1; }
+  .sw-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .sw-status { font-size: 0.65rem; color: #22c55e; }
+
+  .sw-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px;
+    border-radius: 6px;
+    transition: color 0.2s;
+  }
+  .sw-close:hover { color: #fff; }
+
+  /* MESSAGES */
+  .sw-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.06) transparent;
+  }
+
+  .sw-msg {
+    display: flex;
+    gap: 8px;
+    animation: swMsgIn 0.3s ease both;
+  }
+  @keyframes swMsgIn {
+    from { opacity:0; transform:translateY(8px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .sw-msg.user { flex-direction: row-reverse; }
+
+  .sw-msg-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .sw-msg-avatar.ai {
+    background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(124,58,237,0.15));
+    border: 1px solid rgba(0,229,255,0.2);
+    font-size: 0.85rem;
+  }
+
+  .sw-msg-avatar.user-av {
+    background: linear-gradient(135deg, #00e5ff, #7c3aed);
+    color: #000;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .sw-bubble {
+    padding: 9px 13px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    max-width: 220px;
+  }
+
+  .sw-msg.ai .sw-bubble {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-top-left-radius: 3px;
+    color: #f0f4f8;
+  }
+
+  .sw-msg.user .sw-bubble {
+    background: rgba(0,229,255,0.1);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-top-right-radius: 3px;
+    color: #f0f4f8;
+  }
+
+  /* QUICK REPLIES */
+  .sw-quick-replies {
+    padding: 6px 14px 10px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .sw-qr {
+    background: rgba(0,229,255,0.06);
+    border: 1px solid rgba(0,229,255,0.15);
+    color: #00e5ff;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .sw-qr:hover { background: rgba(0,229,255,0.12); }
+
+  /* TYPING */
+  .sw-typing {
+    display: flex;
+    gap: 4px;
+    padding: 9px 13px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    border-top-left-radius: 3px;
+    width: fit-content;
+  }
+  .sw-typing-dot {
+    width: 5px; height: 5px;
+    background: #64748b;
+    border-radius: 50%;
+    animation: swDot 1.2s infinite;
+  }
+  .sw-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .sw-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes swDot {
+    0%,60%,100%{ transform:translateY(0); opacity:0.4; }
+    30%{ transform:translateY(-4px); opacity:1; }
+  }
+
+  /* INPUT */
+  .sw-input-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.2);
+  }
+
+  .sw-input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #f0f4f8;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .sw-input:focus { border-color: rgba(0,229,255,0.3); }
+  .sw-input::placeholder { color: #2d3748; }
+
+  .sw-send {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #00e5ff, #0099bb);
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .sw-send:hover { transform: scale(1.05); }
+</style>
+
+<!-- FAB BUTTON -->
+<button class="support-fab" id="supportFab" onclick="toggleSupport()">
+  <span id="fabIcon">💬</span>
+  <div class="fab-badge" id="fabBadge">1</div>
+</button>
+
+<!-- CHAT WINDOW -->
+<div class="support-window" id="supportWindow">
+  <div class="sw-header">
+    <div class="sw-avatar">🤖<div class="sw-online"></div></div>
+    <div class="sw-info">
+      <div class="sw-name">OMNI AI Support</div>
+      <div class="sw-status">● Online — Replies instantly</div>
+    </div>
+    <button class="sw-close" onclick="toggleSupport()">✕</button>
+  </div>
+
+  <div class="sw-messages" id="swMessages">
+    <!-- Welcome message -->
+    <div class="sw-msg ai">
+      <div class="sw-msg-avatar ai">🤖</div>
+      <div class="sw-bubble">Namaste! 👋 Main OMNI AI Support hoon. Aapki kaise madad kar sakta hoon?</div>
+    </div>
+  </div>
+
+  <!-- QUICK REPLIES -->
+  <div class="sw-quick-replies" id="quickReplies">
+    <button class="sw-qr" onclick="quickReply('Pricing kya hai?')">💰 Pricing?</button>
+    <button class="sw-qr" onclick="quickReply('Free trial kaise milega?')">🎁 Free trial?</button>
+    <button class="sw-qr" onclick="quickReply('Kaunse AI models available hain?')">🤖 AI Models?</button>
+    <button class="sw-qr" onclick="quickReply('Refund policy kya hai?')">↩️ Refund?</button>
+  </div>
+
+  <div class="sw-input-row">
+    <input class="sw-input" id="swInput" placeholder="Kuch bhi poochho..." onkeydown="if(event.key==='Enter')swSend()"/>
+    <button class="sw-send" onclick="swSend()">➤</button>
+  </div>
+</div>
+
+<script>
+  // ── SUPPORT WIDGET ──
+  let supportOpen = false;
+
+  // Auto-open after 8 seconds with welcome
+  setTimeout(() => {
+    if (!supportOpen && !sessionStorage.getItem('supportClosed')) {
+      toggleSupport();
+    }
+  }, 8000);
+
+  function toggleSupport() {
+    supportOpen = !supportOpen;
+    const win = document.getElementById('supportWindow');
+    const fab = document.getElementById('supportFab');
+    const icon = document.getElementById('fabIcon');
+    const badge = document.getElementById('fabBadge');
+
+    if (supportOpen) {
+      win.style.display = 'flex';
+      setTimeout(() => win.classList.add('open'), 10);
+      icon.textContent = '✕';
+      fab.classList.add('open');
+      badge.style.display = 'none';
+    } else {
+      win.classList.remove('open');
+      setTimeout(() => { win.style.display = 'none'; }, 300);
+      icon.textContent = '💬';
+      fab.classList.remove('open');
+      sessionStorage.setItem('supportClosed', '1');
+    }
+  }
+
+  function quickReply(text) {
+    document.getElementById('swInput').value = text;
+    document.getElementById('quickReplies').style.display = 'none';
+    swSend();
+  }
+
+  const swResponses = {
+    'pricing': 'Hamare plans hain:\n🇮🇳 India: ₹449 / ₹899 / ₹1,999/month\n🌍 Global: $9 / $19 / $39/month\n\nSabhi plans mein 9 AI models milte hain! Pricing page dekhein? 👉',
+    'free trial': 'Bilkul! Sign up karo aur pao **free trial credits** — koi credit card nahi chahiye! 🎁\n\nAbhi start karo →',
+    'models': '9 premium AI models hain:\n🟢 GPT-5 · 🟠 Claude · 🔵 Gemini\n🔴 DeepSeek · ⚡ Grok · 🦙 Llama\n🌊 Mistral · 🌙 Kimi · 🐉 Qwen\n\nSmart Router automatically best model choose karta hai! 🤖',
+    'refund': '7 din ke andar full refund milega. Koi sawal nahi! 💯\n\nEmail: support@omniai.in',
+    'credits': 'Credits OMNI AI ki currency hai. Har model alag credits leta hai:\n• DeepSeek: 2 cr/msg (cheapest!)\n• Claude: 8 cr/msg\n• Smart Router credits bachata hai! ⚡',
+    'default': 'Achha sawal hai! Main aapki poori madad karunga. 😊\n\nKya aap thoda aur detail mein bata sakte hain? Ya seedha email karein: support@omniai.in\n\nHum 24 ghante mein reply karte hain! 🚀'
+  };
+
+  function getResponse(msg) {
+    const m = msg.toLowerCase();
+    if (m.includes('price') || m.includes('pricing') || m.includes('kitna') || m.includes('cost') || m.includes('₹') || m.includes('plan')) return swResponses.pricing;
+    if (m.includes('free') || m.includes('trial') || m.includes('start')) return swResponses['free trial'];
+    if (m.includes('model') || m.includes('ai') || m.includes('gpt') || m.includes('claude') || m.includes('gemini')) return swResponses.models;
+    if (m.includes('refund') || m.includes('return') || m.includes('wapas')) return swResponses.refund;
+    if (m.includes('credit') || m.includes('token')) return swResponses.credits;
+    return swResponses.default;
+  }
+
+  let swTyping = false;
+
+  function swSend() {
+    const input = document.getElementById('swInput');
+    const text = input.value.trim();
+    if (!text || swTyping) return;
+
+    const msgs = document.getElementById('swMessages');
+    input.value = '';
+
+    // User message
+    msgs.innerHTML += `<div class="sw-msg user"><div class="sw-msg-avatar user-av">U</div><div class="sw-bubble">${text}</div></div>`;
+    scrollSw();
+
+    swTyping = true;
+
+    // Typing indicator
+    const typId = 'swtyp' + Date.now();
+    msgs.innerHTML += `<div class="sw-msg ai" id="${typId}"><div class="sw-msg-avatar ai">🤖</div><div class="sw-typing"><div class="sw-typing-dot"></div><div class="sw-typing-dot"></div><div class="sw-typing-dot"></div></div></div>`;
+    scrollSw();
+
+    setTimeout(() => {
+      document.getElementById(typId)?.remove();
+      const response = getResponse(text);
+      msgs.innerHTML += `<div class="sw-msg ai"><div class="sw-msg-avatar ai">🤖</div><div class="sw-bubble">${response.replace(/\n/g,'<br/>')}</div></div>`;
+      swTyping = false;
+      scrollSw();
+    }, 1200 + Math.random() * 600);
+  }
+
+  function scrollSw() {
+    const msgs = document.getElementById('swMessages');
+    setTimeout(() => { msgs.scrollTop = msgs.scrollHeight; }, 50);
+  }
+</script>
+</body>
+</html>
