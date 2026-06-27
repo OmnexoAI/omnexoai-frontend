@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OMNI AI — Universal AI Control Center</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<meta name="theme-color" content="#040507"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="OMNEXO AI"/>
+<title>OMNEXO AI — Universal AI Control Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
 <style>
   :root {
     --bg:#040507; --bg2:#080b10; --card:#0d1117;
@@ -34,6 +39,94 @@
   .nav-cta{background:var(--accent);color:#000;border:none;padding:10px 20px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px;}
   .nav-cta:hover{background:#fff;transform:translateY(-1px);}
 
+  /* ═══════════════════════════════════════════
+     OMNEXO AI — PRODUCTION LOGO (exact match to logo-app.html)
+     9 orbits + sphere + tagline + wordmark.
+     Used full-size in hero, and scaled down (via
+     .omnexo-nav-wrap transform:scale) in the nav bar.
+     ═══════════════════════════════════════════ */
+  .omnexo-logo{display:inline-flex;flex-direction:column;align-items:center;gap:18px;font-family:'Orbitron',monospace;}
+  .omnexo-orbital{position:relative;width:220px;height:220px;}
+  .omnexo-sphere{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:62px;height:62px;border-radius:50%;z-index:10;
+    background:conic-gradient(from 0deg,#FF3DAE,#FF6B6B,#FFA62B,#FFE600,#06FFA5,#00D4FF,#3B82F6,#A855F7,#FF3DAE);
+    animation:omnexoSpinSphere 5s linear infinite;
+    box-shadow:0 0 0 3px rgba(255,255,255,0.06),0 0 34px rgba(168,85,247,0.7),0 0 68px rgba(59,130,246,0.5),0 0 110px rgba(6,255,165,0.25);
+  }
+  .omnexo-sphere::after{content:'';position:absolute;top:13%;left:17%;width:32%;height:22%;background:rgba(255,255,255,0.6);border-radius:50%;filter:blur(3px);}
+  @keyframes omnexoSpinSphere{to{transform:translate(-50%,-50%) rotate(360deg);}}
+  .omnexo-aura{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:74px;height:74px;border-radius:50%;
+    background:radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 70%);
+    z-index:9;animation:omnexoPulse 3s ease-in-out infinite;
+  }
+  @keyframes omnexoPulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}}
+  .omnexo-orbit{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid;transform-origin:center center;}
+  .oo1{ width:68px;height:26px;  margin:-13px 0 0 -34px;  border-color:rgba(255,61,174,0.45); animation:oos1 6s   linear infinite; }
+  .oo2{ width:82px;height:30px;  margin:-15px 0 0 -41px;  border-color:rgba(255,166,43,0.4);  animation:oos2 9s   linear infinite; }
+  .oo3{ width:96px;height:34px;  margin:-17px 0 0 -48px;  border-color:rgba(255,230,0,0.35);  animation:oos3 12s  linear infinite; }
+  .oo4{ width:108px;height:38px; margin:-19px 0 0 -54px;  border-color:rgba(6,255,165,0.35);  animation:oos4 16s  linear infinite; }
+  .oo5{ width:122px;height:42px; margin:-21px 0 0 -61px;  border-color:rgba(0,212,255,0.32);  animation:oos5 20s  linear infinite; }
+  .oo6{ width:134px;height:46px; margin:-23px 0 0 -67px;  border-color:rgba(59,130,246,0.3);  animation:oos6 25s  linear infinite; }
+  .oo7{ width:146px;height:50px; margin:-25px 0 0 -73px;  border-color:rgba(168,85,247,0.28); animation:oos7 30s  linear infinite; }
+  .oo8{ width:158px;height:54px; margin:-27px 0 0 -79px;  border-color:rgba(236,72,153,0.25); animation:oos8 36s  linear infinite; }
+  .oo9{ width:172px;height:58px; margin:-29px 0 0 -86px;  border-color:rgba(250,204,21,0.22); animation:oos9 42s  linear infinite; }
+  @keyframes oos1{from{transform:rotate(8deg)}to{transform:rotate(368deg)}}
+  @keyframes oos2{from{transform:rotate(-28deg)}to{transform:rotate(-388deg)}}
+  @keyframes oos3{from{transform:rotate(52deg)}to{transform:rotate(412deg)}}
+  @keyframes oos4{from{transform:rotate(-65deg)}to{transform:rotate(-425deg)}}
+  @keyframes oos5{from{transform:rotate(15deg)}to{transform:rotate(375deg)}}
+  @keyframes oos6{from{transform:rotate(-40deg)}to{transform:rotate(-400deg)}}
+  @keyframes oos7{from{transform:rotate(75deg)}to{transform:rotate(435deg)}}
+  @keyframes oos8{from{transform:rotate(-12deg)}to{transform:rotate(-372deg)}}
+  @keyframes oos9{from{transform:rotate(38deg)}to{transform:rotate(398deg)}}
+  .omnexo-planet{position:absolute;top:50%;left:100%;transform:translate(-50%,-50%);border-radius:50%;}
+  .oo1 .omnexo-planet{width:5px;height:5px; background:#FF3DAE; box-shadow:0 0 8px #FF3DAE,0 0 16px rgba(255,61,174,0.6);}
+  .oo2 .omnexo-planet{width:5px;height:5px; background:#FFA62B; box-shadow:0 0 8px #FFA62B,0 0 16px rgba(255,166,43,0.6);}
+  .oo3 .omnexo-planet{width:5px;height:5px; background:#FFE600; box-shadow:0 0 8px #FFE600,0 0 16px rgba(255,230,0,0.6);}
+  .oo4 .omnexo-planet{width:4.5px;height:4.5px; background:#06FFA5; box-shadow:0 0 8px #06FFA5,0 0 14px rgba(6,255,165,0.55);}
+  .oo5 .omnexo-planet{width:4.5px;height:4.5px; background:#00D4FF; box-shadow:0 0 8px #00D4FF,0 0 14px rgba(0,212,255,0.55);}
+  .oo6 .omnexo-planet{width:4.5px;height:4.5px; background:#3B82F6; box-shadow:0 0 8px #3B82F6,0 0 14px rgba(59,130,246,0.5);}
+  .oo7 .omnexo-planet{width:4px;height:4px; background:#A855F7; box-shadow:0 0 7px #A855F7,0 0 13px rgba(168,85,247,0.5);}
+  .oo8 .omnexo-planet{width:4px;height:4px; background:#EC4899; box-shadow:0 0 7px #EC4899,0 0 13px rgba(236,72,153,0.45);}
+  .oo9 .omnexo-planet{width:4px;height:4px; background:#FACC15; box-shadow:0 0 7px #FACC15,0 0 13px rgba(250,204,21,0.45);}
+  .omnexo-tagline{
+    font-family:'Space Grotesk',sans-serif,'Orbitron',monospace;
+    font-size:clamp(11px,2.4vw,15px);font-weight:800;letter-spacing:0.14em;
+    text-transform:uppercase;text-align:center;margin-bottom:6px;
+    background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    animation:omTaglineFlow 6s linear infinite;
+    background-image:linear-gradient(90deg,#FF3DAE,#A855F7,#3B82F6,#06FFA5,#FFE600,#FF3DAE);
+  }
+  @keyframes omTaglineFlow{to{background-position:250% center;}}
+  .omnexo-word{font-weight:900;font-size:clamp(32px,6.5vw,52px);letter-spacing:0.04em;display:flex;align-items:center;gap:10px;white-space:nowrap;}
+  .omnexo-word .om-main{color:#FFFFFF;text-shadow:0 0 20px rgba(255,255,255,0.3);}
+  .om-sep{width:2px;height:clamp(20px,3.6vw,30px);background:linear-gradient(180deg,transparent,#FFE600,transparent);flex-shrink:0;border-radius:2px;}
+  .om-ai{
+    background:linear-gradient(135deg,#FF3DAE,#A855F7,#00D4FF);background-size:200% auto;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    filter:drop-shadow(0 0 14px rgba(168,85,247,0.6));animation:omFlow 5s linear infinite;
+  }
+  @keyframes omFlow{to{background-position:200% center;}}
+
+  /* nav-bar scaled wrapper — same 220px logo, shrunk to fit nav height */
+  .omnexo-nav-wrap{
+    display:inline-block;width:38px;height:38px;
+    overflow:hidden;flex-shrink:0;position:relative;
+  }
+  .omnexo-nav-wrap .omnexo-orbital{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(0.17);
+  }
+  .omnexo-nav-word{
+    font-family:'Orbitron',monospace;font-weight:900;font-size:1.05rem;
+    letter-spacing:0.02em;color:#FFFFFF;display:flex;align-items:center;gap:4px;
+  }
+  .omnexo-nav-word .om-ai{filter:drop-shadow(0 0 8px rgba(168,85,247,0.6));}
+
+
   /* COOKIE BANNER */
   .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(13,17,23,0.98);border-top:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;backdrop-filter:blur(20px);}
   .cookie-text{font-size:0.78rem;color:var(--muted);flex:1;}
@@ -43,16 +136,16 @@
   .cookie-decline{background:transparent;color:var(--muted);border:1px solid var(--border);padding:8px 14px;border-radius:8px;font-size:0.78rem;cursor:pointer;}
 
   /* HERO */
-  .hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;}
-  .hero-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,229,255,0.3);background:rgba(0,229,255,0.05);color:var(--accent);padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:500;letter-spacing:0.5px;margin-bottom:28px;animation:fadeUp 0.6s ease both;}
+  .hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 60px;}
+  .hero-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,229,255,0.3);background:rgba(0,229,255,0.05);color:var(--accent);padding:8px 16px;border-radius:100px;font-size:0.75rem;font-weight:500;letter-spacing:0.5px;margin-bottom:28px;animation:fadeUp 0.6s ease both;margin-top:8px;position:relative;z-index:2;}
   .hero-tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.4);}}
   h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,8vw,4.8rem);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:20px;animation:fadeUp 0.6s 0.1s ease both;}
-  h1 .line2{display:block;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .hero-sub{font-size:clamp(0.95rem,2.5vw,1.15rem);color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:36px;animation:fadeUp 0.6s 0.2s ease both;}
+  h1 .line2{display:block;line-height:1.25;padding-top:0.1em;padding-bottom:0.05em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub{font-size:clamp(0.95rem,2.5vw,1.15rem);color:var(--muted);max-width:520px;line-height:1.85;margin-bottom:36px;animation:fadeUp 0.6s 0.2s ease both;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
   .hero-sub strong{color:var(--text);}
   .hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:fadeUp 0.6s 0.3s ease both;margin-bottom:28px;}
-  .btn-primary{background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.25s;letter-spacing:0.2px;}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:0.95rem;cursor:pointer;transition:all 0.25s;letter-spacing:0.2px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,229,255,0.25);}
   .btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border);padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.25s;}
   .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
@@ -68,7 +161,7 @@
   /* STATS */
   .stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
   .stat-item{background:var(--bg2);padding:36px 24px;text-align:center;}
-  .stat-num{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--accent);display:block;line-height:1;margin-bottom:6px;}
+  .stat-num{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--accent);display:block;line-height:1.25;padding-top:0.05em;margin-bottom:6px;}
   .stat-label{font-size:0.78rem;color:var(--muted);line-height:1.4;}
 
   /* SECTION */
@@ -159,8 +252,8 @@
   .faq-q.open{color:var(--accent);}
   .faq-arrow{transition:transform 0.3s;font-size:0.7rem;color:var(--muted);}
   .faq-q.open .faq-arrow{transform:rotate(180deg);}
-  .faq-a{font-size:0.82rem;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.2s;}
-  .faq-a.open{max-height:200px;padding:0 18px 16px;}
+  .faq-a{font-size:0.82rem;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.2s;word-break:break-word;overflow-wrap:anywhere;}
+  .faq-a.open{max-height:1000px;padding:0 18px 16px;}
 
   /* SECURITY BADGES */
   .security-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:36px;}
@@ -211,6 +304,53 @@
     .stats{grid-template-columns:repeat(2,1fr);}
     .referral-card{flex-direction:column;}
   }
+
+  /* SEND BUTTON — ALWAYS VISIBLE FIX */
+  .sw-input-row {
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 999 !important;
+    background: #0a0e14 !important;
+    flex-shrink: 0 !important;
+    padding: 10px 12px !important;
+    overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  .sw-send {
+    min-width: 42px !important;
+    width: 42px !important;
+    height: 42px !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+    z-index: 9999 !important;
+    background: linear-gradient(135deg, #00e5ff, #0099bb) !important;
+    border-radius: 10px !important;
+    color: #000 !important;
+    font-size: 1.1rem !important;
+    font-weight: 900 !important;
+    box-shadow: 0 0 14px rgba(0,229,255,0.6) !important;
+    border: none !important;
+    cursor: pointer !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .sw-input {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+  /* Prevent widget from clipping send button */
+  .sw-widget {
+    overflow: visible !important;
+  }
+  .sw-widget > * {
+    overflow: visible !important;
+  }
+
 </style>
 </head>
 <body>
@@ -221,7 +361,7 @@
 
 <!-- COOKIE BANNER -->
 <div class="cookie-banner" id="cookieBanner">
-  <div class="cookie-text">🍪 Hum cookies use karte hain aapka experience better banane ke liye. <a href="#">Privacy Policy</a> padhen.</div>
+  <div class="cookie-text">🍪 We use cookies to improve your experience. <a href="#" onclick="comingSoon('legal');return false;">Privacy Policy</a></div>
   <div class="cookie-btns">
     <button class="cookie-accept" onclick="acceptCookie()">Accept All</button>
     <button class="cookie-decline" onclick="declineCookie()">Decline</button>
@@ -230,40 +370,78 @@
 
 <!-- NAV -->
 <nav>
-  <div class="logo">OMNI<span>AI</span><span class="nav-badge">BETA</span></div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <div class="omnexo-nav-wrap">
+      <div class="omnexo-orbital">
+        <div class="omnexo-aura"></div>
+        <div class="omnexo-orbit oo1"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo2"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo3"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo4"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo5"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo6"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo7"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo8"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo9"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-sphere"></div>
+      </div>
+    </div>
+    <div class="omnexo-nav-word">OMNEXO<span class="om-ai">AI</span></div>
+  </div>
   <div class="nav-right">
-    <a href="omniai-pricing.html" class="nav-link" style="display:block;">Pricing</a>
-    <button class="nav-cta" onclick="window.location='omniai-auth.html'">Start Free →</button>
+    <a href="#pricing" onclick="document.getElementById('pricing')?.scrollIntoView({behavior:'smooth'});return false;" class="nav-link" style="display:block;">Pricing</a>
+    <button class="nav-cta" onclick="comingSoon('signup')">Start Free →</button>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+  <div class="omnexo-logo" style="margin-bottom:28px;animation:fadeUp 0.6s ease both;">
+    <p class="omnexo-tagline">9 AI Models. One Subscription.<br>Infinite Possibility.</p>
+    <div class="omnexo-orbital">
+      <div class="omnexo-aura"></div>
+      <div class="omnexo-orbit oo1"><div class="omnexo-planet"></div></div>
+      <div class="omnexo-orbit oo2"><div class="omnexo-planet"></div></div>
+      <div class="omnexo-orbit oo3"><div class="omnexo-planet"></div></div>
+      <div class="omnexo-orbit oo4"><div class="omnexo-planet"></div></div>
+      <div class="omnexo-orbit oo5"><div class="omnexo-planet"></div></div>
+      <div class="omnexo-orbit oo6"><div class="omnexo-planet"></div></div>
+      <div class="omnexo-orbit oo7"><div class="omnexo-planet"></div></div>
+      <div class="omnexo-orbit oo8"><div class="omnexo-planet"></div></div>
+      <div class="omnexo-orbit oo9"><div class="omnexo-planet"></div></div>
+      <div class="omnexo-sphere"></div>
+    </div>
+    <div class="omnexo-word">
+      <span class="om-main">OMNEXO</span>
+      <span class="om-sep"></span>
+      <span class="om-ai">AI</span>
+    </div>
+  </div>
   <div class="hero-tag">🇮🇳 India's First Universal AI Control Center</div>
   <h1>9 Premium AI Models.<span class="line2">One Subscription.</span></h1>
-  <p class="hero-sub">Why pay <strong>₹12,000+/month</strong> for separate AI subscriptions? Get GPT, Claude, Gemini, DeepSeek & more — starting at just <strong>₹449/month.</strong></p>
+  <p class="hero-sub">Why pay <strong>₹10,000+/month</strong> for separate AI subscriptions? Get GPT, Claude, Gemini, DeepSeek & more — starting at just <strong>₹449/month.</strong></p>
   <div class="hero-btns">
-    <button class="btn-primary" onclick="window.location='omniai-auth.html'">🚀 Start Free Trial</button>
+    <button class="btn-primary" onclick="comingSoon('signup')">🚀 Start Free Trial</button>
     <button class="btn-secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Plans ↓</button>
   </div>
-  <div class="savings-strip">💰 <strong>Save ₹11,651+/month</strong> vs buying all subscriptions separately</div>
+  <div class="savings-strip">💰 <strong>Save ₹8,000+/month</strong> vs buying all subscriptions separately</div>
 </section>
 
 <!-- TICKER -->
 <div class="models-row">
   <div class="models-track">
-    <div class="model-chip"><span class="dot" style="background:#10b981"></span>GPT-5 (OpenAI)</div>
+    <div class="model-chip"><span class="dot" style="background:#10b981"></span>GPT-5.5 (OpenAI)</div>
     <div class="model-chip"><span class="dot" style="background:#f59e0b"></span>Claude Sonnet (Anthropic)</div>
-    <div class="model-chip"><span class="dot" style="background:#3b82f6"></span>Gemini 2.5 (Google)</div>
+    <div class="model-chip"><span class="dot" style="background:#3b82f6"></span>Gemini 2.5 Flash (Google)</div>
     <div class="model-chip"><span class="dot" style="background:#ef4444"></span>DeepSeek V4</div>
     <div class="model-chip"><span class="dot" style="background:#8b5cf6"></span>Grok 4 (xAI)</div>
     <div class="model-chip"><span class="dot" style="background:#06b6d4"></span>Llama 4 (Meta)</div>
     <div class="model-chip"><span class="dot" style="background:#f97316"></span>Mistral Large 3</div>
     <div class="model-chip"><span class="dot" style="background:#ec4899"></span>Kimi K2</div>
     <div class="model-chip"><span class="dot" style="background:#84cc16"></span>Qwen 3 (Alibaba)</div>
-    <div class="model-chip"><span class="dot" style="background:#10b981"></span>GPT-5 (OpenAI)</div>
+    <div class="model-chip"><span class="dot" style="background:#10b981"></span>GPT-5.5 (OpenAI)</div>
     <div class="model-chip"><span class="dot" style="background:#f59e0b"></span>Claude Sonnet (Anthropic)</div>
-    <div class="model-chip"><span class="dot" style="background:#3b82f6"></span>Gemini 2.5 (Google)</div>
+    <div class="model-chip"><span class="dot" style="background:#3b82f6"></span>Gemini 2.5 Flash (Google)</div>
     <div class="model-chip"><span class="dot" style="background:#ef4444"></span>DeepSeek V4</div>
     <div class="model-chip"><span class="dot" style="background:#8b5cf6"></span>Grok 4 (xAI)</div>
     <div class="model-chip"><span class="dot" style="background:#06b6d4"></span>Llama 4 (Meta)</div>
@@ -278,32 +456,32 @@
   <div class="stat-item fade-in"><span class="stat-num" data-target="9">0</span><span class="stat-label">Premium AI Models<br/>in one place</span></div>
   <div class="stat-item fade-in"><span class="stat-num" style="font-size:1.6rem;">₹449</span><span class="stat-label">Starting price<br/>per month</span></div>
   <div class="stat-item fade-in"><span class="stat-num" data-target="93">0</span><span class="stat-label" id="usersLabel">% Cheaper than<br/>buying separately</span></div>
-  <div class="stat-item fade-in"><span class="stat-num" data-target="10000">0</span><span class="stat-label">Happy users<br/>& counting 🚀</span></div>
+  <div class="stat-item fade-in"><span class="stat-num" data-target="10000">0</span><span class="stat-label">Be among the first! 🚀</span></div>
 </div>
 
 <!-- HOW IT WORKS -->
 <section class="section fade-in">
   <span class="section-tag">How It Works</span>
-  <h2>3 steps mein shuru karo ⚡</h2>
-  <p class="section-sub">No technical knowledge needed. Sirf sign up karo, recharge karo, aur chat karo!</p>
+  <h2>Get started in 3 steps ⚡</h2>
+  <p class="section-sub">No technical knowledge needed. Just sign up, recharge, and start chatting!</p>
   <div class="how-grid">
     <div class="how-card">
       <div class="how-num">01</div>
       <span class="how-icon">📝</span>
       <div class="how-title">Sign Up Free</div>
-      <div class="how-desc">Email ya Google se 30 seconds mein account banao. No credit card required.</div>
+      <div class="how-desc">Create an account in 30 seconds with Email or Google. No credit card required.</div>
     </div>
     <div class="how-card">
       <div class="how-num">02</div>
       <span class="how-icon">💳</span>
       <div class="how-title">Recharge Credits</div>
-      <div class="how-desc">UPI, Card ya NetBanking se ₹449 se recharge karo. Instant credits milenge.</div>
+      <div class="how-desc">Recharge from just ₹449 via UPI, Card or Net Banking. Get instant credits.</div>
     </div>
     <div class="how-card">
       <div class="how-num">03</div>
       <span class="how-icon">🤖</span>
       <div class="how-title">Chat with 9 AIs</div>
-      <div class="how-desc">Smart Router automatically best model choose karta hai. Aap sirf type karo!</div>
+      <div class="how-desc">Smart Router automatically picks the best model. You just type!</div>
     </div>
   </div>
 </section>
@@ -314,16 +492,16 @@
 <section class="section fade-in">
   <span class="section-tag">The Problem</span>
   <h2>AI subscriptions are bleeding you dry 💸</h2>
-  <p class="section-sub">Har model ka alag subscription. Sirf 10-15 prompts/day ke liye poora mahina pay karo?</p>
+  <p class="section-sub">A separate subscription for every model. Why pay for a whole month just for 10–15 prompts a day?</p>
   <div class="pain-grid">
-    <div class="pain-card"><span class="pain-icon">🤖</span><div class="pain-title">ChatGPT Plus</div><div class="pain-desc">1 model only</div><span class="pain-price">$20/mo</span></div>
-    <div class="pain-card"><span class="pain-icon">🧠</span><div class="pain-title">Claude Pro</div><div class="pain-desc">1 model only</div><span class="pain-price">$20/mo</span></div>
-    <div class="pain-card"><span class="pain-icon">✨</span><div class="pain-title">Gemini Advanced</div><div class="pain-desc">1 model only</div><span class="pain-price">$20/mo</span></div>
-    <div class="pain-card"><span class="pain-icon">⚡</span><div class="pain-title">Grok Premium</div><div class="pain-desc">1 model only</div><span class="pain-price">$30/mo</span></div>
+    <div class="pain-card"><span class="pain-icon">🤖</span><div class="pain-title">GPT-5.5 Subscription</div><div class="pain-desc">One provider only</div><span class="pain-price">$20/month</span></div>
+    <div class="pain-card"><span class="pain-icon">🧠</span><div class="pain-title">Claude Subscription</div><div class="pain-desc">One provider only</div><span class="pain-price">$20/month</span></div>
+    <div class="pain-card"><span class="pain-icon">✨</span><div class="pain-title">Gemini Subscription</div><div class="pain-desc">One provider only</div><span class="pain-price">$20/month</span></div>
+    <div class="pain-card"><span class="pain-icon">⚡</span><div class="pain-title">Grok Subscription</div><div class="pain-desc">One provider only</div><span class="pain-price">$30/month</span></div>
   </div>
   <div class="solution-card">
-    <div class="solution-headline">OMNI AI gives you <span>all 9 models</span> — Pay only what you use</div>
-    <p class="solution-desc">No more fixed subscriptions. Recharge credits like a mobile plan. Smart Router cheapest model auto-choose karta hai — aapke credits bachata hai.</p>
+    <div class="solution-headline">OMNEXO AI gives you <span>all 9 models</span> — Pay only what you use</div>
+    <p class="solution-desc">No more fixed subscriptions. Recharge credits like a mobile plan. Smart Router auto-picks the cheapest model — saving your credits.</p>
   </div>
 </section>
 
@@ -334,13 +512,13 @@
   <span class="section-tag">9 Powerful Models</span>
   <h2>Every AI you need,<br/>in one dashboard</h2>
   <div class="models-grid">
-    <div class="model-card"><span class="model-emoji">🟢</span><div class="model-name">GPT-5</div><div class="model-by">OpenAI</div></div>
+    <div class="model-card"><span class="model-emoji">🟢</span><div class="model-name">GPT-5.5</div><div class="model-by">OpenAI</div></div>
     <div class="model-card"><span class="model-emoji">🟠</span><div class="model-name">Claude Sonnet</div><div class="model-by">Anthropic</div></div>
-    <div class="model-card"><span class="model-emoji">🔵</span><div class="model-name">Gemini 2.5</div><div class="model-by">Google</div></div>
+    <div class="model-card"><span class="model-emoji">🔵</span><div class="model-name">Gemini 2.5 Flash</div><div class="model-by">Google</div></div>
     <div class="model-card"><span class="model-emoji">🔴</span><div class="model-name">DeepSeek V4</div><div class="model-by">DeepSeek AI</div></div>
     <div class="model-card"><span class="model-emoji">⚡</span><div class="model-name">Grok 4</div><div class="model-by">xAI</div></div>
     <div class="model-card"><span class="model-emoji">🦙</span><div class="model-name">Llama 4</div><div class="model-by">Meta</div></div>
-    <div class="model-card"><span class="model-emoji">🌊</span><div class="model-name">Mistral Large</div><div class="model-by">Mistral AI</div></div>
+    <div class="model-card"><span class="model-emoji">🌊</span><div class="model-name">Mistral Large 3</div><div class="model-by">Mistral AI</div></div>
     <div class="model-card"><span class="model-emoji">🌙</span><div class="model-name">Kimi K2</div><div class="model-by">Moonshot AI</div></div>
     <div class="model-card"><span class="model-emoji">🐉</span><div class="model-name">Qwen 3</div><div class="model-by">Alibaba</div></div>
   </div>
@@ -358,19 +536,19 @@
   <div style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(0,229,255,0.06));border:1px solid rgba(0,229,255,0.15);border-radius:14px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
     <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
       <div style="text-align:center;padding:10px 16px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;">
-        <div style="font-size:0.65rem;color:#ef4444;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">ChatGPT Plus</div>
+        <div style="font-size:0.65rem;color:#ef4444;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">AI Subscription</div>
         <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#ef4444;">$20</div>
-        <div style="font-size:0.65rem;color:var(--muted);">1 model only</div>
+        <div style="font-size:0.65rem;color:var(--muted);">Single AI model</div>
       </div>
       <div style="font-size:1.4rem;color:var(--muted);">vs</div>
       <div style="text-align:center;padding:10px 16px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.25);border-radius:10px;">
-        <div style="font-size:0.65rem;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">OMNI AI Pro</div>
+        <div style="font-size:0.65rem;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;">OMNEXO AI Pro</div>
         <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--accent);">$39</div>
-        <div style="font-size:0.65rem;color:var(--muted);">9 models + 6x power</div>
+        <div style="font-size:0.65rem;color:var(--muted);">9 models, all-in-one</div>
       </div>
     </div>
     <div style="font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;color:var(--success);background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);padding:8px 14px;border-radius:10px;text-align:center;">
-      Pro Plan = 6x more power.<br/>Same price as ONE ChatGPT sub — but 9 models! 🚀
+      Pro Plan = 9 AI models in one.<br/>Same price as a single AI subscription — but everything included! 🚀
     </div>
   </div>
 
@@ -388,7 +566,7 @@
         <li>Voice input (basic)</li>
         <li>UPI / Card payment</li>
       </ul>
-      <button class="price-btn outline" onclick="window.location='omniai-auth.html'">Get Starter</button>
+      <button class="price-btn outline" onclick="comingSoon('signup')">Get Starter</button>
     </div>
     <div class="price-card popular">
       <div class="popular-badge">⭐ MOST POPULAR</div>
@@ -404,7 +582,7 @@
         <li>Chat export</li>
         <li>GST invoice</li>
       </ul>
-      <button class="price-btn primary" onclick="window.location='omniai-auth.html'">Get Power →</button>
+      <button class="price-btn primary" onclick="comingSoon('signup')">Get Power →</button>
     </div>
     <div class="price-card">
       <div class="price-plan">Pro</div>
@@ -419,73 +597,100 @@
         <li>Custom routing rules</li>
         <li>Business invoice + priority support</li>
       </ul>
-      <button class="price-btn outline" onclick="window.location='omniai-auth.html'">Get Pro</button>
+      <button class="price-btn outline" onclick="comingSoon('signup')">Get Pro</button>
     </div>
   </div>
-  <table class="compare-table" style="margin-top:28px;">
-    <thead><tr><th>Platform</th><th>Models</th><th>Price/mo</th><th>Power</th><th>Value</th></tr></thead>
+  <h3 style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;margin:32px 0 6px;text-align:center;">Compare all 9 AI models with OMNEXO AI</h3>
+  <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:18px;">Real subscription prices. Verified June 2026.</p>
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+  <table class="compare-table" style="margin-top:0;min-width:560px;">
+    <thead><tr><th>AI Model</th><th>Provider</th><th>Their Subscription</th><th>Inside OMNEXO AI</th></tr></thead>
     <tbody>
-      <tr><td>ChatGPT Plus</td><td>1 model</td><td class="tag-red">$20 (₹1,700)</td><td class="tag-red">1x</td><td class="tag-red">Low</td></tr>
-      <tr><td>Claude Pro</td><td>1 model</td><td class="tag-red">$20 (₹1,700)</td><td class="tag-red">1x</td><td class="tag-red">Low</td></tr>
-      <tr><td>Gemini Advanced</td><td>1 model</td><td class="tag-red">$20 (₹1,700)</td><td class="tag-red">1x</td><td class="tag-red">Low</td></tr>
-      <tr class="omni"><td>OMNI AI Pro</td><td>9 models ✓</td><td class="tag-green">$39 (₹1,999)</td><td class="tag-green">6.6x 🚀</td><td class="tag-green">Best ✓</td></tr>
+      <tr><td>GPT-5.5</td><td>OpenAI</td><td class="tag-red">$20/month (₹1,672)</td><td class="tag-green">✓ Included</td></tr>
+      <tr><td>Claude Sonnet 4.6</td><td>Anthropic</td><td class="tag-red">$20/month (₹1,672)</td><td class="tag-green">✓ Included</td></tr>
+      <tr><td>Gemini 2.5 Flash</td><td>Google</td><td class="tag-red">$19.99/month (₹1,671)</td><td class="tag-green">✓ Included</td></tr>
+      <tr><td>DeepSeek V4</td><td>DeepSeek</td><td class="tag-red">Open source — API setup required</td><td class="tag-green">✓ Included</td></tr>
+      <tr><td>Grok 4</td><td>xAI</td><td class="tag-red">$30/month (₹2,508)</td><td class="tag-green">✓ Included</td></tr>
+      <tr><td>Llama 4</td><td>Meta</td><td class="tag-red">Open source — API setup required</td><td class="tag-green">✓ Included</td></tr>
+      <tr><td>Mistral Large 3</td><td>Mistral AI</td><td class="tag-red">€14.99/month (~₹1,370)</td><td class="tag-green">✓ Included</td></tr>
+      <tr><td>Kimi K2</td><td>Moonshot AI</td><td class="tag-red">¥99/month (~₹1,100)</td><td class="tag-green">✓ Included</td></tr>
+      <tr><td>Qwen 3</td><td>Alibaba</td><td class="tag-red">Open source — API setup required</td><td class="tag-green">✓ Included</td></tr>
+      <tr class="omni"><td><strong>OMNEXO AI Pro</strong></td><td>All 9 models</td><td class="tag-red">~$115+ separately (~₹10,000+)</td><td class="tag-green"><strong>₹1,999/month</strong> 🇮🇳 · <strong>$39/month</strong> 🌍</td></tr>
     </tbody>
   </table>
+  </div>
+  <p style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:12px;font-style:italic;">* All prices are publicly listed subscription rates as of June 2026, sourced from official provider websites. OMNEXO AI is an independent platform not affiliated with any AI model provider.</p>
+  <p style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:6px;">* DeepSeek, Llama and Qwen are open-source models — no consumer subscription exists, but API setup is required which OMNEXO AI handles for you. <strong style="color:var(--success);">Save ₹8,000+/month</strong> vs buying all subscriptions separately.</p>
 </section>
 
 <div class="divider"></div>
 
-<!-- TESTIMONIALS -->
+<!-- EARLY ACCESS SECTION (replaces fake testimonials) -->
 <section class="section fade-in">
-  <span class="section-tag">Testimonials</span>
-  <h2>Log kya bol rahe hain 💬</h2>
-  <p class="section-sub">Hamare early users ki real feedback.</p>
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div>
-      <div class="testimonial-text">"Pehle main ChatGPT Plus aur Claude Pro dono le raha tha — ₹3,400/month. Ab OMNI AI se sab kuch ₹899 mein ho jaata hai. Smart Router toh kamaal ka hai!"</div>
-      <div class="testimonial-author">
-        <div class="author-avatar" style="background:linear-gradient(135deg,#00e5ff,#7c3aed);">R</div>
-        <div><div class="author-name">Rahul Sharma</div><div class="author-role">Freelance Developer, Noida</div></div>
-      </div>
+  <span class="section-tag">Early Access</span>
+  <h2>Be the first to experience it 🚀</h2>
+  <p class="section-sub">OMNEXO AI is launching soon. Join the waitlist — early users get free trial credits and priority access at our introductory rates.</p>
+
+  <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:28px;max-width:480px;margin-left:auto;margin-right:auto;">
+
+    <div style="background:var(--card);border:1px solid rgba(0,229,255,0.2);border-radius:16px;padding:24px 20px;text-align:left;">
+      <div style="font-size:1.4rem;margin-bottom:10px;">🔒</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:6px;">Early Supporter Benefits</div>
+      <div style="font-size:0.82rem;color:var(--muted);line-height:1.6;">Sign up before launch and be first in line when we go live. Early supporters get our special introductory pricing.</div>
     </div>
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div>
-      <div class="testimonial-text">"As a content creator, mujhe different AI tools ke liye alag accounts manage karne padte the. OMNI AI ne sab ek jagah kar diya. Hindi support bhi bahut achha hai!"</div>
-      <div class="testimonial-author">
-        <div class="author-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">P</div>
-        <div><div class="author-name">Priya Mishra</div><div class="author-role">Content Creator, Lucknow</div></div>
-      </div>
+
+    <div style="background:var(--card);border:1px solid rgba(0,229,255,0.2);border-radius:16px;padding:24px 20px;text-align:left;">
+      <div style="font-size:1.4rem;margin-bottom:10px;">🎁</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:6px;">Free Trial Credits at Launch</div>
+      <div style="font-size:0.82rem;color:var(--muted);line-height:1.6;">Every early access user gets free credits to try all 9 AI models — no credit card required. Try before you pay.</div>
     </div>
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div>
-      <div class="testimonial-text">"International users ke liye $19 mein 9 models — yeh deal kahin nahi milti. Customer support bhi WhatsApp par hai, jo bahut convenient hai!"</div>
-      <div class="testimonial-author">
-        <div class="author-avatar" style="background:linear-gradient(135deg,#22c55e,#0099bb);">A</div>
-        <div><div class="author-name">Arjun Patel</div><div class="author-role">Startup Founder, Bangalore</div></div>
-      </div>
+
+    <div style="background:var(--card);border:1px solid rgba(0,229,255,0.2);border-radius:16px;padding:24px 20px;text-align:left;">
+      <div style="font-size:1.4rem;margin-bottom:10px;">⭐</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:6px;">Reviews Coming After Launch</div>
+      <div style="font-size:0.82rem;color:var(--muted);line-height:1.6;">We believe in honest feedback. Real user reviews will appear here after launch — not before. We don't fabricate testimonials.</div>
+    </div>
+
+  </div>
+
+  <!-- TALLY WAITLIST FORM -->
+  <div style="margin-top:32px;text-align:center;max-width:480px;margin-left:auto;margin-right:auto;">
+    <a href="https://tally.so/r/Y597Jq" target="_blank" rel="noopener"
+      style="display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#00e5ff,#0099bb);color:#000;border:none;padding:16px 36px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;letter-spacing:0.3px;box-shadow:0 8px 24px rgba(0,229,255,0.3);transition:all 0.2s;width:100%;max-width:340px;text-decoration:none;">
+      🚀 Join Early Access Waitlist
+    </a>
+    <p style="margin-top:12px;font-size:0.75rem;color:var(--muted);">Free trial credits at launch · No credit card needed</p>
+
+    <!-- TELEGRAM COMMUNITY BUTTON -->
+    <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border);padding-bottom:8px;">
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:14px;">Join our community for updates &amp; sneak peeks 👇</p>
+      <a href="https://t.me/omnexoai" target="_blank" rel="noopener" id="telegramBtn"
+        style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#229ED9,#2AABEE);color:#fff;border:none;padding:16px 32px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;text-decoration:none;box-shadow:0 8px 24px rgba(34,158,217,0.35);transition:all 0.2s;width:100%;max-width:340px;margin-bottom:8px;">
+        <span style="font-size:1.3rem;">✈️</span> Join Telegram Community
+      </a>
     </div>
   </div>
 </section>
+
 
 <div class="divider"></div>
 
 <!-- REFERRAL -->
 <section class="section fade-in">
   <span class="section-tag">Referral Program</span>
-  <h2>Refer karo, credits kamao 🎁</h2>
+  <h2>Refer & earn credits 🎁</h2>
   <div class="referral-card">
     <div class="referral-icon">🎁</div>
     <div class="referral-content">
-      <div class="referral-title">Dono ko milenge 50 Free Credits!</div>
-      <div class="referral-desc">Apne friend ko OMNI AI refer karo — jab woh pehla plan lete hain, aap dono ko 50 free credits milenge. Unlimited referrals, unlimited credits!</div>
+      <div class="referral-title">Both of you get 50 Free Credits!</div>
+      <div class="referral-desc">Refer a friend to OMNEXO AI — when they buy their first plan, you both get 50 free credits. Unlimited referrals, unlimited credits!</div>
       <div class="referral-steps">
-        <div class="ref-step"><div class="ref-step-num">1</div>Apna referral link copy karo</div>
-        <div class="ref-step"><div class="ref-step-num">2</div>Friend ko share karo</div>
-        <div class="ref-step"><div class="ref-step-num">3</div>Dono ko 50 credits milenge!</div>
+        <div class="ref-step"><div class="ref-step-num">1</div>Copy your referral link</div>
+        <div class="ref-step"><div class="ref-step-num">2</div>Share it with a friend</div>
+        <div class="ref-step"><div class="ref-step-num">3</div>You both get 50 credits!</div>
       </div>
     </div>
-    <button class="referral-btn" onclick="window.location='omniai-auth.html'">Start Referring →</button>
+    <button class="referral-btn" onclick="comingSoon('signup')">Start Referring →</button>
   </div>
 </section>
 
@@ -494,37 +699,37 @@
 <!-- EXTRA FEATURES -->
 <section class="section fade-in">
   <span class="section-tag">More Features</span>
-  <h2>OMNI AI sirf ek chat tool nahi 🌟</h2>
+  <h2>OMNEXO AI is more than a chat tool 🌟</h2>
   <div class="extra-features">
     <div class="extra-card">
-      <div class="extra-icon">📱</div>
+      <div class="extra-icon">📧</div>
       <div>
-        <div class="extra-title">WhatsApp AI Support</div>
-        <div class="extra-desc">Directly WhatsApp par apne AI se baat karo. India ka pehla AI tool jo WhatsApp integrate karta hai!</div>
+        <div class="extra-title">24/7 AI Support</div>
+        <div class="extra-desc">Get instant answers via our built-in AI support chat — available round the clock, no waiting.</div>
         <span class="extra-tag tag-live">● Live</span>
       </div>
     </div>
     <div class="extra-card">
       <div class="extra-icon">📲</div>
       <div>
-        <div class="extra-title">Mobile App — Coming Soon!</div>
-        <div class="extra-desc">iOS aur Android app jaldi aa raha hai. Abhi website bhi fully mobile-optimized hai — app jaisi feel!</div>
-        <span class="extra-tag tag-coming">⏳ Coming Soon</span>
+        <div class="extra-title">Install as App — Free!</div>
+        <div class="extra-desc">Add OMNEXO AI to your home screen directly from your browser. Works like a native app — no App Store needed!</div>
+        <span class="extra-tag tag-live">● Available Now</span>
       </div>
     </div>
     <div class="extra-card">
       <div class="extra-icon">🌐</div>
       <div>
-        <div class="extra-title">Hindi + English Interface</div>
-        <div class="extra-desc">Poora app Hindi ya English mein use karo — apni bhasha mein AI se baat karo!</div>
+        <div class="extra-title">One-Tap Hindi Translation</div>
+        <div class="extra-desc">Talk to AI in the language you prefer — your conversations, your way!</div>
         <span class="extra-tag tag-live">● Live</span>
       </div>
     </div>
     <div class="extra-card">
       <div class="extra-icon">🔒</div>
       <div>
-        <div class="extra-title">DPDP Act 2023 Compliant</div>
-        <div class="extra-desc">Aapka data India mein safe hai. Digital Personal Data Protection Act ke anusaar fully compliant.</div>
+        <div class="extra-title">DPDP Act 2023 + Rules 2025 Compliant</div>
+        <div class="extra-desc">Your data is safe in India. Fully compliant with the Digital Personal Data Protection Act.</div>
         <span class="extra-tag tag-live">● Certified</span>
       </div>
     </div>
@@ -536,10 +741,10 @@
 <!-- SECURITY BADGES -->
 <section class="section fade-in" style="text-align:center;">
   <span class="section-tag">Trust & Security</span>
-  <h2>Aapka data safe hai 🔐</h2>
+  <h2>Your data is safe 🔐</h2>
   <div class="security-row">
     <div class="security-badge"><span class="badge-icon">🔒</span>SSL Encrypted</div>
-    <div class="security-badge"><span class="badge-icon">🇮🇳</span>DPDP Act 2023</div>
+    <div class="security-badge"><span class="badge-icon">🇮🇳</span>DPDP Act 2023 + Rules 2025</div>
     <div class="security-badge"><span class="badge-icon">💳</span>Razorpay Secured</div>
     <div class="security-badge"><span class="badge-icon">🌍</span>Stripe Secured</div>
     <div class="security-badge"><span class="badge-icon">📋</span>GST Registered</div>
@@ -552,34 +757,34 @@
 <!-- FAQ -->
 <section class="section fade-in">
   <span class="section-tag">FAQ</span>
-  <h2>Aksar pooche jaane waale sawaal 🙋</h2>
+  <h2>Frequently asked questions 🙋</h2>
   <div class="faq-list">
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Credits kya hote hain aur kaise khatam hote hain? <span class="faq-arrow">▾</span></div><div class="faq-a">Credits OMNI AI ki currency hai. Har model alag credits leta hai — DeepSeek sirf 2 cr/msg, Claude Sonnet 8 cr/msg. Smart Router automatically cheap model choose karta hai!</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Kya credits expire hote hain? <span class="faq-arrow">▾</span></div><div class="faq-a">Monthly plan ke credits monthly reset hote hain. Extra recharge kiye gaye credits 6 mahine tak valid rehte hain!</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Refund policy kya hai? <span class="faq-arrow">▾</span></div><div class="faq-a">7 din ke andar full refund. Baad mein pro-rata refund milega. support@omniai.in par contact karein.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Kya plan kabhi bhi change kar sakte hain? <span class="faq-arrow">▾</span></div><div class="faq-a">Bilkul! Upgrade turant hota hai. Downgrade next billing cycle se apply hota hai. Koi lock-in period nahi!</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">International users ke liye payment kaise karein? <span class="faq-arrow">▾</span></div><div class="faq-a">Stripe ke through Visa, Mastercard, PayPal sab accept hote hain. Automatic USD pricing milti hai.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">WhatsApp support kaise kaam karta hai? <span class="faq-arrow">▾</span></div><div class="faq-a">Power aur Pro users directly WhatsApp par AI se baat kar sakte hain — AI automatically reply karta hai 24/7. Koi human agent nahi — pure AI automation!</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What are credits and how are they used? <span class="faq-arrow">▾</span></div><div class="faq-a">Credits are OMNEXO AI's currency. Each model costs different credits — DeepSeek just 2 cr/msg, Claude Sonnet 8 cr/msg. The Smart Router automatically picks the cheaper model!</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do credits expire? <span class="faq-arrow">▾</span></div><div class="faq-a">Monthly plan credits reset every month. Extra recharged credits are valid as long as your active subscription continues — if you cancel, unused top-up credits expire with your plan.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the refund policy? <span class="faq-arrow">▾</span></div><div class="faq-a"><strong>No Refund Policy</strong> — All sales are final. Credits and subscription plans are non-refundable once purchased (digital goods).<br/><br/>✅ <strong>Exception:</strong> If you paid but credits were not added to your wallet — automatic full refund within 3–5 days. No request needed.<br/><br/>✅ <strong>Service downtime 24+ hrs:</strong> Automatic credit compensation.<br/><br/>💡 <strong>Try before you buy</strong> — Free trial credits available at signup!<br/><br/>Contact: baudhsinghgautam@omnexoai.com</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I change my plan anytime? <span class="faq-arrow">▾</span></div><div class="faq-a">Absolutely! Upgrades apply instantly. Downgrades apply from the next billing cycle. No lock-in period!</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do international users pay? <span class="faq-arrow">▾</span></div><div class="faq-a">We accept Visa, Mastercard and PayPal through Stripe. USD pricing is applied automatically.</div></div>
+
   </div>
 </section>
 
 <!-- INDIA PRIDE -->
-<div class="india-strip">🇮🇳 &nbsp;Proudly built in <strong>Auraiya, Uttar Pradesh, India</strong> &nbsp;·&nbsp; UPI payments &nbsp;·&nbsp; Hindi + English &nbsp;·&nbsp; DPDP Act 2023 &nbsp;·&nbsp; support@omniai.in</div>
+<div class="india-strip">🇮🇳 &nbsp;Proudly built in <strong>Uttar Pradesh, India</strong> &nbsp;·&nbsp; UPI payments &nbsp;·&nbsp; DPDP Act 2023 + Rules 2025 &nbsp;·&nbsp; baudhsinghgautam@omnexoai.com</div>
 
 <!-- CTA -->
 <section class="cta-section fade-in">
   <h2>Start using all 9 AI models today</h2>
   <p>Join thousands of Indians who stopped overpaying for AI. Free trial — no credit card required.</p>
-  <button class="btn-primary" style="font-size:1rem;padding:16px 36px;" onclick="window.location='omniai-auth.html'">🚀 Get Started Free</button>
+  <button class="btn-primary" style="font-size:1rem;padding:16px 36px;" onclick="comingSoon('signup')">🚀 Get Started Free</button>
 </section>
 
 <footer>
-  <strong>OMNI AI</strong> — Universal AI Control Center<br/><br/>
-  © 2026 OMNI AI · Founder: Baudh Singh Gautam · Auraiya, UP, India<br/>
-  <a href="#" style="color:var(--accent);text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp;
-  <a href="#" style="color:var(--accent);text-decoration:none;">Terms of Service</a> &nbsp;·&nbsp;
-  <a href="#" style="color:var(--accent);text-decoration:none;">Refund Policy</a> &nbsp;·&nbsp;
-  support@omniai.in &nbsp;·&nbsp; DPDP Compliant
+  <strong>OMNEXO AI</strong> — Universal AI Control Center<br/><br/>
+  © 2026 OMNEXO AI · Founder: Baudh Singh Gautam · Uttar Pradesh, India<br/>
+  <a href="#" onclick="comingSoon('legal');return false;" style="color:var(--accent);text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp;
+  <a href="#" onclick="comingSoon('legal');return false;" style="color:var(--accent);text-decoration:none;">Terms of Service</a> &nbsp;·&nbsp;
+  <a href="#" onclick="comingSoon('legal');return false;" style="color:var(--accent);text-decoration:none;">Refund Policy</a> &nbsp;·&nbsp;
+  baudhsinghgautam@omnexoai.com &nbsp;·&nbsp; DPDP Act 2023 + Rules 2025 Compliant
 </footer>
 
 <script>
@@ -627,6 +832,29 @@
   function acceptCookie(){document.getElementById('cookieBanner').style.display='none';localStorage.setItem('cookie','accepted');}
   function declineCookie(){document.getElementById('cookieBanner').style.display='none';}
   if(localStorage.getItem('cookie'))document.getElementById('cookieBanner').style.display='none';
+
+  // ── PWA INSTALL LOGIC ──
+  let pwaPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    pwaPrompt = e;
+    const btn = document.getElementById('pwaInstallBtn');
+    if (btn) btn.style.display = 'inline-block';
+  });
+
+  function installPWA() {
+    if (!pwaPrompt) return;
+    pwaPrompt.prompt();
+    pwaPrompt.userChoice.then(result => {
+      if (result.outcome === 'accepted') {
+        document.getElementById('pwaInstallBtn').style.display = 'none';
+        showToast('✅ OMNEXO AI installed on your device!');
+      }
+      pwaPrompt = null;
+    });
+  }
+
+  // Service worker disabled in standalone preview
 </script>
 
 <!-- ═══════════════════════════════════════
@@ -895,7 +1123,11 @@
     gap: 8px;
     padding: 10px 12px;
     border-top: 1px solid rgba(255,255,255,0.05);
-    background: rgba(0,0,0,0.2);
+    background: rgba(13,17,23,0.98);
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    flex-shrink: 0;
   }
 
   .sw-input {
@@ -914,19 +1146,27 @@
   .sw-input::placeholder { color: #2d3748; }
 
   .sw-send {
-    width: 36px; height: 36px;
+    width: 40px; height: 40px;
+    min-width: 40px;
     background: linear-gradient(135deg, #00e5ff, #0099bb);
     border: none;
     border-radius: 10px;
     color: #000;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 1rem;
+    font-weight: 800;
     transition: all 0.2s;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 20;
+    box-shadow: 0 2px 8px rgba(0,229,255,0.4);
   }
+  .sw-lang{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#cbd5e1;font-size:0.66rem;font-weight:700;padding:4px 8px;border-radius:8px;cursor:pointer;margin-right:6px;font-family:'Syne',sans-serif;transition:all 0.2s;flex-shrink:0;}
+  .sw-lang:hover{border-color:rgba(0,229,255,0.4);color:#00e5ff;}
   .sw-send:hover { transform: scale(1.05); }
 </style>
 
@@ -941,9 +1181,10 @@
   <div class="sw-header">
     <div class="sw-avatar">🤖<div class="sw-online"></div></div>
     <div class="sw-info">
-      <div class="sw-name">OMNI AI Support</div>
-      <div class="sw-status">● Online — Replies instantly</div>
+      <div class="sw-name">OMNEXO AI Support</div>
+      <div class="sw-status">● Demo — Full AI at launch 🚀</div>
     </div>
+    <button class="sw-lang" id="swLangBtn" onclick="toggleChatLang()" title="Switch language">🌐 EN</button>
     <button class="sw-close" onclick="toggleSupport()">✕</button>
   </div>
 
@@ -951,20 +1192,20 @@
     <!-- Welcome message -->
     <div class="sw-msg ai">
       <div class="sw-msg-avatar ai">🤖</div>
-      <div class="sw-bubble">Namaste! 👋 Main OMNI AI Support hoon. Aapki kaise madad kar sakta hoon?</div>
+      <div class="sw-bubble" data-en="Hi! 👋 I'm OMNEXO AI's assistant. Ask me about pricing, plans, AI models, credits, or the free trial! (Full conversational AI launches with the app 🚀)" data-hi="Namaste! 👋 Main OMNEXO AI ka assistant hoon. Pricing, plans, AI models, credits ya free trial ke baare mein poochho! (Poora AI app launch ke saath aayega 🚀)">Hi! 👋 I'm OMNEXO AI's assistant. Ask me about pricing, plans, AI models, credits, or the free trial! (Full conversational AI launches with the app 🚀)</div>
     </div>
   </div>
 
   <!-- QUICK REPLIES -->
   <div class="sw-quick-replies" id="quickReplies">
-    <button class="sw-qr" onclick="quickReply('Pricing kya hai?')">💰 Pricing?</button>
-    <button class="sw-qr" onclick="quickReply('Free trial kaise milega?')">🎁 Free trial?</button>
-    <button class="sw-qr" onclick="quickReply('Kaunse AI models available hain?')">🤖 AI Models?</button>
-    <button class="sw-qr" onclick="quickReply('Refund policy kya hai?')">↩️ Refund?</button>
+    <button class="sw-qr" onclick="quickReply('pricing')">💰 Pricing & Plans?</button>
+    <button class="sw-qr" onclick="quickReply('free trial')">🎁 Free trial?</button>
+    <button class="sw-qr" onclick="quickReply('models')">🤖 Which AI Models?</button>
+    <button class="sw-qr" onclick="quickReply('refund')">↩️ Refund?</button>
   </div>
 
   <div class="sw-input-row">
-    <input class="sw-input" id="swInput" placeholder="Kuch bhi poochho..." onkeydown="if(event.key==='Enter')swSend()"/>
+    <input class="sw-input" id="swInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')swSend()"/>
     <button class="sw-send" onclick="swSend()">➤</button>
   </div>
 </div>
@@ -1002,65 +1243,531 @@
     }
   }
 
-  function quickReply(text) {
-    document.getElementById('swInput').value = text;
-    document.getElementById('quickReplies').style.display = 'none';
-    swSend();
-  }
-
-  const swResponses = {
-    'pricing': 'Hamare plans hain:\n🇮🇳 India: ₹449 / ₹899 / ₹1,999/month\n🌍 Global: $9 / $19 / $39/month\n\nSabhi plans mein 9 AI models milte hain! Pricing page dekhein? 👉',
-    'free trial': 'Bilkul! Sign up karo aur pao **free trial credits** — koi credit card nahi chahiye! 🎁\n\nAbhi start karo →',
-    'models': '9 premium AI models hain:\n🟢 GPT-5 · 🟠 Claude · 🔵 Gemini\n🔴 DeepSeek · ⚡ Grok · 🦙 Llama\n🌊 Mistral · 🌙 Kimi · 🐉 Qwen\n\nSmart Router automatically best model choose karta hai! 🤖',
-    'refund': '7 din ke andar full refund milega. Koi sawal nahi! 💯\n\nEmail: support@omniai.in',
-    'credits': 'Credits OMNI AI ki currency hai. Har model alag credits leta hai:\n• DeepSeek: 2 cr/msg (cheapest!)\n• Claude: 8 cr/msg\n• Smart Router credits bachata hai! ⚡',
-    'default': 'Achha sawal hai! Main aapki poori madad karunga. 😊\n\nKya aap thoda aur detail mein bata sakte hain? Ya seedha email karein: support@omniai.in\n\nHum 24 ghante mein reply karte hain! 🚀'
+  // ── CHAT LANGUAGE ──────────────────────────────────────────────
+  let chatLang = 'en';
+  let chatHistory = [];
+  let lastTopic = null;
+  let conversationContext = {
+    userName: null,
+    userLocation: null,
+    userProblem: null,
+    userMood: null,
+    personalQuestions: 0,
+    lastPersonalTopic: null
   };
 
-  function getResponse(msg) {
+  // Detect personal info from message
+  function extractPersonalContext(msg) {
     const m = msg.toLowerCase();
-    if (m.includes('price') || m.includes('pricing') || m.includes('kitna') || m.includes('cost') || m.includes('₹') || m.includes('plan')) return swResponses.pricing;
-    if (m.includes('free') || m.includes('trial') || m.includes('start')) return swResponses['free trial'];
-    if (m.includes('model') || m.includes('ai') || m.includes('gpt') || m.includes('claude') || m.includes('gemini')) return swResponses.models;
-    if (m.includes('refund') || m.includes('return') || m.includes('wapas')) return swResponses.refund;
-    if (m.includes('credit') || m.includes('token')) return swResponses.credits;
-    return swResponses.default;
+    // Name detection
+    const nameMatch = m.match(/(?:i(?:'m| am)|my name is|call me|naam|mera naam)\s+([a-z]+)/i);
+    if (nameMatch) conversationContext.userName = nameMatch[1].charAt(0).toUpperCase() + nameMatch[1].slice(1);
+    // Mood detection
+    if (/sad|upset|stressed|anxious|worried|depressed|frustrated|angry|dukhi|pareshan|tension/.test(m)) conversationContext.userMood = 'sad';
+    else if (/happy|excited|great|amazing|wonderful|khush|acha feel/.test(m)) conversationContext.userMood = 'happy';
+    else if (/bored|lonely|akela|boredom/.test(m)) conversationContext.userMood = 'bored';
+    // Track personal question count
+    if (isPersonalQuestion(m)) conversationContext.personalQuestions++;
   }
 
+  function isPersonalQuestion(m) {
+    return /how are you|how.*feeling|feeling today|what.*think|do you|can you|will you|tell me|help me|i am|i feel|my life|my problem|my situation|kya lagta|tumhe kya|aap kya|mujhe batao|meri madad|main kaise/.test(m);
+  }
+
+  // Generate personal, context-aware response (bilingual)
+  function getPersonalResponse(msg) {
+    const m = msg.toLowerCase();
+    const name = conversationContext.userName ? `, ${conversationContext.userName}` : '';
+    const mood = conversationContext.userMood;
+
+    // Sadness / stress
+    if (/sad|upset|stressed|anxious|worried|depressed|frustrated|dukhi|pareshan|tension|takleef|mushkil/.test(m)) {
+      if (chatLang === 'hi' || chatLang === 'mixed') return `Samajh sakta hoon${name}. 💙 Lagta hai abhi kuch mushkil chal raha hai — bilkul theek hai aisa feel karna.\n\nMain yahan hoon — koi bhi sawaal poochho ya bas baat karo. Kya chal raha hai?`;
+      return `I hear you${name}. 💙 It sounds like things are tough right now — and that's completely okay.\n\nI'm here to help with anything I can. What's going on?`;
+    }
+    // Excitement / happiness
+    if (/happy|excited|great|amazing|wonderful|khush|mast|badhiya/.test(m)) {
+      if (chatLang === 'hi' || chatLang === 'mixed') return `Bahut achha${name}! 😄 Yeh sun ke acha laga. Kya chal raha hai achha?`;
+      return `That's wonderful to hear${name}! 😄 Your energy is contagious. What's got you feeling so good today?`;
+    }
+    // Boredom / loneliness
+    if (/bored|lonely|akela|bore|pagal ho raha/.test(m)) {
+      if (chatLang === 'hi' || chatLang === 'mixed') return `Samajh sakta hoon${name} — kabhi kabhi waqt bahut dheere guzarta hai. 😊 Main hoon na! Kuch bhi poochho — OMNEXO AI ke baare mein ya bas baat karo.`;
+      return `I get it${name} — sometimes the day just drags. 😊 Well, you've got me! Ask me anything — I'm all ears.`;
+    }
+    // Personal opinion requests
+    if (/what do you think|your opinion|aap kya sochte|tumhara kya|do you like|do you prefer/.test(m)) {
+      return `Honest answer${name}? I genuinely enjoy helping people figure out the best tools for their needs. 😊 What are you trying to decide?`;
+    }
+    // Asking for help with a problem
+    if (/help me|problem|issue|confused|samajh nahi|kaise|how do i|what should i/.test(m)) {
+      return `Of course${name}, I'm here to help! 😊 Tell me more about what you're dealing with — the more detail you give me, the better I can assist you.`;
+    }
+    // "Are you real/human/AI"
+    if (/are you real|are you human|are you ai|are you a bot|you are ai|kya aap insaan|bot ho|real ho|aap kya hain|aap insaan hain/.test(m)) {
+      if (chatLang === 'hi' || chatLang === 'mixed') return `Main OMNEXO AI ka AI support assistant hoon${name} — insaan nahi, lekin genuinely helpful rehne ki poori koshish karta hoon. 😊\n\nKoi sawaal hai jo main help kar sakta hoon?`;
+      return `I'm an AI support assistant for OMNEXO AI${name} — not a human, but I try my best to be genuinely helpful. 😊\n\nIs there something specific I can help you with today?`;
+    }
+    // General "I feel..." statements
+    if (/i feel|i am feeling|feeling like|mujhe lag raha|mujhe aisa lag|main feel kar/.test(m)) {
+      if (chatLang === 'hi' || chatLang === 'mixed') return `Batane ke liye shukriya${name}. 💙 Jo bhi feel kar rahe ho — bilkul valid hai. Main yahan hoon baat karne ke liye ya help karne ke liye.`;
+      return `Thanks for sharing that${name}. 💙 Feelings are valid — whatever you're going through. I'm here if you want to talk.`;
+    }
+    // Follow-up personal question (after 5+)
+    if (conversationContext.personalQuestions >= 5) {
+      if (chatLang === 'hi' || chatLang === 'mixed') return `Aapke saath baat karke bahut achha lag raha hai${name}! 😊 Kitne bhi sawaal poochho — personal ho ya OMNEXO AI ke baare mein. Kya poochhna chahte hain aage?`;
+      return `You know${name}, I really enjoy our conversation! 😊 I'm here for as many questions as you have. What else is on your mind?`;
+    }
+    return null; // Fall through to normal routing
+  }
+
+  function toggleChatLang() {
+    // Manual toggle cycles en → hi → en (mixed is auto-detect only)
+    chatLang = (chatLang === 'en') ? 'hi' : 'en';
+    const btn = document.getElementById('swLangBtn');
+    btn.textContent = chatLang === 'en' ? '🌐 EN' : '🌐 हिं';
+    document.querySelectorAll('#swMessages .sw-bubble[data-en]').forEach(b => {
+      b.innerHTML = chatLang === 'en' ? b.dataset.en : b.dataset.hi;
+    });
+    document.getElementById('swInput').placeholder =
+      chatLang === 'en' ? 'Ask me anything...' : 'Kuch bhi poochho...';
+    showSwToast(chatLang === 'en' ? '🌐 English' : '🌐 हिंदी');
+  }
+
+  function showSwToast(msg) {
+    let t = document.getElementById('swToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'swToast';
+      t.style.cssText = 'position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,229,255,0.15);border:1px solid rgba(0,229,255,0.3);color:#00e5ff;font-size:0.72rem;font-weight:700;padding:6px 14px;border-radius:20px;white-space:nowrap;pointer-events:none;transition:opacity 0.3s;font-family:\'Syne\',sans-serif;';
+      document.querySelector('.sw-widget')?.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    setTimeout(() => { t.style.opacity = '0'; }, 1800);
+  }
+
+  function quickReply(key) {
+    document.getElementById('quickReplies').style.display = 'none';
+    const labels = {
+      pricing:    { en: 'What are the pricing plans?',     hi: 'Pricing plans kya hain?' },
+      'free trial':{ en: 'Tell me about the free trial',   hi: 'Free trial ke baare mein bataiye' },
+      models:     { en: 'Which AI models are available?',   hi: 'Kaun se AI models hain?' },
+      refund:     { en: 'What is the refund policy?',       hi: 'Refund policy kya hai?' },
+    };
+    const langKey = (chatLang === 'hi' || chatLang === 'mixed') ? 'hi' : 'en';
+    const labelObj = labels[key] || { en: key, hi: key };
+    const text = labelObj[langKey] || labelObj.en;
+    sendUserMessage(text, key);
+  }
+
+  // ── HUMAN-LIKE RESPONSES ────────────────────────────────────────
+  // Each category has multiple variants — bot picks one randomly
+  // so it never feels like a script. Warm, natural, to the point.
+
+  const responses = {
+
+    greeting: {
+      en: [
+        "Hey there! 👋 Welcome to OMNEXO AI.\n\nI'm here to help with anything — pricing, AI models, how credits work, or just getting started. What's on your mind?",
+        "Hi! Great to see you here. 😊\n\nOMNEXO AI brings 9 premium AI models into one simple platform. Whether you have questions about plans, models, or anything else — I'm all ears. What would you like to know?",
+        "Hello! 👋 Happy you stopped by.\n\nI can help you with plans & pricing, our 9 AI models, credits, free trial — or whatever's on your mind. Just ask away!",
+      ],
+      hi: [
+        "Namaste! 👋 OMNEXO AI mein aapka swagat hai.\n\nMain aapki har cheez mein help karne ke liye hoon — pricing, AI models, credits ya shuru kaise karein. Kya jaanna chahte hain?",
+        "Hii! Achha laga aapko yahan dekhke. 😊\n\nKoi bhi sawaal poochho — plans, models, free trial — sab ke baare mein bata sakta hoon.",
+      ]
+    },
+
+    thanks: {
+      en: [
+        "Happy to help! 😊 Anything else you'd like to know?",
+        "Of course! That's what I'm here for. 😄 Any other questions?",
+        "Glad that helped! Is there anything else on your mind?",
+        "Anytime! Feel free to ask if anything else comes up. 🙌",
+      ],
+      hi: [
+        "Koi baat nahi! 😊 Koi aur sawaal hai kya?",
+        "Bilkul! Main hamesha yahan hoon. Kuch aur poochhna ho toh zaroor poochho. 😄",
+        "Khushi hui help karke! Koi aur cheez jaanni hai?",
+      ]
+    },
+
+    casual: {
+      en: [
+        "I'm doing great, thanks for asking! 😄\n\nI'm OMNEXO AI's support assistant — think of me as your guide to getting the most out of the platform. What can I help you with today?",
+        "All good on my end! 😊 Ready to help you get the best out of OMNEXO AI. What would you like to explore — plans, models, or something else?",
+      ],
+      hi: [
+        "Bahut achha hoon, shukriya poochne ke liye! 😄\n\nMain OMNEXO AI ka support assistant hoon — aapko platform ke baare mein guide karne ke liye hoon. Aaj kya help chahiye?",
+        "Sab theek hai! 😊 Aapki kya help kar sakta hoon aaj?",
+      ]
+    },
+
+    pricing: {
+      en: [
+        "Great question! Here's the full picture:\n\n🇮🇳 India Plans\n• Starter  — ₹449/month → 150 credits\n• Power   — ₹899/month → 400 credits  ⭐ Most popular\n• Pro     — ₹1,999/month → 1,000 credits\n\n🌍 Global Plans\n• Basic    — $9/month  → 150 credits\n• Standard — $19/month → 400 credits  ⭐\n• Pro      — $39/month → 1,000 credits\n\nAll plans unlock all 9 AI models from day one. Smart Router automatically picks the cheapest model for each query — so your credits go further. Want to know what you get in a specific plan?",
+        "Sure! Here's a quick breakdown:\n\n🇮🇳 For India:\n₹449 → Starter (150 credits) | ₹899 → Power (400 cr) ⭐ | ₹1,999 → Pro (1,000 cr)\n\n🌍 International:\n$9 → Basic | $19 → Standard ⭐ | $39 → Pro\n\nEvery plan gives you access to all 9 models — GPT-5.5, Claude, Gemini, and 6 more. No model locked behind a higher tier. Would you like a recommendation based on how much you'll use it?",
+      ],
+      hi: [
+        "Bilkul! Yeh raha poora breakdown:\n\n🇮🇳 India ke liye:\n• Starter  — ₹449/mahine → 150 credits\n• Power   — ₹899/mahine → 400 credits  ⭐ Sabse popular\n• Pro     — ₹1,999/mahine → 1,000 credits\n\n🌍 International:\n• Basic — $9 | Standard — $19 ⭐ | Pro — $39\n\nSabhi plans mein 9 AI models Day 1 se milte hain. Smart Router automatically sabse sasta model choose karta hai. Kisi specific plan ke baare mein aur jaanna chahte hain?",
+      ]
+    },
+
+    'free trial': {
+      en: [
+        "Yes, there's a free trial when we launch! 🎁\n\nHere's how it works:\n• Sign up — no credit card needed\n• Get free credits instantly\n• Try all 9 AI models right away\n• Upgrade only when you're ready\n\nThe idea is simple — try it, love it, then decide. No pressure.",
+        "Absolutely! 🎁 When OMNEXO AI goes live, new users get free credits on signup — zero credit card required.\n\nYou can test GPT-5.5, Claude, Gemini, DeepSeek, and the rest before paying a single rupee. Smart Router is also included, so your trial credits stretch further than you'd expect.",
+      ],
+      hi: [
+        "Haan, launch ke waqt free trial milega! 🎁\n\nKaise kaam karta hai:\n• Sign up karo — koi credit card nahi chahiye\n• Turant free credits milenge\n• Sabhi 9 AI models try karo\n• Tabhi upgrade karo jab ready ho\n\nIdea simple hai — pehle try karo, pasand aaye toh hi pay karo.",
+      ]
+    },
+
+    models: {
+      en: [
+        "OMNEXO AI gives you 9 premium models in one plan:\n\n🟢 GPT-5.5 (OpenAI)         — 6 cr/msg\n🟠 Claude Sonnet          — 8 cr/msg  ← best for reasoning\n🔵 Gemini 2.5 Flash       — 3 cr/msg\n🔴 DeepSeek V4            — 2 cr/msg  ← cheapest!\n⚡ Grok 4 (xAI)           — 5 cr/msg\n🦙 Llama 4 (Meta)         — 2 cr/msg\n🌊 Mistral Large 3        — 4 cr/msg\n🌙 Kimi K2 (Moonshot)     — 3 cr/msg\n🐉 Qwen 3 (Alibaba)       — 2 cr/msg\n\nSmart Router picks the best one for each query automatically. Or you can pick manually — your call. Any model you'd like to know more about?",
+        "Sure! Here's the lineup:\n\nFor everyday tasks → DeepSeek, Llama, Qwen (just 2 cr each)\nFor reasoning & coding → Claude Sonnet (8 cr)\nFor creative work → GPT-5.5 (6 cr)\nFor speed + Google data → Gemini 2.5 Flash (3 cr)\nFor real-time info → Grok 4 (5 cr)\n\nAll 9 are in every plan. Smart Router handles the selection automatically — or you can pick manually.",
+      ],
+      hi: [
+        "OMNEXO AI mein 9 premium models hain:\n\n🟢 GPT-5.5 — 6 cr/msg\n🟠 Claude Sonnet — 8 cr/msg (best reasoning)\n🔵 Gemini 2.5 Flash — 3 cr/msg\n🔴 DeepSeek V4 — 2 cr/msg (sabse sasta!)\n⚡ Grok 4 — 5 cr/msg\n🦙 Llama 4 — 2 cr/msg\n🌊 Mistral Large 3 — 4 cr/msg\n🌙 Kimi K2 — 3 cr/msg\n🐉 Qwen 3 — 2 cr/msg\n\nSmart Router automatically best model choose karta hai. Ya aap manually bhi choose kar sakte hain. Kisi specific model ke baare mein jaanna hai?",
+      ]
+    },
+
+    credits: {
+      en: [
+        "Credits are how OMNEXO AI works — think of them like mobile data for AI. 📱\n\nEach model has a per-message cost:\n• Cheapest: DeepSeek, Llama, Qwen — 2 cr/msg\n• Most powerful: Claude Sonnet — 8 cr/msg\n\nSmart Router automatically routes simple queries to cheaper models, saving credits without you having to think about it.\n\nMonthly plan credits reset each month. Extra top-up credits stay valid as long as your subscription is active — they expire if you cancel your plan.",
+        "Think of credits like a prepaid balance — you only use what you need. 💳\n\nFor context:\n• 150 credits (Starter) → roughly 75 conversations via Smart Router\n• 400 credits (Power) → ~200 conversations\n• 1,000 credits (Pro) → ~500 conversations\n\nReal usage depends on which models you use, but Smart Router keeps costs low by default.",
+      ],
+      hi: [
+        "Credits OMNEXO AI ki currency hai — mobile recharge ki tarah socho. 📱\n\nHar model ka alag cost hai:\n• Sabse sasta: DeepSeek, Llama, Qwen — 2 cr/msg\n• Sabse powerful: Claude Sonnet — 8 cr/msg\n\nSmart Router automatically saste model use karta hai jab tak aapko koi specific model ki zaroorat na ho.\n\nMonthly credits reset hote hain. Extra top-up credits tab tak valid rehte hain jab tak aapka subscription active hai — cancel karne pe expire ho jaate hain.",
+      ]
+    },
+
+    refund: {
+      en: [
+        "Here's our refund policy, straight up:\n\n❌ No refunds on plans or credits once purchased — they're digital goods, like a mobile recharge.\n\n✅ One clear exception: if you paid but credits didn't show up in your wallet — that's on us, and you get an automatic full refund within 3–5 days. No need to contact anyone.\n\n✅ If OMNEXO AI is down for 24+ hours due to our fault — affected users get automatic credit compensation.\n\n💡 That's why we offer a free trial — so you can be sure before spending anything.",
+        "Refund policy in plain English:\n\nPaid → no refund (it's digital, like app credit)\n\nBut if you paid and credits never arrived → automatic refund, no questions, 3–5 days.\n\nService went down 24+ hours (our fault) → automatic credit top-up for affected users.\n\nWe believe in being upfront about this — the free trial exists so you never feel the need for a refund.",
+      ],
+      hi: [
+        "Refund policy seedhi baat:\n\n❌ Plan ya credits lene ke baad refund nahi milta — yeh digital goods hain.\n\n✅ Ek clear exception: agar aapne pay kiya lekin credits wallet mein nahi aaye — yeh hamari galti hai, 3–5 din mein automatic full refund milega. Kisi se contact karne ki zaroorat nahi.\n\n✅ Agar OMNEXO AI 2+ ghante band rahi (hamari galti se) — affected users ko automatic credit compensation milega.\n\n💡 Isliye free trial hai — pehle try karo, tab decide karo.",
+      ]
+    },
+
+    router: {
+      en: [
+        "Smart Router is honestly one of my favourite things about OMNEXO AI. 🤖\n\nHere's what it does: instead of you having to pick a model every time, Smart Router reads your query and automatically selects the best + cheapest model for it.\n\nSimple question? → DeepSeek (2 cr). Saves credits.\nComplex reasoning? → Claude Sonnet (8 cr). Best answer.\nCreative task? → GPT-5.5 (6 cr). Most imaginative.\n\nResult: you always get a good answer at the lowest cost. You can also manually pick any model if you prefer.",
+      ],
+      hi: [
+        "Smart Router OMNEXO AI ka mera favourite feature hai. 🤖\n\nYeh kya karta hai: aapko har baar model choose karne ki zaroorat nahi. Smart Router aapki query padh ke automatically best + sabse sasta model choose karta hai.\n\nSimple sawaal → DeepSeek (2 cr). Credits bachate hain.\nComplex reasoning → Claude Sonnet (8 cr). Best jawab.\nCreative kaam → GPT-5.5 (6 cr).\n\nResult: hamesha achha jawab, kam cost mein. Chaaho toh manually bhi choose kar sakte ho.",
+      ]
+    },
+
+    signup: {
+      en: [
+        "Getting started is really straightforward:\n\n1️⃣ Sign up with Email or Google — takes 30 seconds\n2️⃣ Free credits land in your wallet instantly\n3️⃣ Pick any of the 9 AI models (or let Smart Router decide)\n4️⃣ Start chatting!\n\nNo credit card needed for the trial. When you're ready to upgrade, plans start at ₹449/month for India and $9/month internationally.",
+        "It's simple — here's the quick version:\n\nSign up → get free trial credits → try all 9 models → upgrade when ready.\n\nThe whole signup takes under a minute, and you don't need a credit card to try it out.",
+      ],
+      hi: [
+        "Shuru karna bahut aasaan hai:\n\n1️⃣ Email ya Google se sign up karo — 30 seconds\n2️⃣ Free credits turant wallet mein aa jaate hain\n3️⃣ 9 models mein se koi bhi choose karo\n4️⃣ Chat shuru karo!\n\nTrial ke liye credit card nahi chahiye. Plans ₹449/mahine se shuru hote hain.",
+      ]
+    },
+
+    compare: {
+      en: [
+        "Fair question — here's the honest answer:\n\nBuying each subscription separately: ~₹10,000+/month\nOMNEXO AI Pro: ₹1,999/month\n\nBut it's not just about price. OMNEXO AI also gives you:\n• Smart Router — auto-picks the right model per query\n• One dashboard for everything\n• Credits-based (pay only for what you actually use)\n• No juggling 9 different subscriptions\n\nWant a specific comparison with ChatGPT, Claude, or another model?",
+      ],
+      hi: [
+        "Achha sawaal — seedha jawab:\n\nAlag alag khareedna: ~₹10,000+/mahine\nOMNEXO AI Pro: ₹1,999/mahine\n\nLekin sirf price ki baat nahi — OMNEXO AI deta hai:\n• Smart Router — automatic best model choose karta hai\n• Ek dashboard sab ke liye\n• Credits-based — sirf jo use karo utna pay karo\n• 9 alag subscriptions manage karne ki jhanjhat nahi\n\nKisi specific model se comparison chahiye?",
+      ]
+    },
+
+    security: {
+      en: [
+        "Your data is completely safe with OMNEXO AI. 🔒\n\nHere's what we do:\n• All data stored in India (AWS servers)\n• SSL encrypted connections\n• DPDP Act 2023 + Rules 2025 compliant\n• Payment data handled by Razorpay/Stripe — we never see your card details\n• You can delete your data anytime\n\nAny specific security question?",
+      ],
+      hi: [
+        "Aapka data OMNEXO AI ke saath bilkul safe hai. 🔒\n\nKya karte hain hum:\n• Sab data India mein store (AWS servers)\n• SSL encrypted connections\n• DPDP Act 2023 + Rules 2025 compliant\n• Card details kabhi nahi dekhte — Razorpay/Stripe handle karta hai\n• Aap kabhi bhi data delete kar sakte ho",
+      ]
+    },
+
+    support: {
+      en: [
+        "I'm here to help! 😊 For most questions, I can answer right here in this chat.\n\nFor account-specific issues, billing problems, or anything urgent — reach us at:\n📧 baudhsinghgautam@omnexoai.com\n\nWe reply within 24 hours. What's your issue? I'll try to solve it right now.",
+      ],
+      hi: [
+        "Main yahan help karne ke liye hoon! 😊 Zyaadatar sawaalon ka jawab main yahan chat mein de sakta hoon.\n\nAccount ya billing issue ke liye:\n📧 baudhsinghgautam@omnexoai.com\n\n24 ghante mein reply milega. Kya problem hai? Abhi solve karne ki koshish karta hoon.",
+      ]
+    },
+
+    about: {
+      en: [
+        "OMNEXO AI is India's first AI aggregator platform. 🇮🇳\n\nInstead of paying ₹1,600+/month for each AI model separately, you get all 9 in one plan — starting at just ₹449/month.\n\nWhat you get:\n• GPT-5.5, Claude, Gemini, DeepSeek, Grok + 4 more\n• Smart Router — picks the best model automatically\n• Pay-as-you-go credits\n• Built in India, for India (and the world)\n\nWant to know about pricing, models, or how to get started?",
+      ],
+      hi: [
+        "OMNEXO AI India ka pehla AI aggregator platform hai. 🇮🇳\n\nAlag alag ₹1,600+/mahine dene ke bajaye, ek plan mein 9 models milte hain — sirf ₹449/mahine se shuru.\n\nKya milta hai:\n• GPT-5.5, Claude, Gemini, DeepSeek, Grok + 4 aur\n• Smart Router — automatically best model choose karta hai\n• Credits-based system\n\nPricing, models ya shuru karne ke baare mein jaanna hai?",
+      ]
+    },
+
+    default: {
+      en: [
+        "I'm a demo assistant for now, so I can answer these specific topics best:\n\n• 💰 Pricing & plans (₹449–₹1,999/month)\n• 🤖 The 9 AI models\n• ⚡ Credits & Smart Router\n• 🎁 Free trial\n• 🔒 Data security\n• 🚀 How to get started\n\nFor anything else, full conversational AI launches with the app! Try asking about one of the topics above. 😊",
+        "Good question! I'm a demo assistant right now — the full AI launches with the app. 🚀\n\nMeanwhile, I can give you solid answers on: pricing, AI models, credits, free trial, security, or getting started. Which one interests you?",
+      ],
+      hi: [
+        "Abhi main ek demo assistant hoon, toh in topics pe best jawab de sakta hoon:\n\n• 💰 Pricing aur plans\n• 🤖 9 AI models\n• ⚡ Credits aur Smart Router\n• 🎁 Free trial\n• 🔒 Data security\n• 🚀 Kaise shuru karein\n\nBaaki sab ke liye poora AI app launch ke saath aayega! Upar ke kisi topic ke baare mein poochho. 😊",
+      ]
+    }
+  };
+
+  // Smart response picker — tracks what was shown before
+  // to avoid repeating same response in long conversations
+  const shownResponses = {};
+
+  function getResponse(key) {
+    const pool = responses[key] || responses.default;
+    // Language selection: 'hi' → Hindi, 'mixed' → Hindi/en mix, 'en' → English
+    let lang;
+    if ((chatLang === 'hi' || chatLang === 'mixed') && pool.hi) {
+      lang = pool.hi;
+    } else {
+      lang = pool.en;
+    }
+    if (lang.length === 1) return lang[0];
+    // Avoid repeating same variant in same session
+    if (!shownResponses[key]) shownResponses[key] = [];
+    const unseen = lang.filter((_, i) => !shownResponses[key].includes(i));
+    const pickFrom = unseen.length > 0 ? unseen : lang;
+    const allIdx = lang.indexOf(pickFrom[Math.floor(Math.random() * pickFrom.length)]);
+    shownResponses[key].push(allIdx);
+    return lang[allIdx];
+  }
+
+  function getResponseKey(msg) {
+    const m = msg.toLowerCase().trim();
+    const words = m.split(/\s+/);
+
+    // ── Greetings (exact short messages) ─────────────────
+    if (/^(hi|hello|hey|hii|helo|namaste|namaskar|hlo|sup|yo|good morning|good evening|good afternoon|howdy)[.!\s]*$/.test(m))
+      return 'greeting';
+
+    // ── Thanks / Short positives ──────────────────────────
+    if (/^(thanks|thank you|thankyou|thx|ty|shukriya|dhanyawad|great|awesome|nice|perfect|wonderful|excellent|good|ok|okay|fine|cool|got it|understood|clear|sure|bahut achha|bahut badhiya|accha|theek hai|wah|brilliant|superb|amazing|helpful|perfect)[.!\s]*$/.test(m))
+      return 'thanks';
+
+    // ── How are you / About the bot ──────────────────────
+    if (/how (are|r) (you|u)|how.*feeling|feeling today|you feeling|kaise ho|kaisa hai|what are you|who are you|aap kaun|are you (a |an )?(bot|ai|robot|human|real)|what.*up|wassup/.test(m))
+      return 'casual';
+
+    // ── Pricing — strong signals ──────────────────────────
+    if (/price|pricing|cost|kitna|₹|\$|plan|subscription|rupee|dollar|monthly|per month|mahina|afford|kitne mein|how much|charges|fee|fees/.test(m))
+      return 'pricing';
+
+    // ── Free trial ───────────────────────────────────────
+    if (/free trial|free mein|without pay|bina pay|try before|no credit card|free credits|free use|try for free|demo/.test(m) ||
+        (m.includes('free') && (m.includes('try') || m.includes('use') || m.includes('start') || m.includes('get'))))
+      return 'free trial';
+
+    // ── Models ───────────────────────────────────────────
+    if (/model|gpt|chatgpt|claude|gemini|deepseek|grok|llama|mistral|qwen|kimi|which ai|best ai|ai models|kaun sa|9 model|all model|available model/.test(m))
+      return 'models';
+
+    // ── Credits ──────────────────────────────────────────
+    if (/credit|token|balance|recharge|wallet|how many|kitne credits|expire|validity|top.?up/.test(m))
+      return 'credits';
+
+    // ── Refund ───────────────────────────────────────────
+    if (/refund|return|money back|cancel|wapas|paisa|charge back|dispute/.test(m))
+      return 'refund';
+
+    // ── Smart Router ─────────────────────────────────────
+    if (/smart router|router|auto select|automatic|auto model|which model (is |will )?(chosen|selected|used)|how does (it|omnexo) pick/.test(m))
+      return 'router';
+
+    // ── Signup / Getting started ──────────────────────────
+    if (/sign.?up|register|get started|start using|how to (start|use|begin|join)|shuru|account (banao|create|kaise)|login|log.?in|join/.test(m))
+      return 'signup';
+
+    // ── Comparison ───────────────────────────────────────
+    if (/compar|vs |versus|better than|chatgpt|difference|why omnexo|why not|should i|worth it|is it good/.test(m))
+      return 'compare';
+
+    // ── Security / Data / Privacy ─────────────────────────
+    if (/safe|secure|privacy|data|dpdp|encrypt|hack|leak|personal info|my data/.test(m))
+      return 'security';
+
+    // ── Support / Contact ────────────────────────────────
+    if (/support|help|contact|email|reach|talk to|human|agent|problem|issue|complaint|error/.test(m))
+      return 'support';
+
+    // ── OMNEXO AI general info ────────────────────────────
+    if (/omnexo|what is (this|omnexo)|tell me about|explain|describe|overview|features|what (can|do) (you|it|omnexo)/.test(m))
+      return 'about';
+
+    return 'default';
+  }
+
+  // ── TYPING ANIMATION ────────────────────────────────────────────
+  // Natural variable delay: short messages = faster, long = slower
+  function getTypingDelay(responseText) {
+    const words = responseText.split(' ').length;
+    const base = 800;
+    const perWord = 18;
+    return Math.min(base + words * perWord, 3200); // cap at 3.2s
+  }
+
+  // ── SEND MESSAGE ────────────────────────────────────────────────
   let swTyping = false;
 
-  function swSend() {
-    const input = document.getElementById('swInput');
-    const text = input.value.trim();
+  function sendUserMessage(text, forcedKey) {
     if (!text || swTyping) return;
-
     const msgs = document.getElementById('swMessages');
-    input.value = '';
+    const now = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
 
-    // User message
-    msgs.innerHTML += `<div class="sw-msg user"><div class="sw-msg-avatar user-av">U</div><div class="sw-bubble">${text}</div></div>`;
+    // User bubble
+    msgs.innerHTML += `<div class="sw-msg user">
+      <div class="sw-msg-avatar user-av">U</div>
+      <div class="sw-bubble">${text}</div>
+    </div>`;
     scrollSw();
-
     swTyping = true;
 
     // Typing indicator
     const typId = 'swtyp' + Date.now();
-    msgs.innerHTML += `<div class="sw-msg ai" id="${typId}"><div class="sw-msg-avatar ai">🤖</div><div class="sw-typing"><div class="sw-typing-dot"></div><div class="sw-typing-dot"></div><div class="sw-typing-dot"></div></div></div>`;
+    msgs.innerHTML += `<div class="sw-msg ai" id="${typId}">
+      <div class="sw-msg-avatar ai">🤖</div>
+      <div class="sw-typing">
+        <div class="sw-typing-dot"></div>
+        <div class="sw-typing-dot"></div>
+        <div class="sw-typing-dot"></div>
+      </div>
+    </div>`;
     scrollSw();
+
+    // Get response
+    // ══ STRICT LANGUAGE DETECTION ══
+    // Pure Hindi (Devanagari) → 'hi'
+    // Hinglish (Hindi words in Roman) → 'mixed'
+    // Pure English → 'en'
+    const hasDevanagari = /[ऀ-ॿ]/.test(text);
+    const hindiWords = /\b(kya|hai|hain|hi|ho|kaise|kyun|kab|kahan|nahi|haan|theek|accha|acha|bahut|bilkul|zaroor|shukriya|namaste|bhai|yaar|mujhe|mera|meri|aap|tum|tumhara|karo|karein|karna|batao|bataiye|bolo|chahiye|kitna|kitne|paisa|sahi|galat|matlab|samajh|dekho|suno|abhi|phir|lekin|magar|aur|ya|toh|bhi|sab|kuch|koi|jab|tab)\b/i;
+    const hindiWordCount = (text.match(new RegExp(hindiWords.source, 'gi')) || []).length;
+
+    if (hasDevanagari) {
+      chatLang = 'hi';  // Pure Hindi script
+    } else if (hindiWordCount >= 1) {
+      chatLang = 'mixed';  // Hinglish (Roman Hindi)
+    } else {
+      chatLang = 'en';  // Pure English
+    }
+
+    // Extract personal context from message
+    extractPersonalContext(text);
+
+    // Try personal response first
+    let responseText = null;
+    if (!forcedKey && isPersonalQuestion(text.toLowerCase())) {
+      responseText = getPersonalResponse(text);
+    }
+    // Fall back to keyword-based routing
+    if (!responseText) {
+      const routeKey = forcedKey || getResponseKey(text);
+      lastTopic = routeKey;
+      responseText = getResponse(routeKey);
+    }
+    const delay = getTypingDelay(responseText);
 
     setTimeout(() => {
       document.getElementById(typId)?.remove();
-      const response = getResponse(text);
-      msgs.innerHTML += `<div class="sw-msg ai"><div class="sw-msg-avatar ai">🤖</div><div class="sw-bubble">${response.replace(/\n/g,'<br/>')}</div></div>`;
+      const formatted = responseText.replace(/\n/g, '<br/>');
+      msgs.innerHTML += `<div class="sw-msg ai">
+        <div class="sw-msg-avatar ai">🤖</div>
+        <div class="sw-bubble">${formatted}</div>
+      </div>`;
       swTyping = false;
       scrollSw();
-    }, 1200 + Math.random() * 600);
+    }, delay);
+  }
+
+  function swSend() {
+    const input = document.getElementById('swInput');
+    const text = input.value.trim();
+    input.value = '';
+    sendUserMessage(text);
   }
 
   function scrollSw() {
     const msgs = document.getElementById('swMessages');
     setTimeout(() => { msgs.scrollTop = msgs.scrollHeight; }, 50);
   }
+
+  // ── PREVENT ALL 404s — friendly messages instead of broken links ──
+
+  // ═══ GLOBAL 404 PREVENTION ═══
+  // Intercept any navigation to internal .html pages (auth/chat/etc not present in preview)
+  document.addEventListener('click', function(e){
+    const a = e.target.closest('a, button');
+    if(!a) return;
+    const href = a.getAttribute('href') || '';
+    // If it points to an internal html file, block it and show launch modal
+    if(/\.html(\?|#|$)/i.test(href) || /omniai-(auth|chat|wallet|pricing|router|legal)/i.test(href)){
+      e.preventDefault();
+      comingSoon('signup');
+      return false;
+    }
+  }, true);
+
+  // Also catch programmatic redirects to .html (window.location)
+  (function(){
+    try{
+      const _assign = window.location.assign.bind(window.location);
+      Object.defineProperty(window, '__safeNav', {value:true, writable:false});
+    }catch(err){}
+  })();
+
+  function comingSoon(type){
+    const messages = {
+      signup: '🚀 Sign-up opens at launch! OMNEXO AI is in final setup. Leave your email at baudhsinghgautam@omnexoai.com for early access + bonus free credits!',
+      legal: '📄 Full legal pages (Privacy, Terms, Refund) go live at launch. Questions now? Email baudhsinghgautam@omnexoai.com',
+      trial: '🎁 Free trial starts at launch! You\'ll get bonus credits to try all 9 AI models. Email baudhsinghgautam@omnexoai.com for early access!',
+      default: '🚀 This feature goes live at launch! Email baudhsinghgautam@omnexoai.com for early access.'
+    };
+    showLaunchModal(messages[type] || messages.default);
+  }
+
+  function showLaunchModal(msg){
+    let modal = document.getElementById('launchModal');
+    if(!modal){
+      modal = document.createElement('div');
+      modal.id = 'launchModal';
+      modal.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);padding:24px;animation:fadeIn 0.2s ease;';
+      modal.innerHTML = `
+        <div style="background:#0d1117;border:1px solid rgba(0,229,255,0.25);border-radius:20px;padding:32px 24px;max-width:380px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+          <div style="font-size:2.5rem;margin-bottom:12px;">🚀</div>
+          <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#00e5ff;margin-bottom:14px;">Launching Soon!</div>
+          <div id="launchModalMsg" style="font-size:0.88rem;color:#cbd5e1;line-height:1.6;margin-bottom:22px;"></div>
+          <button onclick="document.getElementById('launchModal').remove()" style="background:#00e5ff;color:#000;border:none;padding:12px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;">Got it!</button>
+        </div>`;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', e => { if(e.target===modal) modal.remove(); });
+    }
+    document.getElementById('launchModalMsg').textContent = msg;
+    modal.style.display = 'flex';
+  }
+
+
+  function copyEmail() {
+    const email = 'baudhsinghgautam@omnexoai.com';
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(email).then(() => {
+        showToast('📧 Email copied! ' + email);
+      });
+    } else {
+      showToast('📧 ' + email);
+    }
+  }
+
+  function safeNav(){ comingSoon("signup"); }
 </script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OMNI AI — Chat</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>OMNEXO AI — Chat</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Orbitron:wght@700;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
   :root{--bg:#040507;--bg2:#080b10;--card:#0d1117;--border:rgba(255,255,255,0.07);--accent:#00e5ff;--accent2:#7c3aed;--text:#f0f4f8;--muted:#64748b;--success:#22c55e;--user-bubble:#0d2d3a;--ai-bubble:#0d1117;}
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -17,6 +17,79 @@
   .sidebar-top{padding:20px 16px 12px;border-bottom:1px solid var(--border);}
   .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-0.5px;margin-bottom:14px;display:block;}
   .logo span{color:var(--accent);}
+
+  /* ═══════════════════════════════════════════
+     OMNEXO AI — PRODUCTION LOGO (exact match to logo-app.html / index.html)
+     9 orbits + sphere + wordmark, scaled for sidebar.
+     ═══════════════════════════════════════════ */
+  .omnexo-logo{display:inline-flex;flex-direction:column;align-items:center;gap:18px;font-family:'Orbitron',monospace;}
+  .omnexo-orbital{position:relative;width:220px;height:220px;}
+  .omnexo-sphere{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:62px;height:62px;border-radius:50%;z-index:10;
+    background:conic-gradient(from 0deg,#FF3DAE,#FF6B6B,#FFA62B,#FFE600,#06FFA5,#00D4FF,#3B82F6,#A855F7,#FF3DAE);
+    animation:omnexoSpinSphere 5s linear infinite;
+    box-shadow:0 0 0 3px rgba(255,255,255,0.06),0 0 34px rgba(168,85,247,0.7),0 0 68px rgba(59,130,246,0.5),0 0 110px rgba(6,255,165,0.25);
+  }
+  .omnexo-sphere::after{content:'';position:absolute;top:13%;left:17%;width:32%;height:22%;background:rgba(255,255,255,0.6);border-radius:50%;filter:blur(3px);}
+  @keyframes omnexoSpinSphere{to{transform:translate(-50%,-50%) rotate(360deg);}}
+  .omnexo-aura{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:74px;height:74px;border-radius:50%;
+    background:radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 70%);
+    z-index:9;animation:omnexoPulse 3s ease-in-out infinite;
+  }
+  @keyframes omnexoPulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}}
+  .omnexo-orbit{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid;transform-origin:center center;}
+  .oo1{ width:68px;height:26px;  margin:-13px 0 0 -34px;  border-color:rgba(255,61,174,0.45); animation:oos1 6s   linear infinite; }
+  .oo2{ width:82px;height:30px;  margin:-15px 0 0 -41px;  border-color:rgba(255,166,43,0.4);  animation:oos2 9s   linear infinite; }
+  .oo3{ width:96px;height:34px;  margin:-17px 0 0 -48px;  border-color:rgba(255,230,0,0.35);  animation:oos3 12s  linear infinite; }
+  .oo4{ width:108px;height:38px; margin:-19px 0 0 -54px;  border-color:rgba(6,255,165,0.35);  animation:oos4 16s  linear infinite; }
+  .oo5{ width:122px;height:42px; margin:-21px 0 0 -61px;  border-color:rgba(0,212,255,0.32);  animation:oos5 20s  linear infinite; }
+  .oo6{ width:134px;height:46px; margin:-23px 0 0 -67px;  border-color:rgba(59,130,246,0.3);  animation:oos6 25s  linear infinite; }
+  .oo7{ width:146px;height:50px; margin:-25px 0 0 -73px;  border-color:rgba(168,85,247,0.28); animation:oos7 30s  linear infinite; }
+  .oo8{ width:158px;height:54px; margin:-27px 0 0 -79px;  border-color:rgba(236,72,153,0.25); animation:oos8 36s  linear infinite; }
+  .oo9{ width:172px;height:58px; margin:-29px 0 0 -86px;  border-color:rgba(250,204,21,0.22); animation:oos9 42s  linear infinite; }
+  @keyframes oos1{from{transform:rotate(8deg)}to{transform:rotate(368deg)}}
+  @keyframes oos2{from{transform:rotate(-28deg)}to{transform:rotate(-388deg)}}
+  @keyframes oos3{from{transform:rotate(52deg)}to{transform:rotate(412deg)}}
+  @keyframes oos4{from{transform:rotate(-65deg)}to{transform:rotate(-425deg)}}
+  @keyframes oos5{from{transform:rotate(15deg)}to{transform:rotate(375deg)}}
+  @keyframes oos6{from{transform:rotate(-40deg)}to{transform:rotate(-400deg)}}
+  @keyframes oos7{from{transform:rotate(75deg)}to{transform:rotate(435deg)}}
+  @keyframes oos8{from{transform:rotate(-12deg)}to{transform:rotate(-372deg)}}
+  @keyframes oos9{from{transform:rotate(38deg)}to{transform:rotate(398deg)}}
+  .omnexo-planet{position:absolute;top:50%;left:100%;transform:translate(-50%,-50%);border-radius:50%;}
+  .oo1 .omnexo-planet{width:5px;height:5px; background:#FF3DAE; box-shadow:0 0 8px #FF3DAE,0 0 16px rgba(255,61,174,0.6);}
+  .oo2 .omnexo-planet{width:5px;height:5px; background:#FFA62B; box-shadow:0 0 8px #FFA62B,0 0 16px rgba(255,166,43,0.6);}
+  .oo3 .omnexo-planet{width:5px;height:5px; background:#FFE600; box-shadow:0 0 8px #FFE600,0 0 16px rgba(255,230,0,0.6);}
+  .oo4 .omnexo-planet{width:4.5px;height:4.5px; background:#06FFA5; box-shadow:0 0 8px #06FFA5,0 0 14px rgba(6,255,165,0.55);}
+  .oo5 .omnexo-planet{width:4.5px;height:4.5px; background:#00D4FF; box-shadow:0 0 8px #00D4FF,0 0 14px rgba(0,212,255,0.55);}
+  .oo6 .omnexo-planet{width:4.5px;height:4.5px; background:#3B82F6; box-shadow:0 0 8px #3B82F6,0 0 14px rgba(59,130,246,0.5);}
+  .oo7 .omnexo-planet{width:4px;height:4px; background:#A855F7; box-shadow:0 0 7px #A855F7,0 0 13px rgba(168,85,247,0.5);}
+  .oo8 .omnexo-planet{width:4px;height:4px; background:#EC4899; box-shadow:0 0 7px #EC4899,0 0 13px rgba(236,72,153,0.45);}
+  .oo9 .omnexo-planet{width:4px;height:4px; background:#FACC15; box-shadow:0 0 7px #FACC15,0 0 13px rgba(250,204,21,0.45);}
+  .om-ai{
+    background:linear-gradient(135deg,#FF3DAE,#A855F7,#00D4FF);background-size:200% auto;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    filter:drop-shadow(0 0 14px rgba(168,85,247,0.6));animation:omFlow 5s linear infinite;
+  }
+  @keyframes omFlow{to{background-position:200% center;}}
+
+  /* sidebar scaled wrapper — same 220px logo, shrunk to fit narrow sidebar */
+  .omnexo-nav-wrap{
+    display:inline-block;width:34px;height:34px;
+    overflow:hidden;flex-shrink:0;position:relative;
+  }
+  .omnexo-nav-wrap .omnexo-orbital{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(0.155);
+  }
+  .omnexo-nav-word{
+    font-family:'Orbitron',monospace;font-weight:900;font-size:0.95rem;
+    letter-spacing:0.02em;color:#FFFFFF;display:flex;align-items:center;gap:4px;
+  }
+  .omnexo-nav-word .om-ai{filter:drop-shadow(0 0 8px rgba(168,85,247,0.6));}
   .new-chat-btn{width:100%;padding:10px 14px;background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px;justify-content:center;}
   .new-chat-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,229,255,0.2);}
   .chat-history{flex:1;overflow-y:auto;padding:12px 10px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.08) transparent;}
@@ -55,11 +128,11 @@
   .model-btn-emoji{font-size:0.95rem;}
   .model-btn-name{flex:1;text-align:left;font-weight:500;}
   .model-btn-credits{font-size:0.65rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:2px 6px;border-radius:5px;font-weight:600;white-space:nowrap;}
-  .model-dropdown{position:absolute;top:calc(100% + 6px);left:0;min-width:300px;background:var(--card);border:1px solid rgba(0,229,255,0.15);border-radius:14px;overflow:hidden;z-index:50;display:none;box-shadow:0 16px 40px rgba(0,0,0,0.5);}
+  .model-dropdown{position:fixed;min-width:300px;max-height:min(420px,70vh);overflow-y:auto;background:var(--card);border:1px solid rgba(0,229,255,0.15);border-radius:14px;z-index:200;display:none;box-shadow:0 16px 40px rgba(0,0,0,0.5);scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.15) transparent;}
   .model-dropdown.open{display:block;}
-  .dropdown-header{padding:10px 14px 6px;font-size:0.62rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+  .dropdown-header{padding:10px 14px 6px;font-size:0.62rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);border-radius:14px 14px 0 0;position:sticky;top:0;background:var(--card);}
   .model-option{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background 0.15s;border-bottom:1px solid rgba(255,255,255,0.03);}
-  .model-option:last-child{border-bottom:none;}
+  .model-option:last-child{border-bottom:none;border-radius:0 0 14px 14px;}
   .model-option:hover{background:rgba(0,229,255,0.04);}
   .model-option.selected{background:rgba(0,229,255,0.07);}
   .model-option-emoji{font-size:1.1rem;width:26px;text-align:center;flex-shrink:0;}
@@ -127,10 +200,7 @@
 
   /* FEEDBACK */
   .feedback-row{display:flex;gap:6px;margin-top:5px;}
-  .feedback-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:0.75rem;cursor:pointer;color:var(--muted);transition:all 0.2s;}
-  .feedback-btn:hover{border-color:var(--accent);}
-  .feedback-btn.liked{border-color:var(--success);color:var(--success);background:rgba(34,197,94,0.08);}
-  .feedback-btn.disliked{border-color:var(--error);color:var(--error);background:rgba(239,68,68,0.08);}
+
 
   /* FILE PREVIEW */
   .file-preview{display:flex;align-items:center;gap:8px;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.12);border-radius:8px;padding:8px 12px;margin-bottom:8px;font-size:0.78rem;}
@@ -188,6 +258,37 @@
   .input-hint span{color:var(--accent);}
 
   /* VOICE RECORDING */
+  /* ADD TO CHAT POPUP */
+  .attach-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);display:none;align-items:flex-end;justify-content:center;}
+  .attach-overlay.open{display:flex;}
+  .attach-sheet{background:#0d1117;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;border-top:1px solid rgba(255,255,255,0.08);max-height:92vh;overflow-y:auto;}
+  .attach-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;text-align:center;margin-bottom:20px;color:var(--text);}
+  .attach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+  .attach-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;cursor:pointer;transition:all 0.2s;}
+  .attach-item:hover{border-color:var(--accent);background:rgba(0,229,255,0.06);}
+  .attach-item:active{transform:scale(0.96);}
+  .attach-icon{font-size:1.8rem;}
+  .attach-label{font-size:0.72rem;font-weight:600;font-family:'Syne',sans-serif;color:var(--muted);}
+  .attach-toggles{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+  .attach-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;}
+  .attach-toggle-label{display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--text);}
+  .attach-toggle-icon{font-size:1.1rem;}
+  .toggle-sw{width:44px;height:24px;background:rgba(255,255,255,0.1);border-radius:12px;border:none;cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;}
+  .toggle-sw.on{background:var(--accent);}
+  .toggle-sw::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform 0.2s;}
+  .toggle-sw.on::after{transform:translateX(20px);}
+  .attach-cancel{width:100%;padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;color:var(--muted);font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;}
+  .style-btn{padding:9px 6px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;color:var(--muted);font-family:'Syne',sans-serif;font-weight:700;font-size:0.72rem;cursor:pointer;transition:all 0.2s;text-align:center;}
+  .style-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .style-btn.active{background:rgba(0,229,255,0.1);border-color:var(--accent);color:var(--accent);}
+  .attach-cancel:hover{border-color:rgba(239,68,68,0.4);color:#ef4444;}
+
+  /* THUMBS FEEDBACK */
+  .msg-thumb-btns{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle;}
+  .thumb-btn{background:none;border:none;cursor:pointer;font-size:0.85rem;opacity:0.5;transition:all 0.15s;padding:2px 4px;border-radius:4px;}
+  .thumb-btn:hover{opacity:1;background:rgba(255,255,255,0.06);}
+  .thumb-btn.voted{opacity:1;}
+
   .voice-recording{display:none;align-items:center;gap:10px;padding:10px 14px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px;margin-bottom:8px;}
   .voice-recording.active{display:flex;}
   .voice-dot{width:10px;height:10px;background:#ef4444;border-radius:50%;animation:voicePulse 1s infinite;}
@@ -233,7 +334,10 @@
     .suggestion-grid{grid-template-columns:1fr;max-width:280px;}
     .input-area{padding:10px 12px 14px;}
     .messages-area{padding:14px 12px;}
-    .chat-topbar{padding:10px 12px;}
+    .chat-topbar{padding:10px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex-wrap:nowrap;}
+    .chat-topbar::-webkit-scrollbar{display:none;}
+    .model-selector{max-width:170px;flex-shrink:0;}
+    .chat-topbar > div[style*="margin-left:auto"]{margin-left:8px !important;flex-shrink:0;}
   }
 </style>
 </head>
@@ -245,15 +349,32 @@
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-top">
-    <span class="logo">OMNI<span>AI</span></span>
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:14px;">
+      <div class="omnexo-nav-wrap">
+        <div class="omnexo-orbital">
+          <div class="omnexo-aura"></div>
+          <div class="omnexo-orbit oo1"><div class="omnexo-planet"></div></div>
+          <div class="omnexo-orbit oo2"><div class="omnexo-planet"></div></div>
+          <div class="omnexo-orbit oo3"><div class="omnexo-planet"></div></div>
+          <div class="omnexo-orbit oo4"><div class="omnexo-planet"></div></div>
+          <div class="omnexo-orbit oo5"><div class="omnexo-planet"></div></div>
+          <div class="omnexo-orbit oo6"><div class="omnexo-planet"></div></div>
+          <div class="omnexo-orbit oo7"><div class="omnexo-planet"></div></div>
+          <div class="omnexo-orbit oo8"><div class="omnexo-planet"></div></div>
+          <div class="omnexo-orbit oo9"><div class="omnexo-planet"></div></div>
+          <div class="omnexo-sphere"></div>
+        </div>
+      </div>
+      <div class="omnexo-nav-word">OMNEXO<span class="om-ai">AI</span></div>
+    </div>
     <button class="new-chat-btn" onclick="newChat()">✏️ New Chat</button>
   </div>
   <div class="chat-history" id="chatHistory">
     <div class="history-section-label">Today</div>
-    <div class="history-item active"><span class="history-icon">💬</span><div><div class="history-title">OMNI AI ke baare mein</div><div class="history-meta">Claude · 8 msgs</div></div></div>
+    <div class="history-item active"><span class="history-icon">💬</span><div><div class="history-title">About OMNEXO AI</div><div class="history-meta">Claude · 8 msgs</div></div></div>
     <div class="history-item"><span class="history-icon">💻</span><div><div class="history-title">Python code debug</div><div class="history-meta">DeepSeek · 12 msgs</div></div></div>
     <div class="history-section-label" style="margin-top:10px;">Yesterday</div>
-    <div class="history-item"><span class="history-icon">📝</span><div><div class="history-title">Business email likhna</div><div class="history-meta">GPT-5 · 5 msgs</div></div></div>
+    <div class="history-item"><span class="history-icon">📝</span><div><div class="history-title">Writing a business email</div><div class="history-meta">GPT-5.5 · 5 msgs</div></div></div>
     <div class="history-item"><span class="history-icon">🔍</span><div><div class="history-title">Market research India</div><div class="history-meta">Gemini · 20 msgs</div></div></div>
   </div>
   <div class="sidebar-bottom">
@@ -279,19 +400,6 @@
         <span class="model-btn-credits" id="selCost">Auto</span>
         <span style="color:var(--muted);font-size:0.7rem;">▾</span>
       </button>
-      <div class="model-dropdown" id="modelDropdown">
-        <div class="dropdown-header">Select AI Model</div>
-        <div class="model-option selected" onclick="selectModel(this,'🤖','Smart Router','Auto','Auto-picks best model','auto')"><span class="model-option-emoji">🤖</span><div><div class="model-option-name">Smart Router</div><div class="model-option-desc">Auto-picks cheapest + best model</div></div><span class="model-option-cost">Auto</span></div>
-        <div class="model-option" onclick="selectModel(this,'🔴','DeepSeek V4','2 cr','Fast & cheap daily tasks','deepseek')"><span class="model-option-emoji">🔴</span><div><div class="model-option-name">DeepSeek V4</div><div class="model-option-desc">Fast & cheap — daily tasks</div></div><span class="model-option-cost">2 cr/msg</span></div>
-        <div class="model-option" onclick="selectModel(this,'🟢','GPT-5','6 cr','OpenAI flagship','gpt5')"><span class="model-option-emoji">🟢</span><div><div class="model-option-name">GPT-5</div><div class="model-option-desc">OpenAI flagship — most popular</div></div><span class="model-option-cost">6 cr/msg</span></div>
-        <div class="model-option" onclick="selectModel(this,'🟠','Claude Sonnet','8 cr','Best reasoning & coding','claude')"><span class="model-option-emoji">🟠</span><div><div class="model-option-name">Claude Sonnet</div><div class="model-option-desc">Best reasoning & coding</div></div><span class="model-option-cost">8 cr/msg</span></div>
-        <div class="model-option" onclick="selectModel(this,'🔵','Gemini 2.5','3 cr','Google — great for research','gemini')"><span class="model-option-emoji">🔵</span><div><div class="model-option-name">Gemini 2.5 Flash</div><div class="model-option-desc">Google — research & analysis</div></div><span class="model-option-cost">3 cr/msg</span></div>
-        <div class="model-option" onclick="selectModel(this,'⚡','Grok 4','5 cr','xAI — real-time info','grok')"><span class="model-option-emoji">⚡</span><div><div class="model-option-name">Grok 4</div><div class="model-option-desc">xAI — trending & real-time</div></div><span class="model-option-cost">5 cr/msg</span></div>
-        <div class="model-option" onclick="selectModel(this,'🦙','Llama 4','2 cr','Meta open source','llama')"><span class="model-option-emoji">🦙</span><div><div class="model-option-name">Llama 4</div><div class="model-option-desc">Meta — budget friendly</div></div><span class="model-option-cost">2 cr/msg</span></div>
-        <div class="model-option" onclick="selectModel(this,'🌊','Mistral Large','4 cr','Business & multilingual','mistral')"><span class="model-option-emoji">🌊</span><div><div class="model-option-name">Mistral Large 3</div><div class="model-option-desc">Business & multilingual</div></div><span class="model-option-cost">4 cr/msg</span></div>
-        <div class="model-option" onclick="selectModel(this,'🌙','Kimi K2','3 cr','Frontier quality cheap','kimi')"><span class="model-option-emoji">🌙</span><div><div class="model-option-name">Kimi K2</div><div class="model-option-desc">Frontier quality, very cheap</div></div><span class="model-option-cost">3 cr/msg</span></div>
-        <div class="model-option" onclick="selectModel(this,'🐉','Qwen 3','2 cr','Alibaba multilingual','qwen')"><span class="model-option-emoji">🐉</span><div><div class="model-option-name">Qwen 3</div><div class="model-option-desc">Alibaba — multilingual</div></div><span class="model-option-cost">2 cr/msg</span></div>
-      </div>
     </div>
 
     <div class="smart-tag" onclick="toggleWebSearch()"><div class="smart-dot"></div><span id="smartLabel">Smart Router ON</span></div>
@@ -319,13 +427,13 @@
   <!-- MESSAGES -->
   <div class="messages-area" id="messagesArea">
     <div class="welcome-screen" id="welcomeScreen">
-      <div class="welcome-logo">OMNI<span>AI</span></div>
-      <p class="welcome-sub">9 premium AI models, ek dashboard. Smart Router best model choose karega automatically!</p>
+      <div class="welcome-logo">OMNEXO<span class="om-ai" style="margin-left:6px;">AI</span></div>
+      <p class="welcome-sub">9 premium AI models, one dashboard. Smart Router picks the best model automatically!</p>
       <div class="suggestion-grid">
-        <div class="suggestion-card" onclick="useSuggestion('Mujhe ek professional email likhne mein help karo')"><span class="suggestion-icon">✉️</span><div class="suggestion-text">Professional email likhne mein help karo</div></div>
-        <div class="suggestion-card" onclick="useSuggestion('Python mein ek simple web scraper banao')"><span class="suggestion-icon">💻</span><div class="suggestion-text">Python mein web scraper banao</div></div>
-        <div class="suggestion-card" onclick="useSuggestion('Mere SaaS product ke liye marketing strategy batao')"><span class="suggestion-icon">🚀</span><div class="suggestion-text">SaaS product ki marketing strategy</div></div>
-        <div class="suggestion-card" onclick="useSuggestion('Hindi mein ek creative story likhao')"><span class="suggestion-icon">📖</span><div class="suggestion-text">Hindi mein creative story likhao</div></div>
+        <div class="suggestion-card" onclick="useSuggestion('Help me write a professional email')"><span class="suggestion-icon">✉️</span><div class="suggestion-text">Help me write a professional email</div></div>
+        <div class="suggestion-card" onclick="useSuggestion('Build a simple web scraper in Python')"><span class="suggestion-icon">💻</span><div class="suggestion-text">Build a web scraper in Python</div></div>
+        <div class="suggestion-card" onclick="useSuggestion('Suggest a marketing strategy for my SaaS product')"><span class="suggestion-icon">🚀</span><div class="suggestion-text">Marketing strategy for a SaaS product</div></div>
+        <div class="suggestion-card" onclick="useSuggestion('Write a creative short story')"><span class="suggestion-icon">📖</span><div class="suggestion-text">Write a creative short story</div></div>
       </div>
     </div>
   </div>
@@ -348,10 +456,9 @@
     <!-- INPUT BOX -->
     <div class="input-box">
       <div class="input-top">
-        <textarea class="chat-input" id="chatInput" placeholder="Ask anything... (Hindi ya English dono chalega)" rows="1" oninput="onInputChange(this)" onkeydown="handleKeydown(event)"></textarea>
+        <textarea class="chat-input" id="chatInput" placeholder="Ask anything..." rows="1" oninput="onInputChange(this)" onkeydown="handleKeydown(event)"></textarea>
         <div class="input-actions">
-          <button class="input-tool-btn" onclick="document.getElementById('imageInput').click()" title="Upload Image">🖼️</button>
-          <button class="input-tool-btn" onclick="document.getElementById('fileInput').click()" title="Upload File">📎</button>
+          <button class="input-tool-btn" onclick="openAttachMenu()" title="Add to chat" id="attachBtn">＋</button>
           <button class="input-tool-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice Input">🎤</button>
           <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
         </div>
@@ -367,12 +474,73 @@
   </div>
 </div>
 
+<!-- ADD TO CHAT SHEET -->
+<div class="attach-overlay" id="attachOverlay" onclick="closeAttachOutside(event)">
+  <div class="attach-sheet" id="attachSheet">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div class="attach-title" style="margin-bottom:0;">Add to chat</div>
+      <span style="font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:800;color:var(--accent);letter-spacing:0.5px;">OMNEXO AI</span>
+    </div>
+    <div class="attach-grid">
+      <div class="attach-item" onclick="openCamera()">
+        <span class="attach-icon">📷</span>
+        <span class="attach-label">Camera</span>
+      </div>
+      <div class="attach-item" onclick="openPhotos()">
+        <span class="attach-icon">🖼️</span>
+        <span class="attach-label">Photos</span>
+      </div>
+      <div class="attach-item" onclick="openFiles()">
+        <span class="attach-icon">📄</span>
+        <span class="attach-label">Files</span>
+      </div>
+    </div>
+    <div class="attach-toggles">
+      <div class="attach-toggle-row">
+        <div class="attach-toggle-label">
+          <span class="attach-toggle-icon">🌐</span>
+          <span>Web Search</span>
+        </div>
+        <button class="toggle-sw" id="attachWebToggle" onclick="toggleWebSearchFromSheet()"></button>
+      </div>
+      <div class="attach-toggle-row">
+        <div class="attach-toggle-label">
+          <span class="attach-toggle-icon">🔬</span>
+          <span>Deep Research</span>
+        </div>
+        <button class="toggle-sw" id="attachResearchToggle" onclick="toggleResearch()" title="Pro plan feature"></button>
+      </div>
+    </div>
+
+    <!-- RESPONSE STYLE SELECTOR -->
+    <div style="margin-bottom:14px;">
+      <div style="font-size:0.72rem;font-weight:700;font-family:'Syne',sans-serif;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">✍️ Response Style</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px;" id="styleGrid">
+        <button class="style-btn active" onclick="setStyle('auto',this)">🤖 Auto</button>
+        <button class="style-btn" onclick="setStyle('concise',this)">⚡ Concise</button>
+        <button class="style-btn" onclick="setStyle('detailed',this)">📖 Detailed</button>
+        <button class="style-btn" onclick="setStyle('creative',this)">🎨 Creative</button>
+        <button class="style-btn" onclick="setStyle('technical',this)">🔧 Technical</button>
+        <button class="style-btn" onclick="setStyle('formal',this)">👔 Formal</button>
+      </div>
+    </div>
+
+    <!-- CREDIT COST PREVIEW in sheet -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.1);border-radius:10px;margin-bottom:14px;">
+      <span style="font-size:0.8rem;color:var(--muted);">💰 Est. credits this message</span>
+      <span style="font-size:0.82rem;font-weight:700;font-family:'Syne',sans-serif;color:var(--accent);" id="sheetCostVal">2–3 cr</span>
+    </div>
+
+    <button class="attach-cancel" onclick="closeAttachMenu()">Cancel</button>
+  </div>
+</div>
+
 <!-- EXPORT MODAL -->
 <div class="modal-overlay" id="exportModal" onclick="closeExportOutside(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeExportModal()">✕</button>
     <div class="modal-title">📤 Export Chat</div>
-    <div class="modal-sub">Is conversation ko download karein</div>
+    <div class="modal-sub">Download this conversation</div>
     <div class="export-options">
       <div class="export-option" onclick="exportChat('txt')"><span class="export-icon">📄</span><div><div style="font-size:0.82rem;font-weight:600;">Plain Text (.txt)</div><div style="font-size:0.68rem;color:var(--muted);">Simple readable format</div></div></div>
       <div class="export-option" onclick="exportChat('json')"><span class="export-icon">{ }</span><div><div style="font-size:0.82rem;font-weight:600;">JSON Format</div><div style="font-size:0.68rem;color:var(--muted);">Developer friendly format</div></div></div>
@@ -396,6 +564,23 @@
 <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;" onclick="toggleSidebar()"></div>
 <div class="toast" id="toast"></div>
 
+<!-- MODEL DROPDOWN — kept at body level (not nested in topbar) so it always
+     escapes ancestor stacking contexts and is never visually clipped. -->
+<div class="model-dropdown" id="modelDropdown">
+  <div class="dropdown-header">Select AI Model</div>
+  <div class="model-option selected" onclick="selectModel(this,'🤖','Smart Router','Auto','Auto-picks best model','auto')"><span class="model-option-emoji">🤖</span><div><div class="model-option-name">Smart Router</div><div class="model-option-desc">Auto-picks cheapest + best model</div></div><span class="model-option-cost">Auto</span></div>
+  <div class="model-option" onclick="selectModel(this,'🔴','DeepSeek V4','2 cr','Fast & cheap daily tasks','deepseek')"><span class="model-option-emoji">🔴</span><div><div class="model-option-name">DeepSeek V4</div><div class="model-option-desc">Fast & cheap — daily tasks</div></div><span class="model-option-cost">2 cr/msg</span></div>
+  <div class="model-option" onclick="selectModel(this,'🟢','GPT-5.5','6 cr','OpenAI flagship','gpt5')"><span class="model-option-emoji">🟢</span><div><div class="model-option-name">GPT-5.5</div><div class="model-option-desc">OpenAI flagship — most popular</div></div><span class="model-option-cost">6 cr/msg</span></div>
+  <div class="model-option" onclick="selectModel(this,'🟠','Claude Sonnet','8 cr','Best reasoning & coding','claude')"><span class="model-option-emoji">🟠</span><div><div class="model-option-name">Claude Sonnet</div><div class="model-option-desc">Best reasoning & coding</div></div><span class="model-option-cost">8 cr/msg</span></div>
+  <div class="model-option" onclick="selectModel(this,'🔵','Gemini 2.5 Flash','3 cr','Google — great for research','gemini')"><span class="model-option-emoji">🔵</span><div><div class="model-option-name">Gemini 2.5 Flash</div><div class="model-option-desc">Google — research & analysis</div></div><span class="model-option-cost">3 cr/msg</span></div>
+  <div class="model-option" onclick="selectModel(this,'⚡','Grok 4','5 cr','xAI — real-time info','grok')"><span class="model-option-emoji">⚡</span><div><div class="model-option-name">Grok 4</div><div class="model-option-desc">xAI — trending & real-time</div></div><span class="model-option-cost">5 cr/msg</span></div>
+  <div class="model-option" onclick="selectModel(this,'🦙','Llama 4','2 cr','Meta open source','llama')"><span class="model-option-emoji">🦙</span><div><div class="model-option-name">Llama 4</div><div class="model-option-desc">Meta — budget friendly</div></div><span class="model-option-cost">2 cr/msg</span></div>
+  <div class="model-option" onclick="selectModel(this,'🌊','Mistral Large','4 cr','Business & multilingual','mistral')"><span class="model-option-emoji">🌊</span><div><div class="model-option-name">Mistral Large 3</div><div class="model-option-desc">Business & multilingual</div></div><span class="model-option-cost">4 cr/msg</span></div>
+  <div class="model-option" onclick="selectModel(this,'🌙','Kimi K2','3 cr','Frontier quality cheap','kimi')"><span class="model-option-emoji">🌙</span><div><div class="model-option-name">Kimi K2</div><div class="model-option-desc">Frontier quality, very cheap</div></div><span class="model-option-cost">3 cr/msg</span></div>
+  <div class="model-option" onclick="selectModel(this,'🐉','Qwen 3','2 cr','Alibaba multilingual','qwen')"><span class="model-option-emoji">🐉</span><div><div class="model-option-name">Qwen 3</div><div class="model-option-desc">Alibaba — multilingual</div></div><span class="model-option-cost">2 cr/msg</span></div>
+</div>
+
+
 <script>
   // ── STATE ──
   let credits=120, isTyping=false, isVoiceOn=false, voiceInterval=null, voiceSeconds=0;
@@ -406,18 +591,18 @@
 
   const modelCosts={auto:[2,3],deepseek:[2,2],gpt5:[6,6],claude:[8,8],gemini:[3,3],grok:[5,5],llama:[2,2],mistral:[4,4],kimi:[3,3],qwen:[2,2]};
 
+  let draftText='';
+
   // ── INIT ──
   window.addEventListener('load',()=>{
     setTimeout(()=>{document.getElementById('sidebarBar').style.width='34%';},400);
-    // Restore draft from localStorage
-    const draft=localStorage.getItem('omniai_draft');
-    if(draft){document.getElementById('chatInput').value=draft;autoResize(document.getElementById('chatInput'));updateCostEstimator(draft);}
+    // Restore draft (in-memory only — localStorage isn't reliable in all preview/sandboxed contexts)
+    if(draftText){document.getElementById('chatInput').value=draftText;autoResize(document.getElementById('chatInput'));updateCostEstimator(draftText);}
   });
 
-  // ── DRAFT PERSISTENCE (Claude.ai jaisa!) ──
+  // ── DRAFT PERSISTENCE (in-memory, survives within this tab session) ──
   function saveDraft(text){
-    if(text.trim())localStorage.setItem('omniai_draft',text);
-    else localStorage.removeItem('omniai_draft');
+    draftText=text||'';
   }
 
   function onInputChange(el){
@@ -447,8 +632,17 @@
   }
 
   // ── MODEL DROPDOWN ──
-  function toggleModelDropdown(){document.getElementById('modelDropdown').classList.toggle('open');}
-  document.addEventListener('click',e=>{if(!e.target.closest('.model-selector'))document.getElementById('modelDropdown').classList.remove('open');});
+  function toggleModelDropdown(){
+    const dd=document.getElementById('modelDropdown');
+    const isOpening=!dd.classList.contains('open');
+    if(isOpening){
+      const btnRect=document.getElementById('modelBtn').getBoundingClientRect();
+      dd.style.top=(btnRect.bottom+6)+'px';
+      dd.style.left=btnRect.left+'px';
+    }
+    dd.classList.toggle('open');
+  }
+  document.addEventListener('click',e=>{if(!e.target.closest('.model-selector')&&!e.target.closest('#modelDropdown'))document.getElementById('modelDropdown').classList.remove('open');});
 
   function selectModel(el,emoji,name,cost,desc,key){
     document.querySelectorAll('.model-option').forEach(o=>o.classList.remove('selected'));
@@ -477,8 +671,8 @@
     document.getElementById('enBtn').classList.toggle('active',lang==='en');
     document.getElementById('hiBtn').classList.toggle('active',lang==='hi');
     const input=document.getElementById('chatInput');
-    input.placeholder=lang==='hi'?'Kuch bhi poochho... (Hindi mein likho)':'Ask anything... (Hindi ya English both work)';
-    showToast(lang==='hi'?'🇮🇳 Hindi mode active':'🌍 English mode active');
+    input.placeholder=lang==='hi'?'Kuch bhi poochho...':'Ask anything...';
+    showToast(lang==='hi'?'🇮🇳 Hindi input mode':'🌍 English input mode');
   }
 
   // ── FILE UPLOAD ──
@@ -567,7 +761,7 @@
   function sendVoice(){
     stopVoice();
     const input=document.getElementById('chatInput');
-    input.value='[Voice message — '+voiceSeconds+'s] Tell me about OMNI AI pricing';
+    input.value='[Voice message — '+voiceSeconds+'s] Tell me about OMNEXO AI pricing';
     autoResize(input);
     sendMessage();
   }
@@ -603,12 +797,12 @@
 
   // ── NEW CHAT ──
   function newChat(){
-    document.getElementById('messagesArea').innerHTML=`<div class="welcome-screen" id="welcomeScreen"><div class="welcome-logo">OMNI<span style="color:var(--accent)">AI</span></div><p class="welcome-sub">9 premium AI models, ek dashboard. Smart Router best model choose karega!</p><div class="suggestion-grid"><div class="suggestion-card" onclick="useSuggestion('Mujhe ek professional email likhne mein help karo')"><span class="suggestion-icon">✉️</span><div class="suggestion-text">Professional email likhne mein help karo</div></div><div class="suggestion-card" onclick="useSuggestion('Python mein ek simple web scraper banao')"><span class="suggestion-icon">💻</span><div class="suggestion-text">Python mein web scraper banao</div></div><div class="suggestion-card" onclick="useSuggestion('SaaS product ki marketing strategy')"><span class="suggestion-icon">🚀</span><div class="suggestion-text">SaaS product ki marketing strategy</div></div><div class="suggestion-card" onclick="useSuggestion('Hindi mein creative story likhao')"><span class="suggestion-icon">📖</span><div class="suggestion-text">Hindi mein creative story likhao</div></div></div></div>`;
+    document.getElementById('messagesArea').innerHTML=`<div class="welcome-screen" id="welcomeScreen"><div class="welcome-logo">OMNEXO<span class="om-ai" style="margin-left:6px;">AI</span></div><p class="welcome-sub">9 premium AI models, one dashboard. Smart Router picks the best model!</p><div class="suggestion-grid"><div class="suggestion-card" onclick="useSuggestion('Help me write a professional email')"><span class="suggestion-icon">✉️</span><div class="suggestion-text">Help me write a professional email</div></div><div class="suggestion-card" onclick="useSuggestion('Build a simple web scraper in Python')"><span class="suggestion-icon">💻</span><div class="suggestion-text">Build a web scraper in Python</div></div><div class="suggestion-card" onclick="useSuggestion('Marketing strategy for a SaaS product')"><span class="suggestion-icon">🚀</span><div class="suggestion-text">Marketing strategy for a SaaS product</div></div><div class="suggestion-card" onclick="useSuggestion('Write a creative short story')"><span class="suggestion-icon">📖</span><div class="suggestion-text">Write a creative short story</div></div></div></div>`;
     chatMessages=[];
     attachedFiles=[]; attachedImages=[];
     document.getElementById('attachmentsPreview').style.display='none';
     document.getElementById('attachmentsPreview').innerHTML='';
-    localStorage.removeItem('omniai_draft');
+    draftText='';
     if(window.innerWidth<=768)toggleSidebar();
   }
 
@@ -620,7 +814,7 @@
     const input=document.getElementById('chatInput');
     const text=input.value.trim();
     if(!text||isTyping)return;
-    if(credits<=0){showToast('⚡ Credits khatam! Recharge karein.');return;}
+    if(credits<=0){showToast('⚡ Out of credits! Please recharge.');return;}
 
     const ws=document.getElementById('welcomeScreen');
     if(ws)ws.remove();
@@ -635,13 +829,17 @@
     if(attachedFiles.length>0)attachInfo+=` 📎 ${attachedFiles.length} file(s)`;
     if(attachedImages.length>0)attachInfo+=` 🖼️ ${attachedImages.length} image(s)`;
 
+    // Add style prefix to context if style is set
+    const stylePrefix = (currentStyle !== 'auto' && styleInstructions[currentStyle])
+      ? '[' + currentStyle.toUpperCase() + ' MODE] ' : '';
     chatMessages.push({role:'user',content:text,time:timeStr});
 
-    area.innerHTML+=`<div class="message user" id="${msgId}"><div class="msg-avatar user-av">B</div><div class="msg-content"><div class="msg-meta"><span class="msg-name">You</span><span class="msg-time">${timeStr}</span>${attachInfo?`<span class="msg-credits-used">${attachInfo}</span>`:''}</div><div class="msg-bubble">${escapeHtml(text)}</div></div></div>`;
+    const styleBadge = currentStyle!=='auto' ? `<span class="msg-credits-used">✍️ ${currentStyle}</span>`:'';
+    area.innerHTML+=`<div class="message user" id="${msgId}"><div class="msg-avatar user-av">B</div><div class="msg-content"><div class="msg-meta"><span class="msg-name">You</span><span class="msg-time">${timeStr}</span>${attachInfo?`<span class="msg-credits-used">${attachInfo}</span>`:''} ${styleBadge}</div><div class="msg-bubble">${escapeHtml(text)}</div></div></div>`;
 
     input.value='';
     input.style.height='auto';
-    localStorage.removeItem('omniai_draft');
+    draftText='';
     attachedFiles=[]; attachedImages=[];
     document.getElementById('attachmentsPreview').style.display='none';
     document.getElementById('attachmentsPreview').innerHTML='';
@@ -684,9 +882,11 @@
             <div class="msg-bubble" id="bubble_${aiMsgId}">${response}</div>
             <div class="msg-actions">
               <button class="msg-action-btn" onclick="copyMessage('bubble_${aiMsgId}')">📋 Copy</button>
-              <button class="msg-action-btn" onclick="regenerateMessage('${aiMsgId}','${escapeHtml(text).replace(/'/g,'\\'')}')">🔄 Regenerate</button>
-              <button class="feedback-btn" id="like_${aiMsgId}" onclick="giveFeedback('${aiMsgId}','like')">👍</button>
-              <button class="feedback-btn" id="dislike_${aiMsgId}" onclick="giveFeedback('${aiMsgId}','dislike')">👎</button>
+              <button class="msg-action-btn" data-query="${escapeHtml(text)}" onclick="regenerateMessage('${aiMsgId}', this)">🔄 Regenerate</button>
+              <span class="msg-thumb-btns">
+                <button class="thumb-btn" onclick="thumbVote(this,'up')" title="Good response">👍</button>
+                <button class="thumb-btn" onclick="thumbVote(this,'down')" title="Poor response">👎</button>
+              </span>
             </div>
           </div>
         </div>`;
@@ -705,8 +905,9 @@
   }
 
   // ── REGENERATE ──
-  function regenerateMessage(aiMsgId,originalQuery){
+  function regenerateMessage(aiMsgId, btn){
     if(isTyping)return;
+    const originalQuery = btn && btn.getAttribute ? (btn.getAttribute('data-query')||'') : '';
     const el=document.getElementById(aiMsgId);
     if(!el)return;
 
@@ -722,38 +923,32 @@
     },1200);
   }
 
-  // ── FEEDBACK ──
-  function giveFeedback(msgId,type){
-    const likeBtn=document.getElementById('like_'+msgId);
-    const dislikeBtn=document.getElementById('dislike_'+msgId);
-    likeBtn?.classList.remove('liked');dislikeBtn?.classList.remove('disliked');
-    if(type==='like'){likeBtn?.classList.add('liked');showToast('👍 Feedback diya gaya!');}
-    else{dislikeBtn?.classList.add('disliked');showToast('👎 Feedback diya gaya! Hum improve karenge.');}
-  }
-
   // ── RESPONSE GENERATOR ──
   function generateResponse(text){
     const lower=text.toLowerCase();
     const prefix={
       auto:()=>`<strong>Smart Router → DeepSeek V4</strong> (cost-optimized) 🤖<br/><br/>`,
       deepseek:()=>`<strong>DeepSeek V4</strong> here! 🔴<br/><br/>`,
-      gpt5:()=>`<strong>GPT-5</strong> responding! 🟢<br/><br/>`,
+      gpt5:()=>`<strong>GPT-5.5</strong> responding! 🟢<br/><br/>`,
       claude:()=>`<strong>Claude Sonnet</strong> at your service! 🟠<br/><br/>`,
       gemini:()=>`<strong>Gemini 2.5 Flash</strong> — Google power! 🔵<br/><br/>`,
       grok:()=>`<strong>Grok 4</strong> online! ⚡<br/><br/>`,
       llama:()=>`<strong>Llama 4</strong> — Meta's best! 🦙<br/><br/>`,
-      mistral:()=>`<strong>Mistral Large</strong> ready! 🌊<br/><br/>`,
+      mistral:()=>`<strong>Mistral Large 3</strong> ready! 🌊<br/><br/>`,
       kimi:()=>`<strong>Kimi K2</strong> — frontier quality! 🌙<br/><br/>`,
       qwen:()=>`<strong>Qwen 3</strong> — multilingual AI! 🐉<br/><br/>`
     };
     const p=(prefix[selectedModel.key]||prefix.auto)();
 
-    if(lower.includes('email'))return p+'Zaroor! Yahan professional email template:<br/><br/><strong>Subject:</strong> [Aapka subject]<br/><br/>Dear [Name],<br/><br/>I hope this finds you well. [Main content]<br/><br/>Best regards,<br/>[Aapka naam]<br/><br/>Kya specific purpose hai email ka? 😊';
-    if(lower.includes('python')||lower.includes('code'))return p+'Python example:<br/><br/><code>import requests<br/>from bs4 import BeautifulSoup<br/>url = "https://example.com"<br/>r = requests.get(url)<br/>soup = BeautifulSoup(r.text, "html.parser")<br/>print(soup.title.text)</code><br/><br/>Koi specific feature chahiye? 💻';
-    if(lower.includes('marketing')||lower.includes('saas'))return p+'<strong>OMNI AI Marketing Strategy:</strong><br/><br/>1. <strong>Content Marketing</strong> — Hindi + English blogs<br/>2. <strong>YouTube Shorts</strong> — AI comparison videos<br/>3. <strong>Referral Program</strong> — 50 credits per referral<br/>4. <strong>India Tier-2 cities</strong> target karein<br/>5. <strong>"6.6x more power"</strong> positioning use karein! 🚀';
-    if(lower.includes('story')||lower.includes('kahani'))return p+'<strong>"AI aur Baudh ki Dosti"</strong><br/><br/>Auraiya ke ek chhote ghar mein Baudh baith ke socha — "kya main AI se ek aisi company bana sakta hoon jo India badal de?"<br/><br/>OMNI AI jaag utha — "Haan, sath milke banate hain!" 🌟<br/><br/>Kya aur likhun? 😊';
-    if(lower.includes('voice'))return p+'Voice message receive hua! 🎤<br/><br/>Main voice queries ko text mein convert karta hoon aur best AI model se answer deta hoon. Kaafi convenient hai na? 😊';
-    return p+'Yeh bahut interesting question hai! Main poori detail mein explain karta hoon.<br/><br/>Aapka sawal samajh aaya — <strong>Hindi ya English</strong> dono mein answer de sakta hoon. Smart Router ne is query ke liye sabse suitable model select kiya hai.<br/><br/>Kya aap aur specific karenge? 🤝';
+    const greetingPattern=/^(hi|hello|hey|yo|namaste|namaskar|kaise ho|kaisi ho|kya haal|whats up|what's up|good morning|good evening|good afternoon)\b/;
+    if(greetingPattern.test(lower.trim()))return p+'Hey there! 👋 I\'m doing great, thanks for asking! How can I help you today? You can ask me to write something, debug code, brainstorm ideas, or just chat — in English or Hindi, whatever\'s easier for you. 😊';
+
+    if(lower.includes('email'))return p+'Sure! Here\'s a professional email template:<br/><br/><strong>Subject:</strong> [Your subject]<br/><br/>Dear [Name],<br/><br/>I hope this finds you well. [Main content]<br/><br/>Best regards,<br/>[Your name]<br/><br/>What\'s the specific purpose of this email? 😊';
+    if(lower.includes('python')||lower.includes('code'))return p+'Python example:<br/><br/><code>import requests<br/>from bs4 import BeautifulSoup<br/>url = "https://example.com"<br/>r = requests.get(url)<br/>soup = BeautifulSoup(r.text, "html.parser")<br/>print(soup.title.text)</code><br/><br/>Need a specific feature? 💻';
+    if(lower.includes('marketing')||lower.includes('saas'))return p+'<strong>OMNEXO AI Marketing Strategy:</strong><br/><br/>1. <strong>Content Marketing</strong> — high-intent blogs<br/>2. <strong>YouTube Shorts</strong> — AI comparison videos<br/>3. <strong>Referral Program</strong> — 50 credits per referral<br/>4. <strong>Target Tier-2 cities</strong> in India<br/>5. <strong>"6.6x more power"</strong> positioning! 🚀';
+    if(lower.includes('story'))return p+'<strong>"The Builder from Uttar Pradesh"</strong><br/><br/>In a small town in Uttar Pradesh, Baudh asked himself — "Can I build an AI company that changes India?"<br/><br/>OMNEXO AI awoke — "Yes, let\'s build it together!" 🌟<br/><br/>Want me to continue? 😊';
+    if(lower.includes('voice'))return p+'Voice message received! 🎤<br/><br/>I convert voice queries into text and answer using the best AI model. Pretty convenient, right? 😊';
+    return p+'That\'s a great question! Let me explain in detail.<br/><br/>I understood your query — I can answer in <strong>English or Hindi</strong>. The Smart Router selected the most suitable model for this query.<br/><br/>Could you be a bit more specific? 🤝';
   }
 
   function escapeHtml(text){return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -772,6 +967,88 @@
     t.textContent=msg; t.classList.add('show');
     setTimeout(()=>t.classList.remove('show'),2800);
   }
+
+  // ── ADD TO CHAT SHEET ──
+  function openAttachMenu(){ updateSheetCost();
+    const ol=document.getElementById('attachOverlay');
+    ol.classList.add('open');
+    const wsBtn=document.getElementById('attachWebToggle');
+    if(wsBtn) wsBtn.classList.toggle('on', webSearchOn);
+  }
+  function closeAttachMenu(){
+    document.getElementById('attachOverlay').classList.remove('open');
+  }
+  function closeAttachOutside(e){
+    if(e.target===document.getElementById('attachOverlay')) closeAttachMenu();
+  }
+  function openCamera(){
+    closeAttachMenu();
+    const inp=document.createElement('input');
+    inp.type='file'; inp.accept='image/*'; inp.capture='environment';
+    inp.onchange=e=>{ if(e.target.files[0]) handleImageUpload({target:{files:[e.target.files[0]]}}); };
+    inp.click();
+  }
+  function openPhotos(){
+    closeAttachMenu();
+    document.getElementById('imageInput').click();
+  }
+  function openFiles(){
+    closeAttachMenu();
+    document.getElementById('fileInput').click();
+  }
+  function toggleWebSearchFromSheet(){
+    toggleWebSearch();
+    const wsBtn=document.getElementById('attachWebToggle');
+    if(wsBtn) wsBtn.classList.toggle('on', webSearchOn);
+  }
+  let deepResearchOn=false;
+  function toggleResearch(){
+    const planLevel=credits>=1000?'pro':credits>=400?'power':'starter';
+    if(planLevel!=='pro'){
+      showToast('🔒 Deep Research — Pro Plan only');
+      return;
+    }
+    deepResearchOn=!deepResearchOn;
+    document.getElementById('attachResearchToggle').classList.toggle('on',deepResearchOn);
+    showToast(deepResearchOn?'🔬 Deep Research ON':'🔬 Deep Research OFF');
+  }
+
+  // ── THUMBS UP/DOWN ──
+  // Response style
+  let currentStyle = 'auto';
+  const styleInstructions = {
+    auto: '',
+    concise: 'Reply in 1-3 sentences maximum. Be ultra-brief.',
+    detailed: 'Give a thorough, comprehensive answer with examples.',
+    creative: 'Be imaginative, use storytelling and vivid language.',
+    technical: 'Use precise technical language with code examples where relevant.',
+    formal: 'Use professional, formal tone. No casual language.'
+  };
+
+  function setStyle(style, btn) {
+    currentStyle = style;
+    document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const labels = {auto:'🤖 Auto', concise:'⚡ Concise', detailed:'📖 Detailed', creative:'🎨 Creative', technical:'🔧 Technical', formal:'👔 Formal'};
+    showToast('✍️ Style: ' + labels[style]);
+  }
+
+  function updateSheetCost() {
+    const sel = document.getElementById('modelSelect');
+    const costs = {auto:2, deepseek:2, qwen:2, llama:2, kimi:3, gemini:3, mistral:4, grok:5, gpt5:6, claude:8};
+    const key = sel ? sel.value : 'auto';
+    const cr = costs[key] || 2;
+    const el = document.getElementById('sheetCostVal');
+    if(el) el.textContent = cr + ' cr';
+  }
+
+  function thumbVote(btn, type){
+    const parent=btn.closest('.msg-thumb-btns');
+    parent.querySelectorAll('.thumb-btn').forEach(b=>b.classList.remove('voted'));
+    btn.classList.add('voted');
+    showToast(type==='up'?'👍 Thanks for the feedback!':"👎 We'll keep improving!");
+  }
+
 </script>
 </body>
 </html>

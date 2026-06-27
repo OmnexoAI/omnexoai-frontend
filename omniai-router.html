@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OMNI AI — Smart Router</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<title>OMNEXO AI — Smart Router</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@700;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
   :root{--bg:#040507;--bg2:#080b10;--card:#0d1117;--border:rgba(255,255,255,0.07);--accent:#00e5ff;--accent2:#7c3aed;--accent3:#f59e0b;--text:#f0f4f8;--muted:#64748b;--success:#22c55e;--error:#ef4444;}
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -18,9 +18,7 @@
   @keyframes breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
 
   /* SIDEBAR */
-  .sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:rgba(8,11,16,0.98);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;padding:24px 16px;transition:transform 0.3s;}
-  .sidebar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.5px;margin-bottom:32px;padding-left:8px;}
-  .sidebar-logo span{color:var(--accent);}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:rgba(8,11,16,0.98);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;padding:24px 16px;transition:transform 0.3s;will-change:transform;transform:translateZ(0);backface-visibility:hidden;overflow-y:auto;scrollbar-width:thin;}
   .nav-section{font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:0 8px;margin-bottom:8px;margin-top:16px;}
   .nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:0.85rem;color:var(--muted);cursor:pointer;transition:all 0.2s;text-decoration:none;margin-bottom:2px;}
   .nav-item:hover{background:rgba(255,255,255,0.04);color:var(--text);}
@@ -34,9 +32,79 @@
 
   /* TOPBAR mobile */
   .topbar{display:none;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(4,5,7,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 20px;align-items:center;justify-content:space-between;}
-  .topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;}
-  .topbar-logo span{color:var(--accent);}
   .hamburger{background:none;border:none;color:var(--text);font-size:1.3rem;cursor:pointer;}
+
+  /* ═══════════════════════════════════════════
+     OMNEXO AI — PRODUCTION LOGO (exact match to logo-app.html / index.html)
+     9 orbits + sphere + wordmark, scaled for topbar/sidebar.
+     ═══════════════════════════════════════════ */
+  .omnexo-orbital{position:relative;width:220px;height:220px;}
+  .omnexo-sphere{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:62px;height:62px;border-radius:50%;z-index:10;
+    background:conic-gradient(from 0deg,#FF3DAE,#FF6B6B,#FFA62B,#FFE600,#06FFA5,#00D4FF,#3B82F6,#A855F7,#FF3DAE);
+    animation:omnexoSpinSphere 5s linear infinite;
+    box-shadow:0 0 0 3px rgba(255,255,255,0.06),0 0 34px rgba(168,85,247,0.7),0 0 68px rgba(59,130,246,0.5),0 0 110px rgba(6,255,165,0.25);
+  }
+  .omnexo-sphere::after{content:'';position:absolute;top:13%;left:17%;width:32%;height:22%;background:rgba(255,255,255,0.6);border-radius:50%;filter:blur(3px);}
+  @keyframes omnexoSpinSphere{to{transform:translate(-50%,-50%) rotate(360deg);}}
+  .omnexo-aura{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:74px;height:74px;border-radius:50%;
+    background:radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 70%);
+    z-index:9;animation:omnexoPulse 3s ease-in-out infinite;
+  }
+  @keyframes omnexoPulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}}
+  .omnexo-orbit{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid;transform-origin:center center;}
+  .oo1{ width:68px;height:26px;  margin:-13px 0 0 -34px;  border-color:rgba(255,61,174,0.45); animation:oos1 6s   linear infinite; }
+  .oo2{ width:82px;height:30px;  margin:-15px 0 0 -41px;  border-color:rgba(255,166,43,0.4);  animation:oos2 9s   linear infinite; }
+  .oo3{ width:96px;height:34px;  margin:-17px 0 0 -48px;  border-color:rgba(255,230,0,0.35);  animation:oos3 12s  linear infinite; }
+  .oo4{ width:108px;height:38px; margin:-19px 0 0 -54px;  border-color:rgba(6,255,165,0.35);  animation:oos4 16s  linear infinite; }
+  .oo5{ width:122px;height:42px; margin:-21px 0 0 -61px;  border-color:rgba(0,212,255,0.32);  animation:oos5 20s  linear infinite; }
+  .oo6{ width:134px;height:46px; margin:-23px 0 0 -67px;  border-color:rgba(59,130,246,0.3);  animation:oos6 25s  linear infinite; }
+  .oo7{ width:146px;height:50px; margin:-25px 0 0 -73px;  border-color:rgba(168,85,247,0.28); animation:oos7 30s  linear infinite; }
+  .oo8{ width:158px;height:54px; margin:-27px 0 0 -79px;  border-color:rgba(236,72,153,0.25); animation:oos8 36s  linear infinite; }
+  .oo9{ width:172px;height:58px; margin:-29px 0 0 -86px;  border-color:rgba(250,204,21,0.22); animation:oos9 42s  linear infinite; }
+  @keyframes oos1{from{transform:rotate(8deg)}to{transform:rotate(368deg)}}
+  @keyframes oos2{from{transform:rotate(-28deg)}to{transform:rotate(-388deg)}}
+  @keyframes oos3{from{transform:rotate(52deg)}to{transform:rotate(412deg)}}
+  @keyframes oos4{from{transform:rotate(-65deg)}to{transform:rotate(-425deg)}}
+  @keyframes oos5{from{transform:rotate(15deg)}to{transform:rotate(375deg)}}
+  @keyframes oos6{from{transform:rotate(-40deg)}to{transform:rotate(-400deg)}}
+  @keyframes oos7{from{transform:rotate(75deg)}to{transform:rotate(435deg)}}
+  @keyframes oos8{from{transform:rotate(-12deg)}to{transform:rotate(-372deg)}}
+  @keyframes oos9{from{transform:rotate(38deg)}to{transform:rotate(398deg)}}
+  .omnexo-planet{position:absolute;top:50%;left:100%;transform:translate(-50%,-50%);border-radius:50%;}
+  .oo1 .omnexo-planet{width:5px;height:5px; background:#FF3DAE; box-shadow:0 0 8px #FF3DAE,0 0 16px rgba(255,61,174,0.6);}
+  .oo2 .omnexo-planet{width:5px;height:5px; background:#FFA62B; box-shadow:0 0 8px #FFA62B,0 0 16px rgba(255,166,43,0.6);}
+  .oo3 .omnexo-planet{width:5px;height:5px; background:#FFE600; box-shadow:0 0 8px #FFE600,0 0 16px rgba(255,230,0,0.6);}
+  .oo4 .omnexo-planet{width:4.5px;height:4.5px; background:#06FFA5; box-shadow:0 0 8px #06FFA5,0 0 14px rgba(6,255,165,0.55);}
+  .oo5 .omnexo-planet{width:4.5px;height:4.5px; background:#00D4FF; box-shadow:0 0 8px #00D4FF,0 0 14px rgba(0,212,255,0.55);}
+  .oo6 .omnexo-planet{width:4.5px;height:4.5px; background:#3B82F6; box-shadow:0 0 8px #3B82F6,0 0 14px rgba(59,130,246,0.5);}
+  .oo7 .omnexo-planet{width:4px;height:4px; background:#A855F7; box-shadow:0 0 7px #A855F7,0 0 13px rgba(168,85,247,0.5);}
+  .oo8 .omnexo-planet{width:4px;height:4px; background:#EC4899; box-shadow:0 0 7px #EC4899,0 0 13px rgba(236,72,153,0.45);}
+  .oo9 .omnexo-planet{width:4px;height:4px; background:#FACC15; box-shadow:0 0 7px #FACC15,0 0 13px rgba(250,204,21,0.45);}
+  .om-ai{
+    background:linear-gradient(135deg,#FF3DAE,#A855F7,#00D4FF);background-size:200% auto;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    filter:drop-shadow(0 0 14px rgba(168,85,247,0.6));
+  }
+
+  /* scaled wrapper for topbar/sidebar — same 220px logo, shrunk to fit */
+  .omnexo-nav-wrap{
+    display:inline-block;width:36px;height:36px;
+    overflow:hidden;flex-shrink:0;position:relative;vertical-align:middle;
+    will-change:transform;transform:translateZ(0);isolation:isolate;
+  }
+  .omnexo-nav-wrap .omnexo-orbital{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(0.163);
+  }
+  .omnexo-nav-word{
+    font-family:'Orbitron',monospace;font-weight:900;font-size:1.05rem;
+    letter-spacing:0.02em;color:#FFFFFF;display:inline-flex;align-items:center;gap:4px;
+  }
+  .omnexo-nav-word .om-ai{filter:drop-shadow(0 0 8px rgba(168,85,247,0.6));}
 
   /* MAIN */
   .main{margin-left:220px;min-height:100vh;position:relative;z-index:1;}
@@ -73,7 +141,7 @@
   .test-btn{background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;padding:9px 16px;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;cursor:pointer;transition:all 0.2s;}
   .test-btn:hover{transform:translateY(-1px);}
   .demo-input-row{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center;}
-  .demo-input{flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+  .demo-input{flex:1;min-width:0;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
   .demo-input:focus{border-color:var(--accent);}
   .demo-input::placeholder{color:#2d3748;}
   .route-btn{background:var(--accent2);color:#fff;border:none;padding:10px 16px;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
@@ -182,10 +250,9 @@
 
   /* MODEL COMPARISON */
   .comparison-section{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;animation:fadeUp 0.5s 0.3s ease both;}
-  .comparison-section::before{content:'PRO ONLY';position:absolute;}
   .pro-badge{display:inline-block;background:linear-gradient(135deg,var(--accent2),#5b21b6);color:#fff;font-size:0.6rem;font-weight:800;padding:2px 8px;border-radius:5px;letter-spacing:0.5px;margin-left:8px;vertical-align:middle;}
   .comparison-input-row{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:center;}
-  .comparison-input{flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:9px;font-size:0.82rem;outline:none;transition:border-color 0.2s;}
+  .comparison-input{flex:1;min-width:0;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:9px;font-size:0.82rem;outline:none;transition:border-color 0.2s;}
   .comparison-input:focus{border-color:var(--accent);}
   .comparison-btn{background:linear-gradient(135deg,var(--accent2),#5b21b6);color:#fff;border:none;padding:9px 14px;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.75rem;cursor:pointer;white-space:nowrap;}
   .comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border);}
@@ -222,7 +289,7 @@
   /* MODAL */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.25s;}
   .modal-overlay.open{opacity:1;pointer-events:all;}
-  .modal{background:var(--card);border:1px solid rgba(0,229,255,0.15);border-radius:18px;padding:24px 22px;width:100%;max-width:380px;position:relative;transform:translateY(16px);transition:transform 0.25s;}
+  .modal{background:var(--card);border:1px solid rgba(0,229,255,0.15);border-radius:18px;padding:24px 22px;width:100%;max-width:380px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(16px);transition:transform 0.25s;scrollbar-width:thin;}
   .modal-overlay.open .modal{transform:translateY(0);}
   .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:18px 18px 0 0;}
   .modal-close{position:absolute;top:14px;right:14px;background:var(--bg2);border:1px solid var(--border);color:var(--muted);width:26px;height:26px;border-radius:7px;cursor:pointer;font-size:0.75rem;display:flex;align-items:center;justify-content:center;}
@@ -240,8 +307,8 @@
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
   @media(max-width:768px){
-    .sidebar{transform:translateX(-100%);}
-    .sidebar.open{transform:translateX(0);}
+    .sidebar{transform:translate3d(-100%,0,0);}
+    .sidebar.open{transform:translate3d(0,0,0);}
     .topbar{display:flex;}
     .main{margin-left:0;padding-top:60px;}
     .analytics-row{grid-template-columns:repeat(2,1fr);}
@@ -259,24 +326,58 @@
 <div class="toast" id="toast"></div>
 
 <div class="topbar">
-  <div class="topbar-logo">OMNI<span>AI</span></div>
+  <div style="display:flex;align-items:center;gap:7px;">
+    <div class="omnexo-nav-wrap">
+      <div class="omnexo-orbital">
+        <div class="omnexo-aura"></div>
+        <div class="omnexo-orbit oo1"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo2"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo3"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo4"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo5"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo6"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo7"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo8"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo9"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-sphere"></div>
+      </div>
+    </div>
+    <div class="omnexo-nav-word">OMNEXO<span class="om-ai">AI</span></div>
+  </div>
   <button class="hamburger" onclick="toggleSidebar()">☰</button>
 </div>
 
 <aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo">OMNI<span>AI</span></div>
+  <div style="display:flex;align-items:center;gap:7px;margin-bottom:32px;padding-left:8px;">
+    <div class="omnexo-nav-wrap">
+      <div class="omnexo-orbital">
+        <div class="omnexo-aura"></div>
+        <div class="omnexo-orbit oo1"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo2"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo3"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo4"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo5"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo6"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo7"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo8"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo9"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-sphere"></div>
+      </div>
+    </div>
+    <div class="omnexo-nav-word">OMNEXO<span class="om-ai">AI</span></div>
+  </div>
   <div class="nav-section">Main</div>
-  <a class="nav-item" href="omniai-chat.html"><span class="icon">💬</span> Chat</a>
-  <a class="nav-item" href="omniai-wallet.html"><span class="icon">👛</span> Wallet</a>
-  <a class="nav-item" href="#"><span class="icon">📊</span> Usage</a>
+  <a class="nav-item" href="omniai-chat.html" onclick="return goToPage(event,'omniai-chat.html')"><span class="icon">💬</span> Chat</a>
+  <a class="nav-item" href="omniai-wallet.html" onclick="return goToPage(event,'omniai-wallet.html')"><span class="icon">👛</span> Wallet</a>
+  <a class="nav-item" href="#" onclick="comingSoon('Usage');return false;"><span class="icon">📊</span> Usage</a>
   <a class="nav-item active" href="#"><span class="icon">🤖</span> Smart Router</a>
   <div class="nav-section">Account</div>
-  <a class="nav-item" href="#"><span class="icon">👤</span> Profile</a>
-  <a class="nav-item" href="#"><span class="icon">⚙️</span> Settings</a>
-  <a class="nav-item" href="#"><span class="icon">🎁</span> Refer & Earn</a>
+  <a class="nav-item" href="#" onclick="comingSoon('Profile');return false;"><span class="icon">👤</span> Profile</a>
+  <a class="nav-item" href="#" onclick="comingSoon('Settings');return false;"><span class="icon">⚙️</span> Settings</a>
+  <a class="nav-item" href="#" onclick="comingSoon('Refer & Earn');return false;"><span class="icon">🎁</span> Refer & Earn</a>
   <div class="nav-section">Support</div>
-  <a class="nav-item" href="#"><span class="icon">❓</span> Help</a>
-  <a class="nav-item" href="omniai-auth.html"><span class="icon">🚪</span> Logout</a>
+  <a class="nav-item" href="#" onclick="comingSoon('Help');return false;"><span class="icon">❓</span> Help</a>
+  <a class="nav-item" href="omniai-auth.html" onclick="return goToPage(event,'omniai-auth.html')"><span class="icon">🚪</span> Logout</a>
   <div class="sidebar-bottom">
     <div class="user-chip">
       <div class="avatar">B</div>
@@ -334,7 +435,7 @@
         <button class="test-btn" onclick="runRandom()">🎲 Random Test</button>
       </div>
       <div class="demo-input-row">
-        <input class="demo-input" id="demoInput" placeholder="e.g. 'Mera email likhdo' ya 'Complex Python algorithm...'"/>
+        <input class="demo-input" id="demoInput" placeholder="e.g. 'Write my email' or 'Complex Python algorithm...'"/>
         <button class="route-btn" onclick="runRouting()">Route →</button>
       </div>
       <div class="routing-viz">
@@ -449,7 +550,7 @@
           <div class="rule-icon-box" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.15);">💻</div>
           <div class="rule-content">
             <div class="rule-name">Coding Tasks</div>
-            <div class="rule-models-chips"><span class="rule-chip primary">Claude Sonnet</span><span class="rule-chip secondary">GPT-5</span><span class="rule-chip secondary">DeepSeek</span></div>
+            <div class="rule-models-chips"><span class="rule-chip primary">Claude Sonnet</span><span class="rule-chip secondary">GPT-5.5</span><span class="rule-chip secondary">DeepSeek</span></div>
             <div class="rule-desc">Code gen, debugging, code review</div>
           </div>
           <button class="rule-edit-btn" onclick="editRule('Coding')">Edit</button>
@@ -458,7 +559,7 @@
           <div class="rule-icon-box" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.15);">🔬</div>
           <div class="rule-content">
             <div class="rule-name">Research & Analysis</div>
-            <div class="rule-models-chips"><span class="rule-chip primary">Gemini 2.5</span><span class="rule-chip secondary">Grok 4</span><span class="rule-chip secondary">Kimi K2</span></div>
+            <div class="rule-models-chips"><span class="rule-chip primary">Gemini 2.5 Flash</span><span class="rule-chip secondary">Grok 4</span><span class="rule-chip secondary">Kimi K2</span></div>
             <div class="rule-desc">Deep research, summaries, comparisons</div>
           </div>
           <button class="rule-edit-btn" onclick="editRule('Research')">Edit</button>
@@ -467,7 +568,7 @@
           <div class="rule-icon-box" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.15);">✍️</div>
           <div class="rule-content">
             <div class="rule-name">Creative Writing</div>
-            <div class="rule-models-chips"><span class="rule-chip primary">GPT-5</span><span class="rule-chip secondary">Claude</span><span class="rule-chip secondary">Mistral</span></div>
+            <div class="rule-models-chips"><span class="rule-chip primary">GPT-5.5</span><span class="rule-chip secondary">Claude</span><span class="rule-chip secondary">Mistral</span></div>
             <div class="rule-desc">Stories, emails, marketing content</div>
           </div>
           <button class="rule-edit-btn" onclick="editRule('Creative')">Edit</button>
@@ -488,7 +589,7 @@
             <div class="cr-name">Business emails</div>
             <div class="cr-condition">IF: contains "email" OR "letter" OR "professional"</div>
           </div>
-          <span class="cr-model">→ GPT-5</span>
+          <span class="cr-model">→ GPT-5.5</span>
           <button class="cr-delete" onclick="deleteRule(this)" title="Delete">✕</button>
         </div>
         <div class="custom-rule-item">
@@ -520,18 +621,28 @@
         <span style="font-size:0.7rem;color:var(--muted);">Credits: 2x per query</span>
       </div>
       <div class="comparison-input-row">
-        <input class="comparison-input" id="compareInput" placeholder="Same query — 2 models compare karein..."/>
+        <input class="comparison-input" id="compareInput" placeholder="Type a query to compare..."/>
         <select id="compareModel1" style="background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;font-size:0.75rem;outline:none;cursor:pointer;">
           <option value="claude">🟠 Claude Sonnet</option>
-          <option value="gpt5">🟢 GPT-5</option>
-          <option value="gemini">🔵 Gemini 2.5</option>
+          <option value="gpt5">🟢 GPT-5.5</option>
+          <option value="gemini">🔵 Gemini 2.5 Flash</option>
           <option value="deepseek">🔴 DeepSeek V4</option>
+          <option value="grok">⚡ Grok 4</option>
+          <option value="llama">🦙 Llama 4</option>
+          <option value="mistral">🌊 Mistral Large 3</option>
+          <option value="kimi">🌙 Kimi K2</option>
+          <option value="qwen">🐉 Qwen 3</option>
         </select>
         <select id="compareModel2" style="background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;font-size:0.75rem;outline:none;cursor:pointer;">
-          <option value="gpt5">🟢 GPT-5</option>
+          <option value="gpt5">🟢 GPT-5.5</option>
           <option value="claude">🟠 Claude Sonnet</option>
           <option value="deepseek">🔴 DeepSeek V4</option>
-          <option value="gemini">🔵 Gemini 2.5</option>
+          <option value="gemini">🔵 Gemini 2.5 Flash</option>
+          <option value="grok">⚡ Grok 4</option>
+          <option value="llama">🦙 Llama 4</option>
+          <option value="mistral">🌊 Mistral Large 3</option>
+          <option value="kimi">🌙 Kimi K2</option>
+          <option value="qwen">🐉 Qwen 3</option>
         </select>
         <button class="comparison-btn" onclick="runComparison()">Compare →</button>
       </div>
@@ -541,11 +652,11 @@
           <div class="cm-response" id="cm1Response" style="color:rgba(100,116,139,0.5);font-style:italic;">Response yahan aayega...</div>
         </div>
         <div class="comparison-model" id="cm2">
-          <div class="cm-header"><span class="cm-emoji">🟢</span><span class="cm-name">GPT-5</span><span class="cm-cost">6 cr</span></div>
+          <div class="cm-header"><span class="cm-emoji">🟢</span><span class="cm-name">GPT-5.5</span><span class="cm-cost">6 cr</span></div>
           <div class="cm-response" id="cm2Response" style="color:rgba(100,116,139,0.5);font-style:italic;">Response yahan aayega...</div>
         </div>
       </div>
-      <div class="comparison-note">⚠️ Comparison mode Pro plan mein available hai. Credits 2x katenge — dono models simultaneously query karenge.</div>
+      <div class="comparison-note">⚠️ Comparison mode is available on the Pro plan. Credits are charged 2x — both models are queried simultaneously.</div>
     </div>
 
     <!-- ACTIVITY LOG -->
@@ -557,10 +668,10 @@
       <div class="log-body" id="logBody">
         <div class="log-line"><span class="log-time">16:31:02</span><span class="log-level success">SUCCESS</span><span class="log-msg">Router initialized — 9 models online, latency check complete</span></div>
         <div class="log-line"><span class="log-time">16:31:05</span><span class="log-level info">INFO</span><span class="log-msg">Smart routing ON — cost priority: HIGH, latency threshold: 2000ms</span></div>
-        <div class="log-line"><span class="log-time">16:31:08</span><span class="log-level latency">LATENCY</span><span class="log-msg">DeepSeek: 180ms | Claude: 420ms | GPT-5: 380ms | Gemini: 210ms</span></div>
+        <div class="log-line"><span class="log-time">16:31:08</span><span class="log-level latency">LATENCY</span><span class="log-msg">DeepSeek: 180ms | Claude: 420ms | GPT-5.5: 380ms | Gemini: 210ms</span></div>
         <div class="log-line"><span class="log-time">16:32:14</span><span class="log-level route">ROUTE</span><span class="log-msg">Query: "email likhdo" → DeepSeek V4 [simple, 2cr, 180ms]</span></div>
         <div class="log-line"><span class="log-time">16:33:40</span><span class="log-level route">ROUTE</span><span class="log-msg">Query: "Python algo" → Claude Sonnet [code, 8cr, 420ms]</span></div>
-        <div class="log-line"><span class="log-time">16:34:55</span><span class="log-level warn">SAVED</span><span class="log-msg">Cost saved: 6 credits vs GPT-5 on simple query</span></div>
+        <div class="log-line"><span class="log-time">16:34:55</span><span class="log-level warn">SAVED</span><span class="log-msg">Cost saved: 6 credits vs GPT-5.5 on simple query</span></div>
         <div class="log-line"><span class="log-time">16:35:10</span><span class="log-level latency">LATENCY</span><span class="log-msg">Grok 4 slow (1840ms) — auto-deprioritized for next 5 minutes</span></div>
       </div>
     </div>
@@ -573,7 +684,7 @@
   <div class="modal">
     <button class="modal-close" onclick="closeAddRule()">✕</button>
     <div class="modal-title">🎛️ Add Custom Rule</div>
-    <div class="modal-sub">Apna custom routing rule banao</div>
+    <div class="modal-sub">Create your custom routing rule</div>
     <label style="font-size:0.72rem;color:var(--muted);display:block;margin-bottom:5px;">Rule Name</label>
     <input class="modal-input" id="ruleName" placeholder="e.g. My coding rule"/>
     <label style="font-size:0.72rem;color:var(--muted);display:block;margin-bottom:5px;">Trigger Condition (keywords)</label>
@@ -581,12 +692,12 @@
     <label style="font-size:0.72rem;color:var(--muted);display:block;margin-bottom:5px;">Route to Model</label>
     <select class="modal-select" id="ruleModel">
       <option value="deepseek">🔴 DeepSeek V4 (2 cr — cheapest)</option>
-      <option value="gpt5">🟢 GPT-5 (6 cr — popular)</option>
+      <option value="gpt5">🟢 GPT-5.5 (6 cr — popular)</option>
       <option value="claude" selected>🟠 Claude Sonnet (8 cr — best reasoning)</option>
-      <option value="gemini">🔵 Gemini 2.5 (3 cr — research)</option>
+      <option value="gemini">🔵 Gemini 2.5 Flash (3 cr — research)</option>
       <option value="grok">⚡ Grok 4 (5 cr — real-time)</option>
       <option value="llama">🦙 Llama 4 (2 cr — budget)</option>
-      <option value="mistral">🌊 Mistral Large (4 cr — business)</option>
+      <option value="mistral">🌊 Mistral Large 3 (4 cr — business)</option>
       <option value="kimi">🌙 Kimi K2 (3 cr — quality)</option>
       <option value="qwen">🐉 Qwen 3 (2 cr — multilingual)</option>
     </select>
@@ -597,15 +708,44 @@
 <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;" onclick="toggleSidebar()"></div>
 
 <script>
+  // ── SMART NAV for real internal pages (Chat/Wallet/Logout) ──
+  // On a real web server this is a normal link and works instantly.
+  // It only steps in when this file is opened standalone (phone storage,
+  // or Claude.ai's preview) where the sibling file can't be resolved.
+  function goToPage(e,url){
+    const href=location.href||'';
+    const isLocalFile=location.protocol==='file:'||location.protocol==='content:'||href.indexOf('content://')===0||href.indexOf('file://')===0;
+    const isPreview=href.indexOf('claudeusercontent.com')!==-1;
+    if(!isLocalFile&&!isPreview) return true;
+
+    e.preventDefault();
+    const ov=document.createElement('div');
+    ov.style.cssText='position:fixed;inset:0;background:rgba(4,5,7,0.92);backdrop-filter:blur(14px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    ov.innerHTML='<div style="background:#0d1117;border:1px solid rgba(0,229,255,0.2);border-radius:24px;padding:32px 26px;max-width:360px;width:100%;text-align:center;">'
+      +'<div style="font-size:1.8rem;margin-bottom:12px;">📁</div>'
+      +'<div style="font-family:Syne,sans-serif;font-size:1.1rem;font-weight:800;color:#f0f4f8;margin-bottom:10px;">Open from the same folder</div>'
+      +'<div style="font-size:0.82rem;color:#64748b;line-height:1.7;margin-bottom:20px;">This page can\'t find <strong style="color:#00e5ff;">'+url+'</strong> next to it here.<br/><br/>Put both files in the same folder and open from there — or visit the live website once it\'s hosted online.</div>'
+      +'<button onclick="this.closest(\'div\').parentElement.remove()" style="background:#00e5ff;color:#000;font-family:Syne,sans-serif;font-weight:800;font-size:0.85rem;padding:12px;border-radius:10px;border:none;cursor:pointer;width:100%;">Got it</button>'
+      +'</div>';
+    ov.addEventListener('click',function(ev){if(ev.target===ov)ov.remove();});
+    document.body.appendChild(ov);
+    return false;
+  }
+
+  // ── Placeholder pages not built yet (Usage/Profile/Settings/Refer/Help) ──
+  function comingSoon(name){
+    showToast('🚧 '+name+' page is coming soon!');
+  }
+
   // ── LATENCY DATA (simulated live) ──
   const models=[
     {emoji:'🔴',name:'DeepSeek V4',key:'deepseek',baseLatency:180,color:'#ef4444'},
-    {emoji:'🟢',name:'GPT-5',key:'gpt5',baseLatency:380,color:'#10b981'},
+    {emoji:'🟢',name:'GPT-5.5',key:'gpt5',baseLatency:380,color:'#10b981'},
     {emoji:'🟠',name:'Claude Sonnet',key:'claude',baseLatency:420,color:'#f59e0b'},
     {emoji:'🔵',name:'Gemini 2.5 Flash',key:'gemini',baseLatency:210,color:'#3b82f6'},
     {emoji:'⚡',name:'Grok 4',key:'grok',baseLatency:340,color:'#8b5cf6'},
     {emoji:'🦙',name:'Llama 4',key:'llama',baseLatency:160,color:'#06b6d4'},
-    {emoji:'🌊',name:'Mistral Large',key:'mistral',baseLatency:290,color:'#ec4899'},
+    {emoji:'🌊',name:'Mistral Large 3',key:'mistral',baseLatency:290,color:'#ec4899'},
     {emoji:'🌙',name:'Kimi K2',key:'kimi',baseLatency:240,color:'#f97316'},
     {emoji:'🐉',name:'Qwen 3',key:'qwen',baseLatency:200,color:'#84cc16'},
   ];
@@ -635,15 +775,15 @@
 
   // ── ROUTING RULES ──
   const routingRules=[
-    {type:'simple',keywords:['kya hai','what is','define','matlab','translate','batao','short','quick','ek line','simple','basic'],model:{emoji:'🔴',name:'DeepSeek V4',cost:2,reason:'Simple query — cheapest model saves credits',speed:'Fast',accuracy:'92%',latency:'180ms'},saved:6},
+    {type:'simple',keywords:['what is','define','meaning','translate','short','quick','one line','simple','basic'],model:{emoji:'🔴',name:'DeepSeek V4',cost:2,reason:'Simple query — cheapest model saves credits',speed:'Fast',accuracy:'92%',latency:'180ms'},saved:6},
     {type:'coding',keywords:['code','python','javascript','algorithm','debug','program','function','api','script','develop','html','css','sql'],model:{emoji:'🟠',name:'Claude Sonnet',cost:8,reason:'Coding task — Claude best for code understanding',speed:'Medium',accuracy:'97%',latency:'420ms'},saved:0},
-    {type:'research',keywords:['research','analysis','compare','difference','explain','summarize','report','study','market','article'],model:{emoji:'🔵',name:'Gemini 2.5',cost:3,reason:'Research query — Gemini excels at deep analysis',speed:'Fast',accuracy:'95%',latency:'210ms'},saved:5},
-    {type:'creative',keywords:['write','likhao','story','email','content','marketing','creative','blog','poem','kahani','letter'],model:{emoji:'🟢',name:'GPT-5',cost:6,reason:'Creative task — GPT-5 best for writing',speed:'Medium',accuracy:'94%',latency:'380ms'},saved:2},
+    {type:'research',keywords:['research','analysis','compare','difference','explain','summarize','report','study','market','article'],model:{emoji:'🔵',name:'Gemini 2.5 Flash',cost:3,reason:'Research query — Gemini excels at deep analysis',speed:'Fast',accuracy:'95%',latency:'210ms'},saved:5},
+    {type:'creative',keywords:['write','story','email','content','marketing','creative','blog','poem','letter'],model:{emoji:'🟢',name:'GPT-5.5',cost:6,reason:'Creative task — GPT-5.5 best for writing',speed:'Medium',accuracy:'94%',latency:'380ms'},saved:2},
     {type:'math',keywords:['calculate','math','formula','equation','solve','number','percentage','profit','loss','tax','gst'],model:{emoji:'🔴',name:'DeepSeek V4',cost:2,reason:'Math — DeepSeek handles numbers excellently',speed:'Fast',accuracy:'96%',latency:'180ms'},saved:6},
     {type:'realtime',keywords:['latest','news','today','current','trending','2026','recent','stock','price','live'],model:{emoji:'⚡',name:'Grok 4',cost:5,reason:'Real-time info — Grok has live web access',speed:'Fast',accuracy:'93%',latency:'340ms'},saved:3},
   ];
 
-  const randomTests=['Python mein sorting algorithm banao','Aaj ka news kya hai?','Napoleon ka janm kab hua?','Mere business ke liye email campaign','GST calculation karo ₹4999 par','DeepSeek vs ChatGPT difference?','Ek romantic Hindi story likhao','JavaScript mein REST API banao'];
+  const randomTests=['Write a sorting algorithm in Python','What is today\'s news?','When was Napoleon born?','An email campaign for my business','Calculate GST on ₹4999','DeepSeek vs ChatGPT difference?','Write a short creative story','Build a REST API in JavaScript'];
 
   function detectRoute(q){
     const l=q.toLowerCase();
@@ -726,18 +866,23 @@
   // ── MODEL COMPARISON ──
   const comparisonResponses={
     claude:{prefix:'<strong>Claude Sonnet:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Reasoning: step-by-step analysis | 420ms</em>'},
-    gpt5:{prefix:'<strong>GPT-5:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Style: direct & comprehensive | 380ms</em>'},
-    gemini:{prefix:'<strong>Gemini 2.5:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Focus: structured research | 210ms</em>'},
+    gpt5:{prefix:'<strong>GPT-5.5:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Style: direct & comprehensive | 380ms</em>'},
+    gemini:{prefix:'<strong>Gemini 2.5 Flash:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Focus: structured research | 210ms</em>'},
     deepseek:{prefix:'<strong>DeepSeek V4:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Style: concise & fast | 180ms</em>'},
+    grok:{prefix:'<strong>Grok 4:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Focus: real-time & trending info | 340ms</em>'},
+    llama:{prefix:'<strong>Llama 4:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Style: open-source & budget friendly | 160ms</em>'},
+    mistral:{prefix:'<strong>Mistral Large 3:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Focus: business & multilingual | 290ms</em>'},
+    kimi:{prefix:'<strong>Kimi K2:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Style: frontier quality, low cost | 240ms</em>'},
+    qwen:{prefix:'<strong>Qwen 3:</strong> ',suffix:'<br/><br/><em style="font-size:0.7rem;color:var(--muted);">Focus: multilingual & versatile | 200ms</em>'},
   };
 
   const modelEmojis={claude:'🟠',gpt5:'🟢',gemini:'🔵',deepseek:'🔴',grok:'⚡',llama:'🦙',mistral:'🌊',kimi:'🌙',qwen:'🐉'};
-  const modelNames={claude:'Claude Sonnet',gpt5:'GPT-5',gemini:'Gemini 2.5',deepseek:'DeepSeek V4',grok:'Grok 4',llama:'Llama 4',mistral:'Mistral Large',kimi:'Kimi K2',qwen:'Qwen 3'};
+  const modelNames={claude:'Claude Sonnet',gpt5:'GPT-5.5',gemini:'Gemini 2.5 Flash',deepseek:'DeepSeek V4',grok:'Grok 4',llama:'Llama 4',mistral:'Mistral Large 3',kimi:'Kimi K2',qwen:'Qwen 3'};
   const modelCosts={claude:8,gpt5:6,gemini:3,deepseek:2,grok:5,llama:2,mistral:4,kimi:3,qwen:2};
 
   function runComparison(){
     const q=document.getElementById('compareInput').value.trim();
-    if(!q){showToast('Pehle query enter karein!');return;}
+    if(!q){showToast('Please enter a query first!');return;}
     const m1=document.getElementById('compareModel1').value;
     const m2=document.getElementById('compareModel2').value;
 
@@ -767,7 +912,7 @@
     if(l.includes('email'))return 'Professional email template: Subject: [Topic] | Dear [Name], [Content] | Regards, [You]';
     if(l.includes('python')||l.includes('code'))return '<code>def solution(n): return sorted(n, key=lambda x: x)</code> — clean implementation with O(n log n) complexity.';
     if(l.includes('market')||l.includes('saas'))return 'Key strategy: 1) Target tier-2 India 2) Hindi content 3) Referral program 4) "6.6x more power" positioning.';
-    return 'Aapka sawaal: '+q.substring(0,40)+'... | Main is par detail mein jawab de sakta hoon. Kya aur specific karenge?';
+    return 'Your query: '+q.substring(0,40)+'... | I can answer this in detail. Could you be more specific?';
   }
 
   // ── CUSTOM RULES ──
@@ -779,7 +924,7 @@
     const name=document.getElementById('ruleName').value.trim();
     const cond=document.getElementById('ruleCondition').value.trim();
     const model=document.getElementById('ruleModel').value;
-    if(!name||!cond){showToast('Rule name aur condition zaroor bharo!');return;}
+    if(!name||!cond){showToast('Please fill in both the rule name and condition!');return;}
     const modelLabel=document.getElementById('ruleModel').options[document.getElementById('ruleModel').selectedIndex].text;
     const list=document.getElementById('customRulesList');
     const div=document.createElement('div');
@@ -794,7 +939,7 @@
   }
 
   function deleteRule(btn){
-    if(confirm('Is rule ko delete karein?')){btn.closest('.custom-rule-item').remove();showToast('🗑️ Rule deleted');}
+    if(confirm('Delete this rule?')){btn.closest('.custom-rule-item').remove();showToast('🗑️ Rule deleted');}
   }
 
   function editRule(type){showToast(`✏️ "${type}" rule editor — coming soon in next update!`);}

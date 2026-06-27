@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OMNI AI — Login / Sign Up</title>
-<meta name="description" content="Sign in to OMNI AI — Access 9 premium AI models in one place"/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>OMNEXO AI — Login / Sign Up</title>
+<meta name="description" content="Sign in to OMNEXO AI — Access 9 premium AI models in one place"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Orbitron:wght@700;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
     --bg:#040507; --bg2:#080b10; --card:#0d1117;
@@ -28,15 +28,80 @@
   .back-btn{font-size:0.82rem;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
   .back-btn:hover{color:var(--accent);}
 
-  /* LIVE ACTIVITY TICKER */
-  .live-ticker{position:relative;z-index:1;background:rgba(34,197,94,0.05);border-bottom:1px solid rgba(34,197,94,0.1);padding:8px 20px;overflow:hidden;}
-  .ticker-track{display:flex;gap:48px;animation:tickerMove 20s linear infinite;width:max-content;}
-  .ticker-item{display:flex;align-items:center;gap:8px;font-size:0.72rem;color:#22c55e;white-space:nowrap;}
-  .ticker-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
-  @keyframes tickerMove{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.4);}}
+  /* ═══════════════════════════════════════════
+     OMNEXO AI — PRODUCTION LOGO (exact match to logo-app.html / index.html)
+     9 orbits + sphere + wordmark, scaled for nav bar.
+     ═══════════════════════════════════════════ */
+  .omnexo-logo{display:inline-flex;flex-direction:column;align-items:center;gap:18px;font-family:'Orbitron',monospace;}
+  .omnexo-orbital{position:relative;width:220px;height:220px;}
+  .omnexo-sphere{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:62px;height:62px;border-radius:50%;z-index:10;
+    background:conic-gradient(from 0deg,#FF3DAE,#FF6B6B,#FFA62B,#FFE600,#06FFA5,#00D4FF,#3B82F6,#A855F7,#FF3DAE);
+    animation:omnexoSpinSphere 5s linear infinite;
+    box-shadow:0 0 0 3px rgba(255,255,255,0.06),0 0 34px rgba(168,85,247,0.7),0 0 68px rgba(59,130,246,0.5),0 0 110px rgba(6,255,165,0.25);
+  }
+  .omnexo-sphere::after{content:'';position:absolute;top:13%;left:17%;width:32%;height:22%;background:rgba(255,255,255,0.6);border-radius:50%;filter:blur(3px);}
+  @keyframes omnexoSpinSphere{to{transform:translate(-50%,-50%) rotate(360deg);}}
+  .omnexo-aura{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:74px;height:74px;border-radius:50%;
+    background:radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 70%);
+    z-index:9;animation:omnexoPulse 3s ease-in-out infinite;
+  }
+  @keyframes omnexoPulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}}
+  .omnexo-orbit{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid;transform-origin:center center;}
+  .oo1{ width:68px;height:26px;  margin:-13px 0 0 -34px;  border-color:rgba(255,61,174,0.45); animation:oos1 6s   linear infinite; }
+  .oo2{ width:82px;height:30px;  margin:-15px 0 0 -41px;  border-color:rgba(255,166,43,0.4);  animation:oos2 9s   linear infinite; }
+  .oo3{ width:96px;height:34px;  margin:-17px 0 0 -48px;  border-color:rgba(255,230,0,0.35);  animation:oos3 12s  linear infinite; }
+  .oo4{ width:108px;height:38px; margin:-19px 0 0 -54px;  border-color:rgba(6,255,165,0.35);  animation:oos4 16s  linear infinite; }
+  .oo5{ width:122px;height:42px; margin:-21px 0 0 -61px;  border-color:rgba(0,212,255,0.32);  animation:oos5 20s  linear infinite; }
+  .oo6{ width:134px;height:46px; margin:-23px 0 0 -67px;  border-color:rgba(59,130,246,0.3);  animation:oos6 25s  linear infinite; }
+  .oo7{ width:146px;height:50px; margin:-25px 0 0 -73px;  border-color:rgba(168,85,247,0.28); animation:oos7 30s  linear infinite; }
+  .oo8{ width:158px;height:54px; margin:-27px 0 0 -79px;  border-color:rgba(236,72,153,0.25); animation:oos8 36s  linear infinite; }
+  .oo9{ width:172px;height:58px; margin:-29px 0 0 -86px;  border-color:rgba(250,204,21,0.22); animation:oos9 42s  linear infinite; }
+  @keyframes oos1{from{transform:rotate(8deg)}to{transform:rotate(368deg)}}
+  @keyframes oos2{from{transform:rotate(-28deg)}to{transform:rotate(-388deg)}}
+  @keyframes oos3{from{transform:rotate(52deg)}to{transform:rotate(412deg)}}
+  @keyframes oos4{from{transform:rotate(-65deg)}to{transform:rotate(-425deg)}}
+  @keyframes oos5{from{transform:rotate(15deg)}to{transform:rotate(375deg)}}
+  @keyframes oos6{from{transform:rotate(-40deg)}to{transform:rotate(-400deg)}}
+  @keyframes oos7{from{transform:rotate(75deg)}to{transform:rotate(435deg)}}
+  @keyframes oos8{from{transform:rotate(-12deg)}to{transform:rotate(-372deg)}}
+  @keyframes oos9{from{transform:rotate(38deg)}to{transform:rotate(398deg)}}
+  .omnexo-planet{position:absolute;top:50%;left:100%;transform:translate(-50%,-50%);border-radius:50%;}
+  .oo1 .omnexo-planet{width:5px;height:5px; background:#FF3DAE; box-shadow:0 0 8px #FF3DAE,0 0 16px rgba(255,61,174,0.6);}
+  .oo2 .omnexo-planet{width:5px;height:5px; background:#FFA62B; box-shadow:0 0 8px #FFA62B,0 0 16px rgba(255,166,43,0.6);}
+  .oo3 .omnexo-planet{width:5px;height:5px; background:#FFE600; box-shadow:0 0 8px #FFE600,0 0 16px rgba(255,230,0,0.6);}
+  .oo4 .omnexo-planet{width:4.5px;height:4.5px; background:#06FFA5; box-shadow:0 0 8px #06FFA5,0 0 14px rgba(6,255,165,0.55);}
+  .oo5 .omnexo-planet{width:4.5px;height:4.5px; background:#00D4FF; box-shadow:0 0 8px #00D4FF,0 0 14px rgba(0,212,255,0.55);}
+  .oo6 .omnexo-planet{width:4.5px;height:4.5px; background:#3B82F6; box-shadow:0 0 8px #3B82F6,0 0 14px rgba(59,130,246,0.5);}
+  .oo7 .omnexo-planet{width:4px;height:4px; background:#A855F7; box-shadow:0 0 7px #A855F7,0 0 13px rgba(168,85,247,0.5);}
+  .oo8 .omnexo-planet{width:4px;height:4px; background:#EC4899; box-shadow:0 0 7px #EC4899,0 0 13px rgba(236,72,153,0.45);}
+  .oo9 .omnexo-planet{width:4px;height:4px; background:#FACC15; box-shadow:0 0 7px #FACC15,0 0 13px rgba(250,204,21,0.45);}
+  .om-ai{
+    background:linear-gradient(135deg,#FF3DAE,#A855F7,#00D4FF);background-size:200% auto;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    filter:drop-shadow(0 0 14px rgba(168,85,247,0.6));animation:omFlow 5s linear infinite;
+  }
+  @keyframes omFlow{to{background-position:200% center;}}
 
-  main{position:relative;z-index:1;flex:1;display:flex;gap:0;min-height:calc(100vh - 120px);}
+  /* nav-bar scaled wrapper — same 220px logo, shrunk to fit nav height */
+  .omnexo-nav-wrap{
+    display:inline-block;width:38px;height:38px;
+    overflow:hidden;flex-shrink:0;position:relative;
+  }
+  .omnexo-nav-wrap .omnexo-orbital{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(0.17);
+  }
+  .omnexo-nav-word{
+    font-family:'Orbitron',monospace;font-weight:900;font-size:1.05rem;
+    letter-spacing:0.02em;color:#FFFFFF;display:flex;align-items:center;gap:4px;
+  }
+  .omnexo-nav-word .om-ai{filter:drop-shadow(0 0 8px rgba(168,85,247,0.6));}
+
+  main{position:relative;z-index:1;flex:1;display:flex;gap:0;min-height:calc(100vh - 84px);}
 
   /* LEFT PANEL — Benefits */
   .left-panel{width:340px;flex-shrink:0;padding:40px 32px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:24px;background:rgba(8,11,16,0.5);}
@@ -194,34 +259,33 @@
 
 <!-- NAV -->
 <nav>
-  <a href="omniai-landing.html" class="logo">OMNI<span>AI</span></a>
-  <a href="omniai-landing.html" class="back-btn">← Back to Home</a>
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+    <div class="omnexo-nav-wrap">
+      <div class="omnexo-orbital">
+        <div class="omnexo-aura"></div>
+        <div class="omnexo-orbit oo1"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo2"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo3"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo4"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo5"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo6"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo7"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo8"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo9"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-sphere"></div>
+      </div>
+    </div>
+    <div class="omnexo-nav-word">OMNEXO<span class="om-ai">AI</span></div>
+  </a>
+  <a href="index.html" class="back-btn">← Back to Home</a>
 </nav>
-
-<!-- LIVE ACTIVITY TICKER -->
-<div class="live-ticker">
-  <div class="ticker-track">
-    <div class="ticker-item"><div class="ticker-dot"></div>Rahul from Delhi just signed up</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>1,247 queries answered today</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>Priya from Mumbai saved ₹1,400 this month</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>Smart Router saved 89 credits for Arjun</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>New user from Bangalore just joined</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>47 users online right now</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>Rahul from Delhi just signed up</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>1,247 queries answered today</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>Priya from Mumbai saved ₹1,400 this month</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>Smart Router saved 89 credits for Arjun</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>New user from Bangalore just joined</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>47 users online right now</div>
-  </div>
-</div>
 
 <main>
 
   <!-- LEFT PANEL -->
   <div class="left-panel">
     <div>
-      <div class="lp-title">Welcome to OMNI AI 🤖</div>
+      <div class="lp-title">Welcome to OMNEXO AI 🤖</div>
       <div class="lp-sub">India ka pehla Universal AI Control Center — 9 premium models, ek subscription.</div>
     </div>
 
@@ -229,15 +293,15 @@
       <div class="benefit-icon" style="background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.15);">⚡</div>
       <div class="benefit-text">
         <div class="benefit-title">9 AI Models in One Place</div>
-        <div class="benefit-desc">GPT-5, Claude, Gemini, DeepSeek aur 5 aur — sab ek dashboard mein</div>
+        <div class="benefit-desc">GPT-5.5, Claude, Gemini, DeepSeek and 5 more — all in one dashboard</div>
       </div>
     </div>
 
     <div class="benefit-item">
       <div class="benefit-icon" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.15);">💰</div>
       <div class="benefit-text">
-        <div class="benefit-title">₹11,000+ Monthly Savings</div>
-        <div class="benefit-desc">Har model ka alag subscription khatam — sirf ₹449/month mein sab kuch</div>
+        <div class="benefit-title">₹8,000+ Monthly Savings</div>
+        <div class="benefit-desc">No more separate subscriptions — everything from just ₹449/month</div>
       </div>
     </div>
 
@@ -245,7 +309,7 @@
       <div class="benefit-icon" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.15);">🤖</div>
       <div class="benefit-text">
         <div class="benefit-title">Smart Router — Credits Bachao</div>
-        <div class="benefit-desc">AI automatically cheapest + best model choose karta hai har query ke liye</div>
+        <div class="benefit-desc">AI automatically picks the cheapest + best model for every query</div>
       </div>
     </div>
 
@@ -253,7 +317,7 @@
       <div class="benefit-icon" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.15);">🔒</div>
       <div class="benefit-text">
         <div class="benefit-title">100% Secure & DPDP Compliant</div>
-        <div class="benefit-desc">Aapka data India mein safe — Digital Personal Data Protection Act</div>
+        <div class="benefit-desc">Your data is safe in India — Digital Personal Data Protection Act</div>
       </div>
     </div>
 
@@ -261,7 +325,7 @@
       <div class="benefit-icon" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.15);">🎁</div>
       <div class="benefit-text">
         <div class="benefit-title">Free Trial — No Card Needed</div>
-        <div class="benefit-desc">Sign up karo aur free credits se shuru karo — koi commitment nahi</div>
+        <div class="benefit-desc">Sign up and start with free credits — no commitment</div>
       </div>
     </div>
 
@@ -294,7 +358,7 @@
       <!-- ══ LOGIN PANEL ══ -->
       <div id="loginPanel">
         <div class="form-title">Welcome back 👋</div>
-        <div class="form-subtitle">OMNI AI account mein login karein</div>
+        <div class="form-subtitle">Log in to your OMNEXO AI account</div>
 
         <!-- SOCIAL LOGINS -->
         <div class="social-btns">
@@ -335,7 +399,7 @@
           <a href="#" class="forgot-link" onclick="showForgot()">Forgot password?</a>
         </div>
 
-        <button class="submit-btn" id="loginBtn" onclick="handleLogin()">Login to OMNI AI →</button>
+        <button class="submit-btn" id="loginBtn" onclick="handleLogin()">Login to OMNEXO AI →</button>
 
         <button class="magic-link-btn" onclick="handleMagicLink()">✨ Send Magic Link (No password needed)</button>
 
@@ -415,7 +479,7 @@
           <!-- 2FA SETUP -->
           <div class="twofa-setup">
             <div class="twofa-title">🛡️ Two-Factor Authentication (2FA)</div>
-            <div class="twofa-desc">Account ko extra secure banao — login par OTP bheja jaayega</div>
+            <div class="twofa-desc">Add extra security to your account — an OTP is sent at login</div>
             <div class="twofa-toggle">
               <span class="toggle-label">Enable 2FA</span>
               <label class="toggle"><input type="checkbox" id="enable2fa" checked/><span class="toggle-slider"></span></label>
@@ -424,7 +488,7 @@
 
           <div class="checkbox-row">
             <input type="checkbox" id="termsCheck"/>
-            <label class="checkbox-label" for="termsCheck">Main <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a>, aur <a href="#">DPDP Act 2023</a> compliance se agree karta/karti hoon.</label>
+            <label class="checkbox-label" for="termsCheck">I agree to the <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a>, and <a href="#">DPDP Act 2023</a> compliance.</label>
           </div>
 
           <button class="submit-btn" onclick="goStep3()">Send OTP →</button>
@@ -434,7 +498,7 @@
         <!-- STEP 3 — OTP -->
         <div id="signupStep3" style="display:none;">
           <div class="otp-title">Verify your phone 📱</div>
-          <div class="otp-sub">OTP bheja gaya hai <strong id="otpPhone">+91 XXXXXXXXXX</strong> par. 5 minutes mein valid hai.</div>
+          <div class="otp-sub">An OTP has been sent to <strong id="otpPhone">+91 XXXXXXXXXX</strong>. Valid for 5 minutes.</div>
 
           <div class="otp-inputs">
             <input class="otp-input" maxlength="1" onInput="otpMove(this,0)" onKeydown="otpBack(event,0)"/>
@@ -448,7 +512,7 @@
           <button class="submit-btn" id="verifyBtn" onclick="verifyOtp()">Verify OTP & Create Account →</button>
 
           <div class="otp-resend" style="margin-top:12px;">
-            OTP nahi mila? <button onclick="resendOtp()">Resend</button>
+            Didn't get the OTP? <button onclick="resendOtp()">Resend</button>
             <span class="otp-timer" id="otpTimer">(30s)</span>
           </div>
           <button style="width:100%;padding:10px;background:transparent;border:none;color:var(--muted);font-size:0.78rem;cursor:pointer;margin-top:8px;" onclick="goBackStep2()">← Back</button>
@@ -459,8 +523,8 @@
       <!-- ══ SUCCESS ══ -->
       <div class="success-screen" id="successScreen">
         <div class="success-icon">✓</div>
-        <div class="success-title" id="successTitle">Welcome to OMNI AI!</div>
-        <p class="success-sub" id="successSub">Aapka account ready hai. Dashboard par ja rahe hain...</p>
+        <div class="success-title" id="successTitle">Welcome to OMNEXO AI!</div>
+        <p class="success-sub" id="successSub">Your account is ready. Taking you to the dashboard...</p>
         <button class="submit-btn" onclick="window.location='omniai-wallet.html'">Go to Dashboard →</button>
       </div>
 
@@ -469,7 +533,7 @@
 
 </main>
 
-<footer>🇮🇳 OMNI AI · Auraiya, UP · support@omniai.in · DPDP Act 2023 Compliant · SSL Secured</footer>
+<footer>🇮🇳 OMNEXO AI · Uttar Pradesh, India · baudhsinghgautam@omnexoai.com · DPDP Act 2023 Compliant · SSL Secured</footer>
 
 <script>
   // ── TAB SWITCH ──
@@ -526,10 +590,10 @@
   function handleLogin(){
     const email=document.getElementById('loginEmail').value.trim();
     const pw=document.getElementById('loginPassword').value;
-    if(!email){showError('Email enter karein.');return;}
-    if(!isValidEmail(email)){showError('Valid email enter karein.');return;}
-    if(!pw){showError('Password enter karein.');return;}
-    if(pw.length<6){showError('Password kam se kam 6 characters ka hona chahiye.');return;}
+    if(!email){showError('Please enter your email.');return;}
+    if(!isValidEmail(email)){showError('Please enter a valid email.');return;}
+    if(!pw){showError('Please enter your password.');return;}
+    if(pw.length<6){showError('Password must be at least 6 characters.');return;}
     const btn=document.getElementById('loginBtn');
     btn.classList.add('loading');
     setTimeout(()=>{btn.classList.remove('loading');showSuccess('login',email);},1800);
@@ -538,8 +602,8 @@
   // ── MAGIC LINK ──
   function handleMagicLink(){
     const email=document.getElementById('loginEmail').value.trim();
-    if(!email||!isValidEmail(email)){showError('Pehle valid email enter karein.');return;}
-    showToast('✨ Magic link '+email+' par bheja gaya!');
+    if(!email||!isValidEmail(email)){showError('Please enter a valid email first.');return;}
+    showToast('✨ Magic link sent to '+email+'!');
   }
 
   // ── SOCIAL ──
@@ -550,8 +614,8 @@
   // ── FORGOT PASSWORD ──
   function showForgot(){
     const email=document.getElementById('loginEmail').value.trim();
-    if(email&&isValidEmail(email)){showToast('📧 Password reset link '+email+' par bheja gaya!');}
-    else{showError('Pehle email enter karein, phir Forgot Password click karein.');}
+    if(email&&isValidEmail(email)){showToast('📧 Password reset link sent to '+email+'!');}
+    else{showError('Enter your email first, then click Forgot Password.');}
   }
 
   // ── SIGNUP STEPS ──
@@ -569,8 +633,8 @@
   function goStep2(){
     const name=document.getElementById('signupName').value.trim();
     const email=document.getElementById('signupEmail').value.trim();
-    if(!name){showError('Naam enter karein.');return;}
-    if(!email||!isValidEmail(email)){showError('Valid email enter karein.');return;}
+    if(!name){showError('Please enter your name.');return;}
+    if(!email||!isValidEmail(email)){showError('Please enter a valid email.');return;}
     document.getElementById('signupStep1').style.display='none';
     document.getElementById('signupStep2').style.display='block';
     updateStepIndicator(2);
@@ -586,15 +650,15 @@
     const phone=document.getElementById('signupPhone').value.trim();
     const pw=document.getElementById('signupPassword').value;
     const terms=document.getElementById('termsCheck').checked;
-    if(!phone||phone.length!==10){showError('Valid 10-digit phone number enter karein.');return;}
-    if(!pw||pw.length<8){showError('Password kam se kam 8 characters ka hona chahiye.');return;}
-    if(!terms){showError('Terms & Conditions se agree karein.');return;}
+    if(!phone||phone.length!==10){showError('Please enter a valid 10-digit phone number.');return;}
+    if(!pw||pw.length<8){showError('Password must be at least 8 characters.');return;}
+    if(!terms){showError('Please agree to the Terms & Conditions.');return;}
     document.getElementById('otpPhone').textContent='+91 '+phone.substring(0,5)+'XXXXX';
     document.getElementById('signupStep2').style.display='none';
     document.getElementById('signupStep3').style.display='block';
     updateStepIndicator(3);
     startOtpTimer();
-    showToast('📱 OTP bheja gaya!');
+    showToast('📱 OTP sent!');
   }
 
   function goBackStep2(){
@@ -633,12 +697,12 @@
     },1000);
   }
 
-  function resendOtp(){showToast('📱 OTP dobara bheja gaya!');startOtpTimer();}
+  function resendOtp(){showToast('📱 OTP resent!');startOtpTimer();}
 
   function verifyOtp(){
     const inputs=document.querySelectorAll('.otp-input');
     const otp=Array.from(inputs).map(i=>i.value).join('');
-    if(otp.length!==6){showError('6 digit OTP enter karein.');return;}
+    if(otp.length!==6){showError('Please enter the 6-digit OTP.');return;}
     const btn=document.getElementById('verifyBtn');
     btn.classList.add('loading');
     setTimeout(()=>{
@@ -658,18 +722,18 @@
     screen.style.display='block';
     if(type==='signup'){
       document.getElementById('successTitle').textContent='Welcome, '+val+'! 🎉';
-      document.getElementById('successSub').textContent='Account create ho gaya! Free trial credits aapke wallet mein hain. Dashboard check karein!';
+      document.getElementById('successSub').textContent='Account created! Free trial credits are in your wallet. Check your dashboard!';
     } else {
       document.getElementById('successTitle').textContent='Login successful! ✓';
-      document.getElementById('successSub').textContent='Welcome back! Dashboard par ja rahe hain...';
+      document.getElementById('successSub').textContent='Welcome back! Taking you to the dashboard...';
       setTimeout(()=>window.location='omniai-wallet.html',2000);
     }
   }
 
   // ── DELETE ACCOUNT ──
   function showDeleteConfirm(){
-    if(confirm('Kya aap sach mein apna account delete karna chahte hain? Yeh action undo nahi ho sakta.')){
-      showToast('Account deletion request submit hua. support@omniai.in se confirm karien.','#ef4444');
+    if(confirm('Are you sure you want to delete your account? This action cannot be undone.')){
+      showToast('Account deletion request submit hua. baudhsinghgautam@omnexoai.com se confirm karien.','#ef4444');
     }
   }
 

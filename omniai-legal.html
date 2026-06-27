@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OMNEXO AI — Legal & Company</title>
+<meta name="description" content="OMNEXO AI Privacy Policy, Terms of Service, Refund Policy, About Us"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Orbitron:wght@700;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#040507;--bg2:#080b10;--card:#0d1117;--border:rgba(255,255,255,0.07);--accent:#00e5ff;--accent2:#7c3aed;--text:#f0f4f8;--muted:#64748b;--success:#22c55e;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+  .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:rgba(4,5,7,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+
+  /* ═══════════════════════════════════════════
+     OMNEXO AI — PRODUCTION LOGO (exact match to logo-app.html / index.html)
+     9 orbits + sphere + wordmark, scaled for nav bar.
+     ═══════════════════════════════════════════ */
+  .omnexo-orbital{position:relative;width:220px;height:220px;}
+  .omnexo-sphere{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:62px;height:62px;border-radius:50%;z-index:10;
+    background:conic-gradient(from 0deg,#FF3DAE,#FF6B6B,#FFA62B,#FFE600,#06FFA5,#00D4FF,#3B82F6,#A855F7,#FF3DAE);
+    animation:omnexoSpinSphere 5s linear infinite;
+    box-shadow:0 0 0 3px rgba(255,255,255,0.06),0 0 34px rgba(168,85,247,0.7),0 0 68px rgba(59,130,246,0.5),0 0 110px rgba(6,255,165,0.25);
+  }
+  .omnexo-sphere::after{content:'';position:absolute;top:13%;left:17%;width:32%;height:22%;background:rgba(255,255,255,0.6);border-radius:50%;filter:blur(3px);}
+  @keyframes omnexoSpinSphere{to{transform:translate(-50%,-50%) rotate(360deg);}}
+  .omnexo-aura{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:74px;height:74px;border-radius:50%;
+    background:radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 70%);
+    z-index:9;animation:omnexoPulse 3s ease-in-out infinite;
+  }
+  @keyframes omnexoPulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}}
+  .omnexo-orbit{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid;transform-origin:center center;}
+  .oo1{ width:68px;height:26px;  margin:-13px 0 0 -34px;  border-color:rgba(255,61,174,0.45); animation:oos1 6s   linear infinite; }
+  .oo2{ width:82px;height:30px;  margin:-15px 0 0 -41px;  border-color:rgba(255,166,43,0.4);  animation:oos2 9s   linear infinite; }
+  .oo3{ width:96px;height:34px;  margin:-17px 0 0 -48px;  border-color:rgba(255,230,0,0.35);  animation:oos3 12s  linear infinite; }
+  .oo4{ width:108px;height:38px; margin:-19px 0 0 -54px;  border-color:rgba(6,255,165,0.35);  animation:oos4 16s  linear infinite; }
+  .oo5{ width:122px;height:42px; margin:-21px 0 0 -61px;  border-color:rgba(0,212,255,0.32);  animation:oos5 20s  linear infinite; }
+  .oo6{ width:134px;height:46px; margin:-23px 0 0 -67px;  border-color:rgba(59,130,246,0.3);  animation:oos6 25s  linear infinite; }
+  .oo7{ width:146px;height:50px; margin:-25px 0 0 -73px;  border-color:rgba(168,85,247,0.28); animation:oos7 30s  linear infinite; }
+  .oo8{ width:158px;height:54px; margin:-27px 0 0 -79px;  border-color:rgba(236,72,153,0.25); animation:oos8 36s  linear infinite; }
+  .oo9{ width:172px;height:58px; margin:-29px 0 0 -86px;  border-color:rgba(250,204,21,0.22); animation:oos9 42s  linear infinite; }
+  @keyframes oos1{from{transform:rotate(8deg)}to{transform:rotate(368deg)}}
+  @keyframes oos2{from{transform:rotate(-28deg)}to{transform:rotate(-388deg)}}
+  @keyframes oos3{from{transform:rotate(52deg)}to{transform:rotate(412deg)}}
+  @keyframes oos4{from{transform:rotate(-65deg)}to{transform:rotate(-425deg)}}
+  @keyframes oos5{from{transform:rotate(15deg)}to{transform:rotate(375deg)}}
+  @keyframes oos6{from{transform:rotate(-40deg)}to{transform:rotate(-400deg)}}
+  @keyframes oos7{from{transform:rotate(75deg)}to{transform:rotate(435deg)}}
+  @keyframes oos8{from{transform:rotate(-12deg)}to{transform:rotate(-372deg)}}
+  @keyframes oos9{from{transform:rotate(38deg)}to{transform:rotate(398deg)}}
+  .omnexo-planet{position:absolute;top:50%;left:100%;transform:translate(-50%,-50%);border-radius:50%;}
+  .oo1 .omnexo-planet{width:5px;height:5px; background:#FF3DAE; box-shadow:0 0 8px #FF3DAE,0 0 16px rgba(255,61,174,0.6);}
+  .oo2 .omnexo-planet{width:5px;height:5px; background:#FFA62B; box-shadow:0 0 8px #FFA62B,0 0 16px rgba(255,166,43,0.6);}
+  .oo3 .omnexo-planet{width:5px;height:5px; background:#FFE600; box-shadow:0 0 8px #FFE600,0 0 16px rgba(255,230,0,0.6);}
+  .oo4 .omnexo-planet{width:4.5px;height:4.5px; background:#06FFA5; box-shadow:0 0 8px #06FFA5,0 0 14px rgba(6,255,165,0.55);}
+  .oo5 .omnexo-planet{width:4.5px;height:4.5px; background:#00D4FF; box-shadow:0 0 8px #00D4FF,0 0 14px rgba(0,212,255,0.55);}
+  .oo6 .omnexo-planet{width:4.5px;height:4.5px; background:#3B82F6; box-shadow:0 0 8px #3B82F6,0 0 14px rgba(59,130,246,0.5);}
+  .oo7 .omnexo-planet{width:4px;height:4px; background:#A855F7; box-shadow:0 0 7px #A855F7,0 0 13px rgba(168,85,247,0.5);}
+  .oo8 .omnexo-planet{width:4px;height:4px; background:#EC4899; box-shadow:0 0 7px #EC4899,0 0 13px rgba(236,72,153,0.45);}
+  .oo9 .omnexo-planet{width:4px;height:4px; background:#FACC15; box-shadow:0 0 7px #FACC15,0 0 13px rgba(250,204,21,0.45);}
+  .om-ai{
+    background:linear-gradient(135deg,#FF3DAE,#A855F7,#00D4FF);background-size:200% auto;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    filter:drop-shadow(0 0 14px rgba(168,85,247,0.6));
+  }
+
+  /* scaled wrapper for nav bar — same 220px logo, shrunk to fit */
+  .omnexo-nav-wrap{
+    display:inline-block;width:36px;height:36px;
+    overflow:hidden;flex-shrink:0;position:relative;vertical-align:middle;
+    will-change:transform;transform:translateZ(0);isolation:isolate;
+  }
+  .omnexo-nav-wrap .omnexo-orbital{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(0.163);
+  }
+  .omnexo-nav-word{
+    font-family:'Orbitron',monospace;font-weight:900;font-size:1.05rem;
+    letter-spacing:0.02em;color:#FFFFFF;display:inline-flex;align-items:center;gap:4px;
+    white-space:nowrap;word-break:keep-all;overflow-wrap:normal;flex-shrink:0;
+  }
+  .omnexo-nav-word .om-ai{filter:drop-shadow(0 0 8px rgba(168,85,247,0.6));}
+  .nav-cta{background:var(--accent);color:#000;border:none;padding:9px 18px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;text-decoration:none;}
+  .lang-toggle{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;cursor:pointer;transition:all 0.2s;}
+  .lang-toggle:hover{border-color:var(--accent);color:var(--accent);}
+  .lang-toggle.active-hi{background:var(--accent);color:#000;border-color:var(--accent);}
+
+  /* LAYOUT */
+  .layout{display:flex;min-height:100vh;padding-top:60px;}
+
+  /* SIDEBAR NAV */
+  .page-sidebar{position:fixed;top:60px;left:0;bottom:0;width:240px;background:rgba(8,11,16,0.95);border-right:1px solid var(--border);padding:24px 16px;overflow-y:auto;z-index:10;}
+  .ps-section{font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:0 8px;margin-bottom:8px;margin-top:20px;}
+  .ps-section:first-child{margin-top:0;}
+  .ps-link{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9px;font-size:0.82rem;color:var(--muted);cursor:pointer;transition:all 0.2s;text-decoration:none;margin-bottom:2px;}
+  .ps-link:hover{background:rgba(255,255,255,0.04);color:var(--text);}
+  .ps-link.active{background:rgba(0,229,255,0.08);color:var(--accent);}
+
+  /* MAIN CONTENT */
+  .main-content{margin-left:240px;flex:1;min-width:0;padding:40px 48px 80px;max-width:900px;}
+
+  /* PAGE HEADER */
+  .doc-hero{padding:0 0 40px;border-bottom:1px solid var(--border);margin-bottom:40px;}
+  .doc-tag{font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:block;}
+  .doc-title{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:12px;}
+  .doc-meta{display:flex;gap:16px;flex-wrap:wrap;}
+  .doc-meta-item{font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:5px;}
+
+  /* SECTIONS */
+  .doc-section{margin-bottom:48px;scroll-margin-top:80px;}
+  .section-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+  .section-subtitle{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:10px;margin-top:20px;color:var(--text);}
+  p{font-size:0.88rem;color:rgba(240,244,248,0.8);line-height:1.8;margin-bottom:12px;}
+  ul,ol{padding-left:20px;margin-bottom:14px;}
+  li{font-size:0.86rem;color:rgba(240,244,248,0.75);line-height:1.7;margin-bottom:4px;word-break:break-word;overflow-wrap:anywhere;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* INFO BOXES */
+  .info-box{background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.12);border-radius:12px;padding:14px 18px;margin-bottom:16px;}
+  .info-box.warning{background:rgba(245,158,11,0.05);border-color:rgba(245,158,11,0.2);}
+  .info-box.success{background:rgba(34,197,94,0.05);border-color:rgba(34,197,94,0.2);}
+  .info-box-title{font-size:0.78rem;font-weight:700;margin-bottom:5px;color:var(--accent);}
+  .info-box.warning .info-box-title{color:#f59e0b;}
+  .info-box.success .info-box-title{color:var(--success);}
+  .info-box p{font-size:0.8rem;margin-bottom:0;}
+
+  /* TABLE */
+  .data-table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:0.82rem;}
+  .data-table th{padding:10px 14px;text-align:left;font-family:'Syne',sans-serif;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border);background:var(--bg2);}
+  .data-table td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:rgba(240,244,248,0.75);vertical-align:top;word-break:break-word;overflow-wrap:anywhere;}
+  .data-table tr:hover td{background:rgba(255,255,255,0.02);}
+
+  /* ABOUT SECTION */
+  .founder-card{background:linear-gradient(135deg,rgba(0,229,255,0.06),rgba(124,58,237,0.06));border:1px solid rgba(0,229,255,0.15);border-radius:16px;padding:24px 22px;margin-bottom:20px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;}
+  .founder-avatar{width:64px;height:64px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:#000;flex-shrink:0;}
+  .founder-info{flex:1;}
+  .founder-name{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:3px;}
+  .founder-title{font-size:0.75rem;color:var(--accent);margin-bottom:8px;}
+  .founder-bio{font-size:0.82rem;color:var(--muted);line-height:1.6;word-break:break-word;overflow-wrap:anywhere;}
+
+  .values-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;}
+  .value-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;}
+  .value-icon{font-size:1.3rem;margin-bottom:8px;display:block;}
+  .value-title{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:4px;}
+  .value-desc{font-size:0.75rem;color:var(--muted);line-height:1.5;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px;}
+  .contact-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:all 0.2s;}
+  .contact-card:hover{border-color:rgba(0,229,255,0.2);}
+  .contact-icon{font-size:1.4rem;margin-bottom:8px;display:block;}
+  .contact-type{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:4px;}
+  .contact-value{font-size:0.85rem;font-weight:600;color:var(--accent);word-break:break-word;overflow-wrap:anywhere;}
+  .contact-note{font-size:0.7rem;color:var(--muted);margin-top:3px;}
+
+  .contact-form{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-top:20px;}
+  .cf-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:16px;}
+  .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+  .cf-group{margin-bottom:12px;}
+  .cf-label{display:block;font-size:0.72rem;font-weight:600;color:var(--muted);margin-bottom:5px;}
+  .cf-input{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+  .cf-input:focus{border-color:var(--accent);}
+  .cf-input::placeholder{color:#2d3748;}
+  .cf-select{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:9px;font-size:0.85rem;outline:none;cursor:pointer;margin-bottom:12px;}
+  .cf-textarea{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;resize:vertical;min-height:90px;margin-bottom:14px;transition:border-color 0.2s;}
+  .cf-textarea:focus{border-color:var(--accent);}
+  .cf-btn{background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;padding:11px 24px;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;}
+  .cf-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,229,255,0.2);}
+
+  /* PAGE DIVIDER */
+  .page-break{height:1px;background:var(--border);margin:60px 0;}
+  .site-footer{margin-left:240px;}
+  .site-footer a{word-break:break-word;overflow-wrap:anywhere;}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:24px;right:24px;z-index:300;background:var(--success);color:#000;padding:11px 18px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;opacity:0;transform:translateY(8px);transition:all 0.3s;pointer-events:none;}
+  .toast.show{opacity:1;transform:translateY(0);}
+
+  @media(max-width:768px){
+    .page-sidebar{display:none;}
+    .main-content{margin-left:0;padding:24px 20px 60px;}
+    .doc-title{font-size:1.8rem;}
+    .values-grid,.contact-grid{grid-template-columns:1fr;}
+    .cf-row{grid-template-columns:1fr;}
+    .founder-card{flex-direction:column;}
+    nav{padding:12px 14px;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .omnexo-nav-word{font-size:0.82rem;}
+    .lang-toggle{padding:6px 10px;font-size:0.7rem;flex-shrink:0;}
+    .nav-cta{padding:7px 12px;font-size:0.72rem;flex-shrink:0;white-space:nowrap;}
+    .site-footer{margin-left:0;padding:24px 16px;}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+    <div class="omnexo-nav-wrap">
+      <div class="omnexo-orbital">
+        <div class="omnexo-aura"></div>
+        <div class="omnexo-orbit oo1"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo2"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo3"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo4"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo5"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo6"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo7"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo8"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo9"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-sphere"></div>
+      </div>
+    </div>
+    <div class="omnexo-nav-word">OMNEXO<span class="om-ai">AI</span></div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;"><button id="legalLangBtn" onclick="toggleLegalLang()" class="lang-toggle" title="Translate to Hindi">🌐 EN</button><a href="omniai-auth.html" class="nav-cta">Get Started →</a></div>
+</nav>
+
+<div class="layout">
+
+  <!-- PAGE SIDEBAR -->
+  <div class="page-sidebar">
+    <div class="ps-section">Company</div>
+    <a class="ps-link active" href="#about" onclick="setActive(this)" data-en="🏢 About Us" data-hi="🏢 Hamare Baare Mein">🏢 About Us</a>
+    <a class="ps-link" href="#contact" onclick="setActive(this)" data-en="📧 Contact" data-hi="📧 Sampark">📧 Contact</a>
+
+    <div class="ps-section">Legal</div>
+    <a class="ps-link" href="#privacy" onclick="setActive(this)" data-en="🔒 Privacy Policy" data-hi="🔒 Privacy Policy">🔒 Privacy Policy</a>
+    <a class="ps-link" href="#terms" onclick="setActive(this)">📋 Terms of Service</a>
+    <a class="ps-link" href="#refund" onclick="setActive(this)">↩️ Refund Policy</a>
+    <a class="ps-link" href="#cookies" onclick="setActive(this)">🍪 Cookie Policy</a>
+
+    <div class="ps-section">Compliance</div>
+    <a class="ps-link" href="#dpdp" onclick="setActive(this)">🇮🇳 DPDP Act & Rules 2025</a>
+    <a class="ps-link" href="#grievance" onclick="setActive(this)">⚖️ Grievance Officer</a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <!-- ══ ABOUT US ══ -->
+    <div class="doc-section" id="about">
+      <div class="doc-hero">
+        <span class="doc-tag">Company</span>
+        <div class="doc-title">About OMNEXO AI 🤖</div>
+        <div class="doc-meta">
+          <div class="doc-meta-item">📍 Uttar Pradesh, India</div>
+          <div class="doc-meta-item">📅 Founded 2026</div>
+          <div class="doc-meta-item">🎯 Universal AI Control Center</div>
+        </div>
+      </div>
+
+      <div class="section-subtitle" data-en="Our Mission" data-hi="Hamara Mission">Our Mission</div>
+      <p data-en="OMNEXO AI&#39;s mission is to <strong>make AI accessible to everyone.</strong> Today, premium AI tools cost ₹1,600+ per month per model. Many talented people in India simply can&#39;t afford that — which is why OMNEXO AI was built." data-hi="OMNEXO AI ka mission hai — <strong>AI ko sabke liye accessible banana.</strong> Aaj premium AI tools ke subscriptions ₹1,600+ per month per model hain. India mein bahut se talented log inhe afford nahi kar sakte — isliye OMNEXO AI banaya gaya.">OMNEXO AI&#39;s mission is to <strong>make AI accessible to everyone.</strong> Today, premium AI tools cost ₹1,600+ per month per model. Many talented people in India simply can&#39;t afford that — which is why OMNEXO AI was built.</p>
+      <p data-en="We offer 9 premium AI models on a single platform — starting at just ₹449/month. Pay only for what you use. The Smart Router automatically picks the cheapest, best model for every query." data-hi="Hum 9 premium AI models ek platform par offer karte hain — sirf ₹449/month se shuru. Pay only for what you use. Smart Router har query ke liye automatically sabse sasta aur best model choose karta hai.">We offer 9 premium AI models on a single platform — starting at just ₹449/month. Pay only for what you use. The Smart Router automatically picks the cheapest, best model for every query.</p>
+
+      <div class="section-subtitle" data-en="The Founder" data-hi="Founder">The Founder</div>
+      <div class="founder-card">
+        <div class="founder-avatar">B</div>
+        <div class="founder-info">
+          <div class="founder-name">Baudh Singh Gautam</div>
+          <div class="founder-title">Founder & CEO, OMNEXO AI</div>
+          <div class="founder-bio" data-en="From Uttar Pradesh, India — a solopreneur who believes the power of technology shouldn&#39;t be limited to Silicon Valley. OMNEXO AI isn&#39;t an experiment, it&#39;s a mission — to democratize AI in India, one user at a time." data-hi="Uttar Pradesh, India se — ek solopreneur jo maanta hai ki technology ki power sirf Silicon Valley tak limited nahi honi chahiye. OMNEXO AI ek experiment nahi, ek mission hai — India mein AI ko democratize karna, ek user at a time.">From Uttar Pradesh, India — a solopreneur who believes the power of technology shouldn&#39;t be limited to Silicon Valley. OMNEXO AI isn&#39;t an experiment, it&#39;s a mission — to democratize AI in India, one user at a time.</div>
+        </div>
+      </div>
+
+      <div class="section-subtitle" data-en="Why OMNEXO AI?" data-hi="OMNEXO AI Kyun?">Why OMNEXO AI?</div>
+      <p data-en="The idea came from a simple insight — most people make only 10–15 AI queries a day, yet have to pay for a whole month for each model. OMNEXO AI solves this with a credits-based, Pay-As-You-Go system." data-hi="Ek simple insight se yeh idea aaya — zyaadatar log din mein sirf 10-15 AI queries karte hain, lekin har model ke liye pura mahina pay karna padta hai. OMNEXO AI ne is problem ko credits-based Pay-As-You-Go system se solve kiya.">The idea came from a simple insight — most people make only 10–15 AI queries a day, yet have to pay for a whole month for each model. OMNEXO AI solves this with a credits-based, Pay-As-You-Go system.</p>
+
+      <div class="values-grid">
+        <div class="value-card"><span class="value-icon">🎯</span><div class="value-title">Accessibility First</div><div class="value-desc" data-en="Making AI affordable — for India and the world" data-hi="AI ko affordable banana — India aur duniya ke liye">Making AI affordable — for India and the world</div></div>
+        <div class="value-card"><span class="value-icon">💰</span><div class="value-title">Value for Money</div><div class="value-desc">9 models, ek price — 6.6x more power than competitors</div></div>
+        <div class="value-card"><span class="value-icon">🔒</span><div class="value-title">Privacy First</div><div class="value-desc" data-en="Your data stays safe in India — DPDP Act 2023 & Rules 2025 compliant" data-hi="Aapka data India mein safe — DPDP Act 2023 & Rules 2025 compliant">Your data stays safe in India — DPDP Act 2023 & Rules 2025 compliant</div></div>
+        <div class="value-card"><span class="value-icon">🇮🇳</span><div class="value-title">Made for India</div><div class="value-desc" data-en="UPI payments, multilingual support, Indian jurisdiction" data-hi="UPI payments, Hindi support, Indian jurisdiction">UPI payments, multilingual support, Indian jurisdiction</div></div>
+      </div>
+
+      <div class="info-box success">
+        <div class="info-box-title" data-en="🚀 Our Vision" data-hi="🚀 Hamara Vision">🚀 Our Vision</div>
+        <p data-en="By 2026, make OMNEXO AI India&#39;s #1 AI aggregator platform — where anyone, anywhere, can access premium AI for ₹449/month." data-hi="2026 mein OMNEXO AI ko India ka #1 AI aggregator platform banana — jahan koi bhi, kahin se bhi, premium AI ₹449/month mein access kar sake.">By 2026, make OMNEXO AI India&#39;s #1 AI aggregator platform — where anyone, anywhere, can access premium AI for ₹449/month.</p>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ══ CONTACT ══ -->
+    <div class="doc-section" id="contact">
+      <span class="doc-tag">Get in Touch</span>
+      <div class="doc-title" style="font-size:1.8rem;">Contact Us 📧</div>
+
+      <div class="contact-grid">
+        <div class="contact-card"><span class="contact-icon">📧</span><div class="contact-type">Email Support</div><div class="contact-value"><a href="mailto:baudhsinghgautam@omnexoai.com">baudhsinghgautam@omnexoai.com</a></div><div class="contact-note" data-en="Response within 24 hours" data-hi="24 ghante mein response">Response within 24 hours</div></div>
+        <div class="contact-card"><span class="contact-icon">⚖️</span><div class="contact-type">Grievance Officer</div><div class="contact-value"><a href="mailto:baudhsinghgautam@omnexoai.com">baudhsinghgautam@omnexoai.com</a></div><div class="contact-note">DPDP Act complaints</div></div>
+        <div class="contact-card"><span class="contact-icon">📍</span><div class="contact-type">Office Address</div><div class="contact-value">Uttar Pradesh</div><div class="contact-note">India</div></div>
+        <div class="contact-card"><span class="contact-icon">🕐</span><div class="contact-type">Support Hours</div><div class="contact-value">Mon–Sat, 10AM–6PM IST</div><div class="contact-note">AI support 24/7</div></div>
+      </div>
+
+      <div class="contact-form">
+        <div class="cf-title">📩 Send us a Message</div>
+        <div class="cf-row">
+          <div><label class="cf-label">Full Name</label><input class="cf-input" placeholder="Your full name"/></div>
+          <div><label class="cf-label">Email</label><input type="email" class="cf-input" placeholder="you@example.com"/></div>
+        </div>
+        <label class="cf-label">Subject</label>
+        <select class="cf-select">
+          <option>Account / Login Issue</option>
+          <option>Payment / Billing</option>
+          <option>Credits / Wallet</option>
+          <option>Technical Problem</option>
+          <option>Refund Request</option>
+          <option>Feature Request</option>
+          <option>DPDP / Privacy</option>
+          <option>Other</option>
+        </select>
+        <label class="cf-label">Message</label>
+        <textarea class="cf-textarea" placeholder="Describe your question or issue in detail..."></textarea>
+        <button class="cf-btn" onclick="submitContact()">Send Message →</button>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ══ PRIVACY POLICY ══ -->
+    <div class="doc-section" id="privacy">
+      <span class="doc-tag">Legal Document</span>
+      <div class="doc-title" style="font-size:1.8rem;">Privacy Policy 🔒</div>
+      <div class="doc-meta" style="margin-bottom:24px;">
+        <div class="doc-meta-item">📅 Effective: January 1, 2026</div>
+        <div class="doc-meta-item">🔄 Last Updated: May 2026</div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-box-title">📋 Summary</div>
+        <p data-en="OMNEXO AI only collects the data needed to run the service. Your data is never sold. You can delete your data at any time." data-hi="OMNEXO AI sirf wahi data collect karta hai jo service ke liye zaruri hai. Aapka data kabhi sell nahi hoga. Aap apna data kabhi bhi delete kar sakte hain.">OMNEXO AI only collects the data needed to run the service. Your data is never sold. You can delete your data at any time.</p>
+      </div>
+
+      <div class="section-subtitle" data-en="1. Data We Collect" data-hi="1. Hum Jo Data Collect Karte Hain">1. Data We Collect</div>
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="data-table">
+        <thead><tr><th data-en="Data Type" data-hi="Data Type">Data Type</th><th data-en="What We Collect" data-hi="Kya Collect Hota Hai">What We Collect</th><th data-en="Why" data-hi="Kyun">Why</th></tr></thead>
+        <tbody>
+          <tr><td>Account Info</td><td>Name, email, phone number</td><td data-en="To create your account" data-hi="Account create karne ke liye">To create your account</td></tr>
+          <tr><td>Payment Info</td><td data-en="Transaction ID, amount (card details are stored by Razorpay/Stripe — not us)" data-hi="Transaction ID, amount (card details Razorpay/Stripe store karte hain — hum nahi)">Transaction ID, amount (card details are stored by Razorpay/Stripe — not us)</td><td data-en="For billing" data-hi="Billing ke liye">For billing</td></tr>
+          <tr><td>Usage Data</td><td>Chat history, credits used, model preferences</td><td data-en="To improve the service" data-hi="Service improve karne ke liye">To improve the service</td></tr>
+          <tr><td>Device Info</td><td>IP address, browser type, device type</td><td data-en="Security and fraud prevention" data-hi="Security aur fraud prevention">Security and fraud prevention</td></tr>
+          <tr><td>Cookies</td><td>Session cookies, preference cookies</td><td data-en="To keep you logged in" data-hi="Login maintain karne ke liye">To keep you logged in</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="section-subtitle" data-en="2. Where Your Data Is Stored" data-hi="2. Data Kahan Store Hota Hai">2. Where Your Data Is Stored</div>
+      <p data-en="Your data is stored on AWS servers in India — in line with the <strong>Digital Personal Data Protection (DPDP) Act 2023 and DPDP Rules 2025</strong>. We will take your explicit consent before transferring any data outside India." data-hi="Aapka data India mein AWS servers par store hota hai — <strong>Digital Personal Data Protection (DPDP) Act 2023 aur DPDP Rules 2025</strong> ke anusaar. India se bahar koi bhi data transfer karne se pehle aapki explicit consent li jaayegi.">Your data is stored on AWS servers in India — in line with the <strong>Digital Personal Data Protection (DPDP) Act 2023 and DPDP Rules 2025</strong>. We will take your explicit consent before transferring any data outside India.</p>
+
+      <div class="section-subtitle" data-en="3. Who We Share Data With" data-hi="3. Data Kisko Share Karte Hain">3. Who We Share Data With</div>
+      <ul>
+        <li data-en="<strong>Razorpay / Stripe</strong> — For payment processing only. We do not store card details." data-hi="<strong>Razorpay / Stripe</strong> — Sirf payment processing ke liye. Hum card details store nahi karte."><strong>Razorpay / Stripe</strong> — For payment processing only. We do not store card details.</li>
+        <li data-en="<strong>AI Model Providers</strong> (Anthropic, OpenAI, Google, etc.) — Only to process your queries. These providers follow their own privacy policies." data-hi="<strong>AI Model Providers</strong> (Anthropic, OpenAI, Google, etc.) — Sirf aapki queries process karne ke liye. Yeh providers apni privacy policies follow karte hain."><strong>AI Model Providers</strong> (Anthropic, OpenAI, Google, etc.) — Only to process your queries. These providers follow their own privacy policies.</li>
+        <li data-en="<strong>AWS</strong> — Cloud infrastructure provider. Data stays in India." data-hi="<strong>AWS</strong> — Cloud infrastructure provider. Data India mein rehta hai."><strong>AWS</strong> — Cloud infrastructure provider. Data stays in India.</li>
+        <li data-en="<strong>NO ONE ELSE</strong> — We never sell, rent or trade your data." data-hi="<strong>Kisi aur ko NAHI</strong> — Hum data kabhi sell, rent, ya trade nahi karte."><strong>NO ONE ELSE</strong> — We never sell, rent or trade your data.</li>
+      </ul>
+
+      <div class="section-subtitle" data-en="4. Your Rights (DPDP Act 2023 & Rules 2025)" data-hi="4. Aapke Rights (DPDP Act 2023 & Rules 2025)">4. Your Rights (DPDP Act 2023 & Rules 2025)</div>
+      <ul>
+        <li data-en="<strong>Right to Access</strong> — View your data via Settings → Privacy → Download My Data" data-hi="<strong>Right to Access</strong> — Apna data dekho — Settings → Privacy → Download My Data"><strong>Right to Access</strong> — View your data via Settings → Privacy → Download My Data</li>
+        <li data-en="<strong>Right to Correction</strong> — Update any incorrect details yourself anytime via Settings → Profile" data-hi="<strong>Right to Correction</strong> — Galat data khud Settings → Profile se kabhi bhi correct kar sakte ho"><strong>Right to Correction</strong> — Update any incorrect details yourself anytime via Settings → Profile</li>
+        <li data-en="<strong>Right to Erasure</strong> — Delete your account to remove all your personal data, except records we&#39;re legally required to retain (e.g. financial/transaction records under tax law) for the statutory period" data-hi="<strong>Right to Erasure</strong> — Account delete karke aapka poora personal data delete ho jaayega, except wo records jo law ke under (jaise tax/financial records) statutory period tak rakhna zaruri hai"><strong>Right to Erasure</strong> — Delete your account to remove all your personal data, except records we&#39;re legally required to retain (e.g. financial/transaction records under tax law) for the statutory period</li>
+        <li data-en="<strong>Right to Withdraw Consent</strong> — Opt out of any data processing" data-hi="<strong>Right to Withdraw Consent</strong> — Kisi bhi data processing se opt-out kar sakte ho"><strong>Right to Withdraw Consent</strong> — Opt out of any data processing</li>
+        <li data-en="<strong>Right to Grievance</strong> — Raise a complaint at <a href=&quot;mailto:baudhsinghgautam@omnexoai.com&quot;>baudhsinghgautam@omnexoai.com</a>" data-hi="<strong>Right to Grievance</strong> — <a href=&quot;mailto:baudhsinghgautam@omnexoai.com&quot;>baudhsinghgautam@omnexoai.com</a> par complaint kar sakte ho"><strong>Right to Grievance</strong> — Raise a complaint at <a href="mailto:baudhsinghgautam@omnexoai.com">baudhsinghgautam@omnexoai.com</a></li>
+      </ul>
+
+      <div class="section-subtitle">5. Data Retention</div>
+      <p data-en="Data is stored while your account is active. When you delete your account, your personal/account data is permanently deleted <strong>within 30 days</strong>, and backup copies are purged within their normal backup cycle (up to 90 days). Records we&#39;re legally required to keep — like financial/transaction records for tax and audit purposes — are retained separately for the statutory period required by law." data-hi="Account active hone tak data store hoga. Account delete karne par aapka personal/account data <strong>30 din ke andar</strong> permanently delete ho jaayega, aur backup copies apne normal cycle (90 din tak) mein purge ho jaayengi. Jo records law ke hisaab se rakhna zaruri hai — jaise tax/audit ke liye financial records — woh alag se statutory period tak retain kiye jaayenge.">Data is stored while your account is active. When you delete your account, your personal/account data is permanently deleted <strong>within 30 days</strong>, and backup copies are purged within their normal backup cycle (up to 90 days). Records we&#39;re legally required to keep — like financial/transaction records for tax and audit purposes — are retained separately for the statutory period required by law.</p>
+
+      <div class="section-subtitle">6. Children's Privacy</div>
+      <p data-en="OMNEXO AI is not for users under 18. This is because Indian law (DPDP Act/Rules) requires verifiable parental consent to process a minor&#39;s data, and AI model providers also restrict direct use by minors. We rely on a self-declared age confirmation at signup, and accounts found to belong to a minor will be suspended." data-hi="OMNEXO AI 18 saal se kam umar ke users ke liye nahi hai. Iski wajah yeh hai ki Indian law (DPDP Act/Rules) ke under minor ka data process karne ke liye verifiable parental consent zaruri hai, aur AI model providers bhi minors ke direct use ko restrict karte hain. Hum signup ke waqt self-declared age confirmation par rely karte hain, aur agar koi account minor ka paaya jaata hai toh use suspend kar diya jaayega.">OMNEXO AI is not for users under 18. This is because Indian law (DPDP Act/Rules) requires verifiable parental consent to process a minor&#39;s data, and AI model providers also restrict direct use by minors. We rely on a self-declared age confirmation at signup, and accounts found to belong to a minor will be suspended.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ══ TERMS OF SERVICE ══ -->
+    <div class="doc-section" id="terms">
+      <span class="doc-tag">Legal Document</span>
+      <div class="doc-title" style="font-size:1.8rem;">Terms of Service 📋</div>
+      <div class="doc-meta" style="margin-bottom:24px;">
+        <div class="doc-meta-item">📅 Effective: January 1, 2026</div>
+        <div class="doc-meta-item">🔄 Last Updated: May 2026</div>
+      </div>
+
+      <div class="info-box warning">
+        <div class="info-box-title">⚠️ Important</div>
+        <p data-en="By using OMNEXO AI you agree to these Terms. Please read them carefully. Jurisdiction: Uttar Pradesh, India." data-hi="OMNEXO AI use karne se aap in Terms se agree karte hain. Please dhyan se padhein. Jurisdiction: Uttar Pradesh, India.">By using OMNEXO AI you agree to these Terms. Please read them carefully. Jurisdiction: Uttar Pradesh, India.</p>
+      </div>
+
+      <div class="section-subtitle">1. Service Description</div>
+      <p data-en="OMNEXO AI is an AI aggregator platform that provides 9 premium AI models — GPT-5.5 (OpenAI), Claude (Anthropic), Gemini 2.5 Flash (Google), DeepSeek V4 (DeepSeek), Grok 4 (xAI), Llama 4 (Meta), Mistral Large 3 (Mistral AI), Kimi K2 (Moonshot AI), and Qwen 3 (Alibaba) — in one subscription. We are not the creators of these models — we provide API access." data-hi="OMNEXO AI ek AI aggregator platform hai jo 9 premium AI models — GPT-5.5 (OpenAI), Claude (Anthropic), Gemini 2.5 Flash (Google), DeepSeek V4 (DeepSeek), Grok 4 (xAI), Llama 4 (Meta), Mistral Large 3 (Mistral AI), Kimi K2 (Moonshot AI), aur Qwen 3 (Alibaba) — ek subscription mein provide karta hai. Hum in models ke creators nahi hain — hum API access provide karte hain.">OMNEXO AI is an AI aggregator platform that provides 9 premium AI models — GPT-5.5 (OpenAI), Claude (Anthropic), Gemini 2.5 Flash (Google), DeepSeek V4 (DeepSeek), Grok 4 (xAI), Llama 4 (Meta), Mistral Large 3 (Mistral AI), Kimi K2 (Moonshot AI), and Qwen 3 (Alibaba) — in one subscription. We are not the creators of these models — we provide API access.</p>
+
+      <div class="section-subtitle">2. Account Rules</div>
+      <ul>
+        <li data-en="One person may hold only one account" data-hi="Ek person sirf ek account rakh sakta hai">One person may hold only one account</li>
+        <li data-en="Account sharing is prohibited" data-hi="Account share karna prohibited hai">Account sharing is prohibited</li>
+        <li data-en="You must be over 18 years of age" data-hi="18 saal se zyada umar zaroori hai">You must be over 18 years of age</li>
+        <li data-en="You must provide accurate information" data-hi="Sahi jankari provide karna zaroori hai">You must provide accurate information</li>
+        <li data-en="Account security is your responsibility" data-hi="Account security aapki zimmedari hai">Account security is your responsibility</li>
+      </ul>
+
+      <div class="section-subtitle">3. Prohibited Uses</div>
+      <ul>
+        <li data-en="Generating illegal content — harassment, threats, CSAM" data-hi="Illegal content generate karna — harassment, threats, CSAM">Generating illegal content — harassment, threats, CSAM</li>
+        <li data-en="Use for spam or bulk messaging" data-hi="Spam ya bulk messaging ke liye use">Use for spam or bulk messaging</li>
+        <li data-en="Sharing or selling account credentials" data-hi="Account credentials share karna ya sell karna">Sharing or selling account credentials</li>
+        <li data-en="Hacking or reverse-engineering the service" data-hi="Service ko hack ya reverse-engineer karna">Hacking or reverse-engineering the service</li>
+        <li data-en="Data scraping for competitors" data-hi="Competitors ke liye data scraping">Data scraping for competitors</li>
+        <li data-en="Violating copyright" data-hi="Copyright violate karna">Violating copyright</li>
+        <li data-en="Deliberately spreading misinformation" data-hi="Misinformation deliberately spread karna">Deliberately spreading misinformation</li>
+      </ul>
+
+      <div class="section-subtitle">4. Credits & Payment Policy</div>
+      <ul>
+        <li data-en="<strong>All sales are final</strong> — digital goods are non-refundable" data-hi="<strong>All sales are final</strong> — digital goods ka refund nahi hota"><strong>All sales are final</strong> — digital goods are non-refundable</li>
+        <li data-en="Credits are account-specific — they cannot be transferred" data-hi="Credits account-specific hain — transfer nahi ho sakte">Credits are account-specific — they cannot be transferred</li>
+        <li data-en="Monthly plan credits reset every month" data-hi="Monthly plan credits monthly reset hote hain">Monthly plan credits reset every month</li>
+        <li data-en="Extra purchased credits expire in 6 months" data-hi="Extra purchased credits 6 mahine mein expire hote hain">Extra purchased credits expire in 6 months</li>
+        <li data-en="Credit costs may change for new purchases anytime. Existing active subscribers get 7 days advance notice before the change applies to their next renewal" data-hi="Naye purchases ke liye credit costs kabhi bhi change ho sakte hain. Existing active subscribers ko unke next renewal se pehle 7 days advance notice diya jaayega">Credit costs may change for new purchases anytime. Existing active subscribers get 7 days advance notice before the change applies to their next renewal</li>
+        <li data-en="<strong>Use the free trial first</strong> — then subscribe" data-hi="<strong>Free trial pehle use karein</strong> — phir subscribe karein"><strong>Use the free trial first</strong> — then subscribe</li>
+      </ul>
+      <div class="section-subtitle">5. Autopay / Auto-Renewal</div>
+      <ul>
+        <li data-en="Subscriptions auto-renew monthly unless cancelled" data-hi="Subscription monthly auto-renew hogi unless cancelled">Subscriptions auto-renew monthly unless cancelled</li>
+        <li data-en="An email reminder is sent 3 days before auto-renewal" data-hi="Auto-renewal se 3 din pehle email reminder aayega">An email reminder is sent 3 days before auto-renewal</li>
+        <li data-en="With Autopay set up, credits auto-recharge when they drop below 50" data-hi="Autopay setup karne par credits 50 se kam hone par auto-recharge">With Autopay set up, credits auto-recharge when they drop below 50</li>
+        <li data-en="To cancel: Settings → Billing → Cancel Subscription" data-hi="Cancel karna: Settings → Billing → Cancel Subscription">To cancel: Settings → Billing → Cancel Subscription</li>
+        <li data-en="After cancellation, service stops at the end of the current period" data-hi="Cancel karne par current period ke baad service stop hogi">After cancellation, service stops at the end of the current period</li>
+        <li data-en="<strong>On successful payment:</strong> an in-app notification + email confirmation with GST invoice is sent instantly" data-hi="<strong>Payment complete hone par:</strong> In-app notification + Email confirmation turant bheja jaayega with GST invoice"><strong>On successful payment:</strong> an in-app notification + email confirmation with GST invoice is sent instantly</li>
+      </ul>
+      <p data-en="We aim for <strong>99.9% uptime</strong>. Advance notice is given for scheduled maintenance. We are not directly responsible for issues caused by AI model providers." data-hi="Hum <strong>99.9% uptime</strong> ki koshish karte hain. Scheduled maintenance ke liye advance notice diya jaayega. AI model providers ke issues ke liye hum directly responsible nahi hain.">We aim for <strong>99.9% uptime</strong>. Advance notice is given for scheduled maintenance. We are not directly responsible for issues caused by AI model providers.</p>
+
+      <div class="section-subtitle">6. Intellectual Property</div>
+      <p data-en="The OMNEXO AI platform, logo and design are the intellectual property of Baudh Singh Gautam. Rights to AI model outputs belong to the respective AI companies. Users may use their AI outputs per the respective AI companies&#39; policies." data-hi="OMNEXO AI platform, logo, design — sab Baudh Singh Gautam ki intellectual property hai. AI models ke outputs ke rights respective AI companies ke paas hain. Users apne AI outputs respective AI companies ki policies ke anusaar use kar sakte hain.">The OMNEXO AI platform, logo and design are the intellectual property of Baudh Singh Gautam. Rights to AI model outputs belong to the respective AI companies. Users may use their AI outputs per the respective AI companies&#39; policies.</p>
+
+      <div class="section-subtitle">7. Termination</div>
+      <p data-en="We may suspend or terminate accounts for Terms violations without prior notice. In such cases, any remaining unused credits are forfeited and are not refunded — this is a consequence of violating our Terms, not a service issue on our end." data-hi="Hum Terms violation par bina prior notice ke account suspend ya terminate kar sakte hain. Aise cases mein, koi bhi remaining unused credits forfeit ho jaayenge aur unka refund nahi diya jaayega — yeh Terms violation ka consequence hai, hamari taraf se service issue nahi.">We may suspend or terminate accounts for Terms violations without prior notice. In such cases, any remaining unused credits are forfeited and are not refunded — this is a consequence of violating our Terms, not a service issue on our end.</p>
+
+      <div class="section-subtitle">8. Governing Law & Dispute Resolution</div>
+      <p data-en="These Terms are governed by Indian law. Any dispute will be resolved <strong>in the courts of Uttar Pradesh, India</strong>. Please try resolution by email first: <a href=&quot;mailto:baudhsinghgautam@omnexoai.com&quot;>baudhsinghgautam@omnexoai.com</a>" data-hi="Yeh Terms Indian law ke under governed hain. Koi bhi dispute <strong>Uttar Pradesh, India ke courts mein</strong> resolve kiya jaayega. Email se pehle resolution try karein: <a href=&quot;mailto:baudhsinghgautam@omnexoai.com&quot;>baudhsinghgautam@omnexoai.com</a>">These Terms are governed by Indian law. Any dispute will be resolved <strong>in the courts of Uttar Pradesh, India</strong>. Please try resolution by email first: <a href="mailto:baudhsinghgautam@omnexoai.com">baudhsinghgautam@omnexoai.com</a></p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ══ REFUND POLICY ══ -->
+    <div class="doc-section" id="refund">
+      <span class="doc-tag">Legal Document</span>
+      <div class="doc-title" style="font-size:1.8rem;">Refund Policy ↩️</div>
+
+      <div class="info-box warning">
+        <div class="info-box-title">⚠️ All Sales Are Final — No Refund Policy</div>
+        <p data-en="OMNEXO AI provides digital credits and subscription plans. <strong>Once a payment is made, no refund is available</strong> — because these are digital goods that can be used instantly. That is why we offer a FREE TRIAL — try first, then pay." data-hi="OMNEXO AI digital credits aur subscription plans provide karta hai. <strong>Ek baar payment karne ke baad koi refund nahi milega</strong> — kyunki yeh digital goods hain jo turant use ho sakte hain. Isliye hum FREE TRIAL dete hain — pehle try karo, phir pay karo.">OMNEXO AI provides digital credits and subscription plans. <strong>Once a payment is made, no refund is available</strong> — because these are digital goods that can be used instantly. That is why we offer a FREE TRIAL — try first, then pay.</p>
+      </div>
+
+      <div class="section-subtitle" data-en="In Simple Terms 🤝" data-hi="Simple Bhasha Mein Samjho 🤝">In Simple Terms 🤝</div>
+      <p data-en="Think of it like a mobile recharge — once recharged, it isn&#39;t reversed. So take the free trial first, try it out, and subscribe only when you&#39;re comfortable." data-hi="Socho jaise mobile recharge kiya — ek baar recharge hua toh waapas nahi hota. Isliye pehle free trial lo, use karke dekho, aur tab subscribe karo jab comfortable ho.">Think of it like a mobile recharge — once recharged, it isn&#39;t reversed. So take the free trial first, try it out, and subscribe only when you&#39;re comfortable.</p>
+
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="data-table">
+        <thead><tr><th>Situation</th><th data-en="Refund?" data-hi="Refund Milega?">Refund?</th><th>Solution</th></tr></thead>
+        <tbody>
+          <tr><td data-en="Cancelled after purchasing a plan" data-hi="Plan purchase ke baad cancel kiya">Cancelled after purchasing a plan</td><td data-en="❌ No" data-hi="❌ Nahi">❌ No</td><td data-en="Use the free trial first" data-hi="Free trial pehle use karein">Use the free trial first</td></tr>
+          <tr><td data-en="Credits already used" data-hi="Credits use kar liye">Credits already used</td><td data-en="❌ No" data-hi="❌ Nahi">❌ No</td><td data-en="Use credits carefully" data-hi="Credits carefully use karein">Use credits carefully</td></tr>
+          <tr><td data-en="Credits expired" data-hi="Credits expire ho gaye">Credits expired</td><td data-en="❌ No" data-hi="❌ Nahi">❌ No</td><td data-en="We&#39;ll remind you before expiry — use credits within the 6-month window" data-hi="Expiry se pehle hum reminder bhejenge — credits 6 mahine ke andar use karein">We&#39;ll remind you before expiry — use credits within the 6-month window</td></tr>
+          <tr><td data-en="Didn&#39;t like the plan" data-hi="Plan pasand nahi aaya">Didn&#39;t like the plan</td><td data-en="❌ No" data-hi="❌ Nahi">❌ No</td><td data-en="Test it in the free trial first" data-hi="Free trial mein pehle test karo">Test it in the free trial first</td></tr>
+          <tr><td data-en="<strong>OMNEXO AI technical failure</strong>" data-hi="<strong>OMNEXO AI ki technical failure</strong>"><strong>OMNEXO AI technical failure</strong></td><td data-en="✅ <strong>Yes</strong>" data-hi="✅ <strong>Milega</strong>">✅ <strong>Yes</strong></td><td data-en="Email us with proof" data-hi="Proof ke saath email karein">Email us with proof</td></tr>
+          <tr><td data-en="AI model provider outage" data-hi="AI model provider ki outage">AI model provider outage</td><td>⚠️ Credit compensation</td><td data-en="We return affected credits" data-hi="Affected credits return karenge">We return affected credits</td></tr>
+          <tr><td>Double payment (duplicate charge)</td><td data-en="✅ <strong>Yes</strong>" data-hi="✅ <strong>Milega</strong>">✅ <strong>Yes</strong></td><td data-en="Email the transaction proof" data-hi="Transaction proof email karein">Email the transaction proof</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="section-subtitle">🤖 Payment Successful But Credits Not Received?</div>
+
+      <p data-en="If your payment is successful but credits don&#39;t show up in your wallet, please email us with your transaction proof at <a href=&quot;mailto:baudhsinghgautam@omnexoai.com&quot;>baudhsinghgautam@omnexoai.com</a> — we&#39;ll verify and resolve it promptly." data-hi="Agar aapka payment successful hai lekin credits wallet mein nahi aaye, please apna transaction proof ke saath <a href=&quot;mailto:baudhsinghgautam@omnexoai.com&quot;>baudhsinghgautam@omnexoai.com</a> par email karein — hum verify karke promptly resolve karenge.">If your payment is successful but credits don&#39;t show up in your wallet, please email us with your transaction proof at <a href="mailto:baudhsinghgautam@omnexoai.com">baudhsinghgautam@omnexoai.com</a> — we&#39;ll verify and resolve it promptly.</p>
+
+      <!-- CREDIT COMPENSATION POLICY -->
+      <div class="section-subtitle" style="margin-top:28px;">💰 Service Downtime — Credit Compensation Policy</div>
+
+      <div class="info-box success">
+        <div class="info-box-title" data-en="✅ Our Commitment" data-hi="✅ Hamari Commitment">✅ Our Commitment</div>
+        <p data-en="If OMNEXO AI is <strong>down for 24+ hours continuously</strong> (our fault) — affected users get automatic credit compensation. No request needed!" data-hi="Agar OMNEXO AI <strong>24+ ghante continuously down</strong> rahe (hamari galti se) — affected users ko automatic credit compensation milega. Koi request nahi karni padegi!">If OMNEXO AI is <strong>down for 24+ hours continuously</strong> (our fault) — affected users get automatic credit compensation. No request needed!</p>
+      </div>
+
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="data-table">
+        <thead><tr><th>Downtime Duration</th><th>Compensation</th><th>Automatic?</th><th>Condition</th></tr></thead>
+        <tbody>
+          <tr><td>0 – 30 minutes</td><td data-en="❌ No compensation" data-hi="❌ Koi compensation nahi">❌ No compensation</td><td>—</td><td>Minor outage</td></tr>
+          <tr><td>30 min – 24 hours</td><td data-en="❌ No compensation" data-hi="❌ Koi compensation nahi">❌ No compensation</td><td>—</td><td data-en="Status page will be updated" data-hi="Status page update hoga">Status page will be updated</td></tr>
+          <tr><td data-en="<strong>24+ hours (our fault)</strong>" data-hi="<strong>24+ hours (hamari galti)</strong>"><strong>24+ hours (our fault)</strong></td><td>✅ <strong>Credit compensation</strong></td><td>✅ Automatic</td><td>OMNEXO AI server issue</td></tr>
+          <tr><td>AI Provider outage (OpenAI etc.)</td><td data-en="❌ No compensation" data-hi="❌ Koi compensation nahi">❌ No compensation</td><td>—</td><td>Third party issue</td></tr>
+          <tr><td>Scheduled maintenance</td><td data-en="❌ No compensation" data-hi="❌ Koi compensation nahi">❌ No compensation</td><td>—</td><td data-en="Advance notice will be given" data-hi="Advance notice diya jaayega">Advance notice will be given</td></tr>
+          <tr><td>User internet problem</td><td data-en="❌ No compensation" data-hi="❌ Koi compensation nahi">❌ No compensation</td><td>—</td><td>User side issue</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="section-subtitle">Credit Compensation Formula</div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;font-family:'DM Sans',sans-serif;">
+        <div style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;" data-en="Formula (calculated automatically):" data-hi="Formula (automatically calculate hoga):">Formula (calculated automatically):</div>
+        <div style="background:var(--bg2);border-radius:8px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent);margin-bottom:12px;">
+          Compensation = (Downtime Hours ÷ 720) × Plan Credits<br/>
+          <span style="color:var(--muted);" data-en="(Rounded up to the nearest 10 credits)" data-hi="(Nearest 10 credits tak round up hoga)">(Rounded up to the nearest 10 credits)</span>
+        </div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-bottom:8px;font-weight:600;" data-en="Real Example — Priya&#39;s case:" data-hi="Real Example — Priya ka case:">Real Example — Priya&#39;s case:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.75rem;">
+          <div style="background:rgba(0,229,255,0.04);border-radius:8px;padding:10px;">
+            <div style="color:var(--muted);margin-bottom:4px;" data-en="Priya&#39;s Plan" data-hi="Priya ka Plan">Priya&#39;s Plan</div>
+            <div style="font-weight:600;">Power — 400 credits</div>
+          </div>
+          <div style="background:rgba(0,229,255,0.04);border-radius:8px;padding:10px;">
+            <div style="color:var(--muted);margin-bottom:4px;">Downtime</div>
+            <div style="font-weight:600;">30 hours</div>
+          </div>
+          <div style="background:rgba(0,229,255,0.04);border-radius:8px;padding:10px;">
+            <div style="color:var(--muted);margin-bottom:4px;">Calculation</div>
+            <div style="font-weight:600;">(30 ÷ 720) × 400 = 16.7</div>
+          </div>
+          <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:8px;padding:10px;">
+            <div style="color:var(--muted);margin-bottom:4px;">Compensation</div>
+            <div style="font-weight:600;color:var(--success);">20 credits ✅ (rounded up to nearest 10)</div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="info-box">
+        <div class="info-box-title">📧 Compensation Email Template</div>
+        <p data-en="When downtime is 24+ hours — this email is automatically sent to affected users:" data-hi="Jab downtime 24+ hours ho — affected users ko yeh email automatically jaayegi:">When downtime is 24+ hours — this email is automatically sent to affected users:</p>
+        <div style="background:#fff;border-radius:8px;padding:14px;margin-top:8px;color:#000;font-size:0.75rem;line-height:1.6;">
+          <strong style="font-family:'Syne',sans-serif;">Subject: OMNEXO AI — Service Interruption Compensation</strong><br/><br/>
+          Dear [User Name],<br/><br/>
+          OMNEXO AI service was interrupted today from [Time] to [Time] — this was our fault and we sincerely apologize.<br/><br/>
+          <strong>Compensation:</strong> <strong>10 bonus credits</strong> have been added to your wallet.<br/><br/>
+          We work hard to maintain 99.9% uptime. Any questions? <a href="mailto:baudhsinghgautam@omnexoai.com" style="color:#00b8d4;word-break:break-word;overflow-wrap:anywhere;">baudhsinghgautam@omnexoai.com</a><br/><br/>
+          — Team OMNEXO AI 🤖
+        </div>
+      </div>
+
+      <!-- PAYMENT CONFIRMATION + AUTOPAY SECTION -->
+      <div class="section-subtitle" style="margin-top:32px;">💳 Payment Confirmation & Autopay Setup</div>
+
+      <div class="info-box success">
+        <div class="info-box-title" data-en="✅ Payment Complete — What Happens?" data-hi="✅ Payment Complete — Kya Hoga?">✅ Payment Complete — What Happens?</div>
+        <p data-en="As soon as payment succeeds, you get <strong>notifications in 2 places:</strong>" data-hi="Payment successful hote hi aapko <strong>2 jagah notification milega:</strong>">As soon as payment succeeds, you get <strong>notifications in 2 places:</strong></p>
+      </div>
+
+      <!-- IN-APP NOTIFICATION PREVIEW -->
+      <div style="background:var(--card);border:1px solid rgba(34,197,94,0.2);border-radius:14px;padding:20px;margin-bottom:16px;">
+        <div style="font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;color:var(--success);margin-bottom:12px;" data-en="📱 In-App Notification (instant)" data-hi="📱 In-App Notification (Turant milega)">📱 In-App Notification (instant)</div>
+        <div style="background:var(--bg2);border-radius:10px;padding:14px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🎉</div>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:3px;">Payment Successful!</div>
+            <div style="font-size:0.78rem;color:var(--muted);line-height:1.5;" data-en="Power Plan (400 credits) is now active. A ₹899 GST invoice has been emailed to you.<br/><br/><span style=&quot;color:var(--accent);font-weight:600;&quot;>👉 Set up Autopay — never run out of credits!</span>" data-hi="Power Plan (400 credits) active ho gaya hai. ₹899 ka GST invoice aapki email par bhej diya gaya hai.<br/><br/><span style=&quot;color:var(--accent);font-weight:600;&quot;>👉 Autopay setup karein — credits kabhi khatam nahi honge!</span>">Power Plan (400 credits) is now active. A ₹899 GST invoice has been emailed to you.<br/><br/><span style="color:var(--accent);font-weight:600;">👉 Set up Autopay — never run out of credits!</span></div>
+            <div style="display:flex;gap:8px;margin-top:10px;">
+              <button onclick="showAutopayModal()" style="background:var(--accent);color:#000;border:none;padding:6px 14px;border-radius:7px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.72rem;cursor:pointer;">Setup Autopay ⚡</button>
+              <button style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:7px;font-size:0.72rem;cursor:pointer;">Later</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL CONFIRMATION PREVIEW -->
+      <div style="background:var(--card);border:1px solid rgba(0,229,255,0.15);border-radius:14px;padding:20px;margin-bottom:20px;">
+        <div style="font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;color:var(--accent);margin-bottom:12px;" data-en="📧 Email Confirmation (within a few minutes)" data-hi="📧 Email Confirmation (kuch hi minutes mein)">📧 Email Confirmation (within a few minutes)</div>
+        <div style="background:#fff;border-radius:10px;padding:20px;color:#000;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid #f0f0f0;">
+            <div>
+              <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#040507;">OMNEXO<span style="color:#00b8d4;"> AI</span></div>
+              <div style="font-size:0.65rem;color:#6b7280;">Universal AI Control Center</div>
+            </div>
+            <div style="background:#f0fdf4;color:#15803d;font-size:0.68rem;font-weight:700;padding:4px 10px;border-radius:6px;">✓ PAYMENT CONFIRMED</div>
+          </div>
+          <div style="font-size:0.82rem;color:#374151;margin-bottom:12px;" data-en="Dear <strong>[User Name]</strong>," data-hi="Namaste <strong>[User Name]</strong>,">Dear <strong>[User Name]</strong>,</div>
+          <div style="font-size:0.8rem;color:#374151;line-height:1.7;margin-bottom:14px;" data-en="Your <strong>Power Plan</strong> is now active! You now have <strong>400 credits</strong> to access 9 premium AI models." data-hi="Aapka <strong>Power Plan</strong> successfully activate ho gaya hai! Ab aapke paas <strong>400 credits</strong> hain — 9 premium AI models access karne ke liye.">Your <strong>Power Plan</strong> is now active! You now have <strong>400 credits</strong> to access 9 premium AI models.</div>
+          <div style="background:#f9fafb;border-radius:8px;padding:12px;margin-bottom:14px;font-size:0.78rem;">
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#6b7280;">Plan</span><strong>Power Plan</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#6b7280;">Credits</span><strong>400 credits</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#6b7280;">Amount Paid</span><strong>₹899 (GST Included)</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#6b7280;">Valid Until</span><strong>Jun 23, 2026</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;color:#15803d;font-weight:600;border-top:1px solid #e5e7eb;margin-top:4px;padding-top:8px;"><span>Status</span><span>✓ ACTIVE</span></div>
+          </div>
+          <div style="background:linear-gradient(135deg,#e0f2fe,#e8f5e9);border-radius:8px;padding:12px;margin-bottom:14px;font-size:0.78rem;border-left:3px solid #00b8d4;">
+            <strong>⚡ Set up Autopay!</strong><br/>Never run out of credits — turn on Autopay and stay worry-free. When credits drop below 50, they recharge automatically!
+          </div>
+          <div style="font-size:0.72rem;color:#9ca3af;text-align:center;border-top:1px solid #f0f0f0;padding-top:10px;word-break:break-word;overflow-wrap:anywhere;">OMNEXO AI · Uttar Pradesh, India · baudhsinghgautam@omnexoai.com · DPDP Compliant</div>
+        </div>
+      </div>
+
+      <!-- AUTOPAY INFO -->
+      <div style="background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.15);border-radius:12px;padding:16px;">
+        <div style="font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:8px;" data-en="⚡ Autopay Feature — How It Works" data-hi="⚡ Autopay Feature — Kaise Kaam Karta Hai?">⚡ Autopay Feature — How It Works</div>
+        <ul style="margin-bottom:0;">
+          <li data-en="When credits drop <strong>below 50</strong> → Autopay triggers" data-hi="Jab credits <strong>50 se kam</strong> ho jaayein → Autopay trigger hoga">When credits drop <strong>below 50</strong> → Autopay triggers</li>
+          <li data-en="Auto-recharge from your saved UPI/Card" data-hi="Aapke saved UPI/Card se automatically recharge hoga">Auto-recharge from your saved UPI/Card</li>
+          <li data-en="You get an email — &quot;Auto-recharge complete: +400 credits&quot;" data-hi="Email notification aayega — &quot;Auto-recharge complete: +400 credits&quot;">You get an email — "Auto-recharge complete: +400 credits"</li>
+          <li data-en="Turn Autopay off anytime in <strong>Settings → Billing</strong>" data-hi="Autopay <strong>Settings → Billing</strong> mein kabhi bhi off kar sakte ho">Turn Autopay off anytime in <strong>Settings → Billing</strong></li>
+          <li data-en="Set the UPI Mandate once — then stay worry-free!" data-hi="Ek baar UPI Mandate set karo — phir tension-free!">Set the UPI Mandate once — then stay worry-free!</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ══ COOKIE POLICY ══ -->
+    <div class="doc-section" id="cookies">
+      <span class="doc-tag">Legal Document</span>
+      <div class="doc-title" style="font-size:1.8rem;">Cookie Policy 🍪</div>
+
+      <p data-en="OMNEXO AI uses cookies to improve your experience." data-hi="OMNEXO AI aapka experience better banane ke liye cookies use karta hai.">OMNEXO AI uses cookies to improve your experience.</p>
+
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="data-table">
+        <thead><tr><th>Cookie Type</th><th>Purpose</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td>Essential Cookies</td><td>Login session, security tokens</td><td>Session / 30 days</td></tr>
+          <tr><td>Preference Cookies</td><td>Language, theme, model preferences</td><td>1 year</td></tr>
+          <tr><td>Analytics Cookies</td><td>Usage patterns (anonymous)</td><td>90 days</td></tr>
+          <tr><td>Payment Cookies</td><td>Razorpay/Stripe fraud prevention</td><td>Session</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <p data-en="You can manage cookies in your browser settings. Disabling essential cookies will prevent you from logging in." data-hi="Aap cookies ko browser settings mein manage kar sakte hain. Essential cookies disable karne par login nahi ho payega.">You can manage cookies in your browser settings. Disabling essential cookies will prevent you from logging in.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ══ DPDP ACT ══ -->
+    <div class="doc-section" id="dpdp">
+      <span class="doc-tag">Compliance</span>
+      <div class="doc-title" style="font-size:1.8rem;">DPDP Act 2023 & Rules 2025 Compliance 🇮🇳</div>
+
+      <div class="info-box success">
+        <div class="info-box-title">✅ OMNEXO AI is DPDP Act 2023 & Rules 2025 Compliant</div>
+        <p data-en="We comply with all provisions of India&#39;s Digital Personal Data Protection Act 2023 and the DPDP Rules 2025." data-hi="India ke Digital Personal Data Protection Act 2023 aur DPDP Rules 2025 ke saare provisions ka hum palan karte hain.">We comply with all provisions of India&#39;s Digital Personal Data Protection Act 2023 and the DPDP Rules 2025.</p>
+      </div>
+
+      <div class="section-subtitle" data-en="Our DPDP Commitments" data-hi="Hamare DPDP Commitments">Our DPDP Commitments</div>
+      <ul>
+        <li data-en="<strong>Lawful Processing</strong> — Your data is processed only with your consent" data-hi="<strong>Lawful Processing</strong> — Aapka data sirf aapki consent se process hota hai"><strong>Lawful Processing</strong> — Your data is processed only with your consent</li>
+        <li data-en="<strong>Purpose Limitation</strong> — Data is used only for the stated purpose" data-hi="<strong>Purpose Limitation</strong> — Data sirf stated purpose ke liye use hota hai"><strong>Purpose Limitation</strong> — Data is used only for the stated purpose</li>
+        <li data-en="<strong>Data Minimization</strong> — We collect only necessary data" data-hi="<strong>Data Minimization</strong> — Sirf zaruri data collect karte hain"><strong>Data Minimization</strong> — We collect only necessary data</li>
+        <li data-en="<strong>Accuracy</strong> — We strive to keep data accurate and updated" data-hi="<strong>Accuracy</strong> — Data accurate aur updated rakhne ki koshish karte hain"><strong>Accuracy</strong> — We strive to keep data accurate and updated</li>
+        <li data-en="<strong>Storage Limitation</strong> — Data is kept only as long as needed" data-hi="<strong>Storage Limitation</strong> — Zaruri hone tak hi data rakha jaata hai"><strong>Storage Limitation</strong> — Data is kept only as long as needed</li>
+        <li><strong>Security</strong> — SSL encryption, secure storage, access controls</li>
+        <li data-en="<strong>Accountability</strong> — A Grievance Officer has been appointed" data-hi="<strong>Accountability</strong> — Grievance Officer appointed hai"><strong>Accountability</strong> — A Grievance Officer has been appointed</li>
+      </ul>
+
+      <div class="section-subtitle">Data Fiduciary Information</div>
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="data-table">
+        <thead><tr><th>Detail</th><th>Information</th></tr></thead>
+        <tbody>
+          <tr><td>Data Fiduciary</td><td>Baudh Singh Gautam (OMNEXO AI)</td></tr>
+          <tr><td>Registration</td><td>Uttar Pradesh, India</td></tr>
+          <tr><td>Contact</td><td><a href="mailto:baudhsinghgautam@omnexoai.com">baudhsinghgautam@omnexoai.com</a></td></tr>
+          <tr><td>Data Storage</td><td>India (AWS ap-south-1, Mumbai)</td></tr>
+          <tr><td>Consent Mechanism</td><td>Explicit opt-in during signup</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ══ GRIEVANCE OFFICER ══ -->
+    <div class="doc-section" id="grievance">
+      <span class="doc-tag">Compliance</span>
+      <div class="doc-title" style="font-size:1.8rem;">Grievance Officer ⚖️</div>
+
+      <p data-en="As per Section 13 of the DPDP Act 2023, OMNEXO AI has appointed a Grievance Officer:" data-hi="DPDP Act 2023 ke Section 13 ke anusaar, OMNEXO AI ne ek Grievance Officer appoint kiya hai:">As per Section 13 of the DPDP Act 2023, OMNEXO AI has appointed a Grievance Officer:</p>
+
+      <div class="founder-card">
+        <div class="founder-avatar" style="width:50px;height:50px;font-size:1rem;">⚖️</div>
+        <div class="founder-info">
+          <div class="founder-name">Baudh Singh Gautam</div>
+          <div class="founder-title">Grievance Officer, OMNEXO AI</div>
+          <div class="founder-bio">
+            📧 Email: <a href="mailto:baudhsinghgautam@omnexoai.com">baudhsinghgautam@omnexoai.com</a><br/>
+            📍 Address: Uttar Pradesh, India<br/>
+            🕐 Response Time: 48 working hours
+          </div>
+        </div>
+      </div>
+
+      <div class="section-subtitle">Grievance Filing Process</div>
+      <ol>
+        <li data-en="Email <a href=&quot;mailto:baudhsinghgautam@omnexoai.com&quot;>baudhsinghgautam@omnexoai.com</a>" data-hi="<a href=&quot;mailto:baudhsinghgautam@omnexoai.com&quot;>baudhsinghgautam@omnexoai.com</a> par email karein">Email <a href="mailto:baudhsinghgautam@omnexoai.com">baudhsinghgautam@omnexoai.com</a></li>
+        <li>Subject: "Grievance — [Brief description]"</li>
+        <li data-en="Include your registered email and account details" data-hi="Apni registered email aur account details include karein">Include your registered email and account details</li>
+        <li data-en="Write a detailed description of the grievance" data-hi="Grievance ka detailed description likhein">Write a detailed description of the grievance</li>
+        <li data-en="A resolution is provided <strong>within 48 working hours</strong>" data-hi="<strong>48 working hours ke andar</strong> resolution provide kiya jaayega">A resolution is provided <strong>within 48 working hours</strong></li>
+      </ol>
+
+      <div class="info-box">
+        <div class="info-box-title">📋 Escalation</div>
+        <p data-en="We aim to resolve every grievance fairly and directly with you first. If you are not satisfied with OMNEXO AI&#39;s response, you may appeal to India&#39;s Data Protection Board (once operational) — this is your right under the DPDP Act." data-hi="Hum koshish karte hain ki har grievance ko aapke saath directly aur fairly resolve karein. Agar aap OMNEXO AI ke response se satisfied nahi hain, aap India ke Data Protection Board (jab operational ho) mein appeal kar sakte hain — yeh DPDP Act ke under aapka right hai.">We aim to resolve every grievance fairly and directly with you first. If you are not satisfied with OMNEXO AI&#39;s response, you may appeal to India&#39;s Data Protection Board (once operational) — this is your right under the DPDP Act.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:24px;text-align:center;font-size:0.72rem;color:var(--muted);" class="site-footer">
+  <strong style="color:var(--text);font-family:'Syne',sans-serif;">OMNEXO AI</strong> — Universal AI Control Center<br/>
+  © 2026 OMNEXO AI · Baudh Singh Gautam · Uttar Pradesh, India · <a href="mailto:baudhsinghgautam@omnexoai.com">baudhsinghgautam@omnexoai.com</a><br/>
+  <div style="display:flex;gap:12px;justify-content:center;margin-top:10px;flex-wrap:wrap;">
+    <a href="#about">About</a> · <a href="#privacy">Privacy</a> · <a href="#terms">Terms</a> · <a href="#refund">Refund</a> · <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // ── LEGAL PAGE LANGUAGE TOGGLE (English default, Hindi on demand) ──
+  let currentLegalLang = 'en';
+
+  function toggleLegalLang(){
+    currentLegalLang = (currentLegalLang === 'en') ? 'hi' : 'en';
+    const btn = document.getElementById('legalLangBtn');
+    if(currentLegalLang === 'hi'){
+      btn.textContent = '🌐 हिंदी';
+      btn.classList.add('active-hi');
+      btn.title = 'Switch to English';
+    } else {
+      btn.textContent = '🌐 EN';
+      btn.classList.remove('active-hi');
+      btn.title = 'Translate to Hindi';
+    }
+    document.documentElement.lang = currentLegalLang;
+    // Swap every element that has both languages
+    document.querySelectorAll('[data-en][data-hi]').forEach(el=>{
+      el.innerHTML = (currentLegalLang === 'en') ? el.getAttribute('data-en') : el.getAttribute('data-hi');
+    });
+  }
+
+  function setActive(el){
+    document.querySelectorAll('.ps-link').forEach(l=>l.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // Auto-highlight on scroll
+  const sections=['about','contact','privacy','terms','refund','cookies','dpdp','grievance'];
+  window.addEventListener('scroll',()=>{
+    let current='about';
+    sections.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el&&el.getBoundingClientRect().top<=100)current=id;
+    });
+    document.querySelectorAll('.ps-link').forEach(l=>{
+      l.classList.toggle('active',l.getAttribute('href')==='#'+current);
+    });
+  });
+
+  function submitContact(){
+    showToast(currentLegalLang==='hi' ? '✅ Message bheja gaya! 24 ghante mein reply karenge.' : '✅ Message sent! We&#39;ll reply within 24 hours.');
+  }
+
+  function showToast(msg){
+    const t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),3000);
+  }
+</script>
+</body>
+</html>
