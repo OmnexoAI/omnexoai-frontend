@@ -1701,21 +1701,6 @@
     setTimeout(() => { msgs.scrollTop = msgs.scrollHeight; }, 50);
   }
 
-  // ── PREVENT ALL 404s — friendly messages instead of broken links ──
-
-  // ═══ GLOBAL 404 PREVENTION ═══
-  // Intercept any navigation to internal .html pages (auth/chat/etc not present in preview)
-  document.addEventListener('click', function(e){
-    const a = e.target.closest('a, button');
-    if(!a) return;
-    const href = a.getAttribute('href') || '';
-    // If it points to an internal html file, block it and show launch modal
-    if(/\.html(\?|#|$)/i.test(href) || /omniai-(auth|chat|wallet|pricing|router|legal)/i.test(href)){
-      e.preventDefault();
-      comingSoon('signup');
-      return false;
-    }
-  }, true);
 
   // Also catch programmatic redirects to .html (window.location)
   (function(){
