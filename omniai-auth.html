@@ -491,14 +491,14 @@
             <label class="checkbox-label" for="termsCheck">I agree to the <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a>, and <a href="#">DPDP Act 2023</a> compliance.</label>
           </div>
 
-          <button class="submit-btn" onclick="goStep3()">Send OTP →</button>
+          <button class="submit-btn" onclick="goStep3(this)">Send OTP →</button>
           <button style="width:100%;padding:10px;background:transparent;border:none;color:var(--muted);font-size:0.78rem;cursor:pointer;margin-top:8px;" onclick="goBackStep1()">← Back</button>
         </div>
 
         <!-- STEP 3 — OTP -->
         <div id="signupStep3" style="display:none;">
-          <div class="otp-title">Verify your phone 📱</div>
-          <div class="otp-sub">An OTP has been sent to <strong id="otpPhone">+91 XXXXXXXXXX</strong>. Valid for 5 minutes.</div>
+          <div class="otp-title">Verify your email 📧</div>
+          <div class="otp-sub">A 6-digit code has been sent to <strong id="otpPhone">your email</strong>. Valid for a few minutes.</div>
 
           <div class="otp-inputs">
             <input class="otp-input" maxlength="1" onInput="otpMove(this,0)" onKeydown="otpBack(event,0)"/>
@@ -534,6 +534,15 @@
 </main>
 
 <footer>🇮🇳 OMNEXO AI · Uttar Pradesh, India · baudhsinghgautam@omnexoai.com · DPDP Act 2023 Compliant · SSL Secured</footer>
+
+<!-- ══ SUPABASE CONNECTION ══ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+  // Project credentials (publishable key — safe to expose in browser code)
+  const SUPABASE_URL = 'https://qdiqstwjeaoedvgjjnxr.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_IvhxbmOk6qqp-Vf5zKmY9Q_uECAUjJd';
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script>
 
 <script>
   // ── TAB SWITCH ──
@@ -587,7 +596,7 @@
   }
 
   // ── LOGIN ──
-  function handleLogin(){
+  async function handleLogin(){
     const email=document.getElementById('loginEmail').value.trim();
     const pw=document.getElementById('loginPassword').value;
     if(!email){showError('Please enter your email.');return;}
@@ -596,26 +605,38 @@
     if(pw.length<6){showError('Password must be at least 6 characters.');return;}
     const btn=document.getElementById('loginBtn');
     btn.classList.add('loading');
-    setTimeout(()=>{btn.classList.remove('loading');showSuccess('login',email);},1800);
+    const {data,error}=await sb.auth.signInWithPassword({email,password:pw});
+    btn.classList.remove('loading');
+    if(error){
+      if(error.message.includes('Invalid login credentials')) showError('Galat email ya password. Please try again.');
+      else if(error.message.includes('Email not confirmed')) showError('Pehle apna email verify karein — signup ke waqt bheja gaya OTP check karein.');
+      else showError(error.message);
+      return;
+    }
+    showSuccess('login',email);
   }
 
   // ── MAGIC LINK ──
-  function handleMagicLink(){
+  async function handleMagicLink(){
     const email=document.getElementById('loginEmail').value.trim();
     if(!email||!isValidEmail(email)){showError('Please enter a valid email first.');return;}
-    showToast('✨ Magic link sent to '+email+'!');
+    const {error}=await sb.auth.signInWithOtp({email});
+    if(error){showError(error.message);return;}
+    showToast('✨ Magic link sent to '+email+'! Apna inbox check karein.');
   }
 
   // ── SOCIAL ──
   function handleSocial(provider){
-    showToast('🔗 '+provider+' OAuth — backend connect hone par kaam karega!');
+    showToast('🔗 '+provider+' login jald hi aa raha hai — abhi email se signup/login karein!');
   }
 
   // ── FORGOT PASSWORD ──
-  function showForgot(){
+  async function showForgot(){
     const email=document.getElementById('loginEmail').value.trim();
-    if(email&&isValidEmail(email)){showToast('📧 Password reset link sent to '+email+'!');}
-    else{showError('Enter your email first, then click Forgot Password.');}
+    if(!email||!isValidEmail(email)){showError('Enter your email first, then click Forgot Password.');return;}
+    const {error}=await sb.auth.resetPasswordForEmail(email);
+    if(error){showError(error.message);return;}
+    showToast('📧 Password reset link sent to '+email+'!');
   }
 
   // ── SIGNUP STEPS ──
@@ -646,19 +667,37 @@
     updateStepIndicator(1);
   }
 
-  function goStep3(){
+  async function goStep3(nextBtn){
     const phone=document.getElementById('signupPhone').value.trim();
     const pw=document.getElementById('signupPassword').value;
     const terms=document.getElementById('termsCheck').checked;
     if(!phone||phone.length!==10){showError('Please enter a valid 10-digit phone number.');return;}
     if(!pw||pw.length<8){showError('Password must be at least 8 characters.');return;}
     if(!terms){showError('Please agree to the Terms & Conditions.');return;}
-    document.getElementById('otpPhone').textContent='+91 '+phone.substring(0,5)+'XXXXX';
+
+    const name=document.getElementById('signupName').value.trim();
+    const email=document.getElementById('signupEmail').value.trim();
+    const enable2fa=document.getElementById('enable2fa').checked;
+
+    nextBtn.classList.add('loading');
+    const {data,error}=await sb.auth.signUp({
+      email, password:pw,
+      options:{ data:{ full_name:name, phone:'+91'+phone, wants_2fa:enable2fa } }
+    });
+    nextBtn.classList.remove('loading');
+
+    if(error){
+      if(error.message.includes('already registered')||error.message.includes('already been registered')) showError('Yeh email already registered hai. Login karein ya password reset karein.');
+      else showError(error.message);
+      return;
+    }
+
+    document.getElementById('otpPhone').textContent=email;
     document.getElementById('signupStep2').style.display='none';
     document.getElementById('signupStep3').style.display='block';
     updateStepIndicator(3);
     startOtpTimer();
-    showToast('📱 OTP sent!');
+    showToast('📧 Verification code emailed!');
   }
 
   function goBackStep2(){
@@ -697,19 +736,30 @@
     },1000);
   }
 
-  function resendOtp(){showToast('📱 OTP resent!');startOtpTimer();}
+  function resendOtp(){
+    const email=document.getElementById('signupEmail').value.trim();
+    sb.auth.resend({type:'signup',email}).then(({error})=>{
+      if(error){showError(error.message);return;}
+      showToast('📧 Code resent!');
+    });
+    startOtpTimer();
+  }
 
-  function verifyOtp(){
+  async function verifyOtp(){
     const inputs=document.querySelectorAll('.otp-input');
     const otp=Array.from(inputs).map(i=>i.value).join('');
     if(otp.length!==6){showError('Please enter the 6-digit OTP.');return;}
+    const email=document.getElementById('signupEmail').value.trim();
     const btn=document.getElementById('verifyBtn');
     btn.classList.add('loading');
-    setTimeout(()=>{
-      btn.classList.remove('loading');
-      const name=document.getElementById('signupName').value.trim();
-      showSuccess('signup',name);
-    },1800);
+    const {data,error}=await sb.auth.verifyOtp({email,token:otp,type:'signup'});
+    btn.classList.remove('loading');
+    if(error){
+      showError(error.message.includes('expired')?'Code expire ho gaya. Resend par tap karein.':error.message.includes('invalid')?'Galat code. Please check karein.':error.message);
+      return;
+    }
+    const name=document.getElementById('signupName').value.trim();
+    showSuccess('signup',name);
   }
 
   // ── SUCCESS ──
@@ -723,6 +773,7 @@
     if(type==='signup'){
       document.getElementById('successTitle').textContent='Welcome, '+val+'! 🎉';
       document.getElementById('successSub').textContent='Account created! Free trial credits are in your wallet. Check your dashboard!';
+      setTimeout(()=>window.location='omniai-wallet.html',2000);
     } else {
       document.getElementById('successTitle').textContent='Login successful! ✓';
       document.getElementById('successSub').textContent='Welcome back! Taking you to the dashboard...';
