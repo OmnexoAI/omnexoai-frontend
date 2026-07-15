@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OMNEXO AI — Wallet & Credits</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@700;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#040507;--bg2:#080b10;--card:#0d1117;--border:rgba(255,255,255,0.07);--accent:#00e5ff;--accent2:#7c3aed;--text:#f0f4f8;--muted:#64748b;--success:#22c55e;--error:#ef4444;--gold:#fbbf24;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+  .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+  .orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;animation:breathe 8s ease-in-out infinite;}
+  .orb1{width:400px;height:400px;background:rgba(0,229,255,0.06);top:-80px;left:-80px;}
+  .orb2{width:300px;height:300px;background:rgba(124,58,237,0.08);bottom:0;right:0;animation-delay:4s;}
+  @keyframes breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+
+  /* SIDEBAR */
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:rgba(8,11,16,0.98);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;padding:24px 16px;transition:transform 0.3s;will-change:transform;transform:translateZ(0);backface-visibility:hidden;overflow-y:auto;scrollbar-width:thin;}
+  .nav-section{font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:0 8px;margin-bottom:8px;margin-top:16px;}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:0.85rem;color:var(--muted);cursor:pointer;transition:all 0.2s;text-decoration:none;margin-bottom:2px;}
+  .nav-item:hover{background:rgba(255,255,255,0.04);color:var(--text);}
+  .nav-item.active{background:rgba(0,229,255,0.08);color:var(--accent);border:1px solid rgba(0,229,255,0.12);}
+  .nav-item .icon{font-size:1rem;width:20px;text-align:center;}
+  .sidebar-bottom{margin-top:auto;padding-top:16px;border-top:1px solid var(--border);}
+  .user-chip{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:var(--card);border:1px solid var(--border);}
+  .avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:#000;flex-shrink:0;}
+  .user-name{font-size:0.8rem;font-weight:600;}
+  .user-plan{font-size:0.68rem;color:var(--accent);}
+
+  /* TOPBAR mobile */
+  .topbar{display:none;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(4,5,7,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 20px;align-items:center;justify-content:space-between;will-change:transform;transform:translateZ(0);backface-visibility:hidden;}
+  .hamburger{background:none;border:none;color:var(--text);font-size:1.3rem;cursor:pointer;}
+
+  /* ═══════════════════════════════════════════
+     OMNEXO AI — PRODUCTION LOGO (exact match to logo-app.html / index.html)
+     9 orbits + sphere + wordmark, scaled for topbar/sidebar.
+     ═══════════════════════════════════════════ */
+  .omnexo-orbital{position:relative;width:220px;height:220px;}
+  .omnexo-sphere{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:62px;height:62px;border-radius:50%;z-index:10;
+    background:conic-gradient(from 0deg,#FF3DAE,#FF6B6B,#FFA62B,#FFE600,#06FFA5,#00D4FF,#3B82F6,#A855F7,#FF3DAE);
+    animation:omnexoSpinSphere 5s linear infinite;
+    box-shadow:0 0 0 3px rgba(255,255,255,0.06),0 0 34px rgba(168,85,247,0.7),0 0 68px rgba(59,130,246,0.5),0 0 110px rgba(6,255,165,0.25);
+  }
+  .omnexo-sphere::after{content:'';position:absolute;top:13%;left:17%;width:32%;height:22%;background:rgba(255,255,255,0.6);border-radius:50%;filter:blur(3px);}
+  @keyframes omnexoSpinSphere{to{transform:translate(-50%,-50%) rotate(360deg);}}
+  .omnexo-aura{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:74px;height:74px;border-radius:50%;
+    background:radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 70%);
+    z-index:9;animation:omnexoPulse 3s ease-in-out infinite;
+  }
+  @keyframes omnexoPulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}}
+  .omnexo-orbit{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid;transform-origin:center center;}
+  .oo1{ width:68px;height:26px;  margin:-13px 0 0 -34px;  border-color:rgba(255,61,174,0.45); animation:oos1 6s   linear infinite; }
+  .oo2{ width:82px;height:30px;  margin:-15px 0 0 -41px;  border-color:rgba(255,166,43,0.4);  animation:oos2 9s   linear infinite; }
+  .oo3{ width:96px;height:34px;  margin:-17px 0 0 -48px;  border-color:rgba(255,230,0,0.35);  animation:oos3 12s  linear infinite; }
+  .oo4{ width:108px;height:38px; margin:-19px 0 0 -54px;  border-color:rgba(6,255,165,0.35);  animation:oos4 16s  linear infinite; }
+  .oo5{ width:122px;height:42px; margin:-21px 0 0 -61px;  border-color:rgba(0,212,255,0.32);  animation:oos5 20s  linear infinite; }
+  .oo6{ width:134px;height:46px; margin:-23px 0 0 -67px;  border-color:rgba(59,130,246,0.3);  animation:oos6 25s  linear infinite; }
+  .oo7{ width:146px;height:50px; margin:-25px 0 0 -73px;  border-color:rgba(168,85,247,0.28); animation:oos7 30s  linear infinite; }
+  .oo8{ width:158px;height:54px; margin:-27px 0 0 -79px;  border-color:rgba(236,72,153,0.25); animation:oos8 36s  linear infinite; }
+  .oo9{ width:172px;height:58px; margin:-29px 0 0 -86px;  border-color:rgba(250,204,21,0.22); animation:oos9 42s  linear infinite; }
+  @keyframes oos1{from{transform:rotate(8deg)}to{transform:rotate(368deg)}}
+  @keyframes oos2{from{transform:rotate(-28deg)}to{transform:rotate(-388deg)}}
+  @keyframes oos3{from{transform:rotate(52deg)}to{transform:rotate(412deg)}}
+  @keyframes oos4{from{transform:rotate(-65deg)}to{transform:rotate(-425deg)}}
+  @keyframes oos5{from{transform:rotate(15deg)}to{transform:rotate(375deg)}}
+  @keyframes oos6{from{transform:rotate(-40deg)}to{transform:rotate(-400deg)}}
+  @keyframes oos7{from{transform:rotate(75deg)}to{transform:rotate(435deg)}}
+  @keyframes oos8{from{transform:rotate(-12deg)}to{transform:rotate(-372deg)}}
+  @keyframes oos9{from{transform:rotate(38deg)}to{transform:rotate(398deg)}}
+  .omnexo-planet{position:absolute;top:50%;left:100%;transform:translate(-50%,-50%);border-radius:50%;}
+  .oo1 .omnexo-planet{width:5px;height:5px; background:#FF3DAE; box-shadow:0 0 8px #FF3DAE,0 0 16px rgba(255,61,174,0.6);}
+  .oo2 .omnexo-planet{width:5px;height:5px; background:#FFA62B; box-shadow:0 0 8px #FFA62B,0 0 16px rgba(255,166,43,0.6);}
+  .oo3 .omnexo-planet{width:5px;height:5px; background:#FFE600; box-shadow:0 0 8px #FFE600,0 0 16px rgba(255,230,0,0.6);}
+  .oo4 .omnexo-planet{width:4.5px;height:4.5px; background:#06FFA5; box-shadow:0 0 8px #06FFA5,0 0 14px rgba(6,255,165,0.55);}
+  .oo5 .omnexo-planet{width:4.5px;height:4.5px; background:#00D4FF; box-shadow:0 0 8px #00D4FF,0 0 14px rgba(0,212,255,0.55);}
+  .oo6 .omnexo-planet{width:4.5px;height:4.5px; background:#3B82F6; box-shadow:0 0 8px #3B82F6,0 0 14px rgba(59,130,246,0.5);}
+  .oo7 .omnexo-planet{width:4px;height:4px; background:#A855F7; box-shadow:0 0 7px #A855F7,0 0 13px rgba(168,85,247,0.5);}
+  .oo8 .omnexo-planet{width:4px;height:4px; background:#EC4899; box-shadow:0 0 7px #EC4899,0 0 13px rgba(236,72,153,0.45);}
+  .oo9 .omnexo-planet{width:4px;height:4px; background:#FACC15; box-shadow:0 0 7px #FACC15,0 0 13px rgba(250,204,21,0.45);}
+  .om-ai{
+    background:linear-gradient(135deg,#FF3DAE,#A855F7,#00D4FF);background-size:200% auto;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    filter:drop-shadow(0 0 14px rgba(168,85,247,0.6));animation:omFlow 5s linear infinite;
+  }
+  @keyframes omFlow{to{background-position:200% center;}}
+
+  /* scaled wrapper for topbar/sidebar — same 220px logo, shrunk to fit */
+  .omnexo-nav-wrap{
+    display:inline-block;width:36px;height:36px;
+    overflow:hidden;flex-shrink:0;position:relative;vertical-align:middle;
+    will-change:transform;transform:translateZ(0);isolation:isolate;
+  }
+  .omnexo-nav-wrap .omnexo-orbital{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(0.163);
+  }
+  .omnexo-nav-word{
+    font-family:'Orbitron',monospace;font-weight:900;font-size:1.05rem;
+    letter-spacing:0.02em;color:#FFFFFF;display:inline-flex;align-items:center;gap:4px;
+  }
+  .omnexo-nav-word .om-ai{filter:drop-shadow(0 0 8px rgba(168,85,247,0.6));animation:none;background-position:0% center;}
+
+  /* MAIN */
+  .main{margin-left:220px;min-height:100vh;position:relative;z-index:1;}
+  .page-header{padding:32px 28px 0;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+  .page-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.5px;}
+  .page-sub{font-size:0.82rem;color:var(--muted);margin-top:4px;}
+  .recharge-btn{background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;padding:12px 22px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .recharge-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,255,0.2);}
+  .content{padding:24px 28px 60px;}
+
+  /* SPENDING ALERT */
+  .spending-alert{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:0.8rem;color:var(--gold);animation:fadeUp 0.4s ease both;}
+  .spending-alert strong{font-weight:700;}
+  .alert-close{margin-left:auto;background:none;border:none;color:var(--gold);cursor:pointer;font-size:1rem;}
+
+  /* EXPIRY WARNING */
+  .expiry-warning{background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:0.8rem;color:#fca5a5;}
+  .expiry-warning strong{font-weight:700;}
+
+  /* BALANCE CARD */
+  .balance-card{background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(124,58,237,0.08));border:1px solid rgba(0,229,255,0.2);border-radius:20px;padding:28px 24px;position:relative;overflow:hidden;margin-bottom:20px;animation:fadeUp 0.5s ease both;}
+  .balance-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+  .balance-glow{position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(0,229,255,0.12),transparent 70%);pointer-events:none;}
+  .balance-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .balance-label{font-size:0.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+  .plan-tag{background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.2);color:var(--accent);font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;}
+  .balance-amount{font-family:'Syne',sans-serif;font-size:3.2rem;font-weight:800;line-height:1;margin-bottom:6px;letter-spacing:-2px;}
+  .balance-amount span{font-size:1.2rem;color:var(--muted);font-weight:400;letter-spacing:0;}
+  .balance-bar-track{height:6px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin:14px 0 6px;}
+  .balance-bar-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:34%;transition:width 1s ease;}
+  .balance-bar-labels{display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted);}
+  .balance-meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;}
+  .balance-meta-item{display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--muted);}
+  .balance-meta-item strong{color:var(--text);}
+
+  /* AUTO RECHARGE */
+  .auto-recharge{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid var(--border);}
+  .ar-info{flex:1;}
+  .ar-title{font-size:0.8rem;font-weight:600;margin-bottom:2px;}
+  .ar-desc{font-size:0.68rem;color:var(--muted);}
+  .toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
+  .toggle input{opacity:0;width:0;height:0;}
+  .toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:100px;cursor:pointer;transition:0.3s;}
+  .toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:0.3s;}
+  .toggle input:checked+.toggle-slider{background:var(--accent);}
+  .toggle input:checked+.toggle-slider::before{transform:translateX(20px);}
+
+  /* STATS */
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;animation:fadeUp 0.5s 0.1s ease both;}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 16px;transition:all 0.2s;}
+  .stat-card:hover{border-color:rgba(0,229,255,0.2);transform:translateY(-2px);}
+  .stat-icon{font-size:1.3rem;margin-bottom:8px;display:block;}
+  .stat-val{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;line-height:1.3;padding-top:0.05em;margin-bottom:4px;}
+  .stat-lbl{font-size:0.72rem;color:var(--muted);line-height:1.3;}
+
+  /* TWO COL */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;animation:fadeUp 0.5s 0.2s ease both;}
+  .section-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+  .section-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border);}
+  .section-head-title{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;}
+  .section-head-link{font-size:0.72rem;color:var(--accent);cursor:pointer;}
+
+  /* PLAN CARDS */
+  .recharge-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;}
+  .region-tabs{display:flex;gap:6px;padding:10px 14px 4px;}
+  .region-tab{flex:1;padding:7px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.72rem;cursor:pointer;transition:all 0.2s;}
+  .region-tab.active{background:rgba(0,229,255,0.1);border-color:var(--accent);color:var(--accent);}
+  .recharge-option{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 12px;cursor:pointer;transition:all 0.2s;text-align:center;position:relative;}
+  .recharge-option:hover,.recharge-option.selected{border-color:var(--accent);background:rgba(0,229,255,0.05);}
+  .recharge-option.popular-rc::before{content:'POPULAR';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;font-size:0.55rem;font-weight:800;padding:2px 8px;border-radius:100px;letter-spacing:0.5px;}
+  .rc-plan{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);display:block;margin-bottom:3px;}
+  .rc-credits{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--accent);display:block;margin-bottom:2px;}
+  .rc-price{font-size:0.9rem;font-weight:600;display:block;margin-bottom:2px;}
+  .rc-note{font-size:0.62rem;color:var(--muted);}
+  .rc-multiplier{font-size:0.62rem;color:var(--success);font-weight:600;margin-top:3px;display:block;}
+  .pay-btn{margin:4px 14px 10px;width:calc(100% - 28px);padding:11px;background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;transition:all 0.2s;}
+  .pay-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,229,255,0.2);}
+  .payment-icons{display:flex;align-items:center;justify-content:center;gap:6px;padding:0 14px 12px;flex-wrap:wrap;}
+  .payment-chip{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:0.65rem;color:var(--muted);font-weight:500;}
+
+  /* USAGE */
+  .usage-list{padding:12px 16px;display:flex;flex-direction:column;gap:10px;}
+  .usage-item{display:flex;align-items:center;gap:12px;}
+  .usage-emoji{font-size:1rem;width:24px;text-align:center;flex-shrink:0;}
+  .usage-info{flex:1;}
+  .usage-name{font-size:0.78rem;font-weight:500;margin-bottom:4px;}
+  .usage-bar-track{height:4px;background:var(--border);border-radius:10px;overflow:hidden;}
+  .usage-bar-fill{height:100%;border-radius:10px;}
+  .usage-credits{font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--muted);white-space:nowrap;}
+
+  /* REFERRAL SECTION */
+  .referral-section{background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(0,229,255,0.05));border:1px solid rgba(124,58,237,0.2);border-radius:16px;padding:20px;margin-bottom:20px;animation:fadeUp 0.5s 0.15s ease both;}
+  .ref-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .ref-icon{font-size:1.8rem;}
+  .ref-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;}
+  .ref-sub{font-size:0.75rem;color:var(--muted);line-height:1.5;}
+  .ref-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+  .ref-stat{background:rgba(0,0,0,0.2);border-radius:10px;padding:12px;text-align:center;}
+  .ref-stat-num{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--accent);display:block;}
+  .ref-stat-lbl{font-size:0.65rem;color:var(--muted);}
+  .ref-link-row{display:flex;gap:8px;align-items:center;}
+  .ref-link-box{flex:1;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text);overflow-wrap:break-word;word-break:break-all;min-width:0;}
+  .ref-copy-btn{background:var(--accent2);color:#fff;border:none;padding:10px 16px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .ref-copy-btn:hover{background:#6d28d9;}
+  .ref-share-btns{display:flex;gap:8px;margin-top:10px;}
+  .ref-share-btn{flex:1;padding:8px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;font-size:0.72rem;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center;}
+  .ref-share-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* TRANSACTION HISTORY */
+  .txn-section{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px;animation:fadeUp 0.5s 0.3s ease both;}
+  .txn-item{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.15s;cursor:pointer;}
+  .txn-item:hover{background:rgba(255,255,255,0.02);}
+  .txn-item:last-child{border-bottom:none;}
+  .txn-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .txn-icon.credit{background:rgba(34,197,94,0.1);}
+  .txn-icon.debit{background:rgba(239,68,68,0.08);}
+  .txn-info{flex:1;min-width:0;}
+  .txn-title{font-size:0.82rem;font-weight:500;margin-bottom:2px;}
+  .txn-date{font-size:0.7rem;color:var(--muted);}
+  .txn-right{text-align:right;flex-shrink:0;min-width:84px;}
+  .txn-amount{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;white-space:nowrap;}
+  .txn-amount.credit{color:var(--success);}
+  .txn-amount.debit{color:var(--error);}
+  .txn-credits{font-size:0.68rem;color:var(--muted);margin-top:1px;}
+  .invoice-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:3px 8px;font-size:0.65rem;cursor:pointer;transition:all 0.2s;margin-top:3px;}
+  .invoice-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* UPGRADE */
+  .upgrade-section{background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(0,229,255,0.05));border:1px solid rgba(124,58,237,0.2);border-radius:16px;padding:22px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:fadeUp 0.5s 0.4s ease both;}
+  .upgrade-text{flex:1;}
+  .upgrade-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;margin-bottom:4px;}
+  .upgrade-sub{font-size:0.78rem;color:var(--muted);line-height:1.5;}
+  .upgrade-btn{background:linear-gradient(135deg,var(--accent2),#5b21b6);color:#fff;border:none;padding:12px 20px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .upgrade-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(124,58,237,0.3);}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+  .modal-overlay.open{opacity:1;pointer-events:all;}
+  .modal{background:var(--card);border:1px solid rgba(0,229,255,0.2);border-radius:20px;padding:28px 24px;width:100%;max-width:360px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(20px);transition:transform 0.25s;scrollbar-width:thin;}
+  .modal-overlay.open .modal{transform:translateY(0);}
+  .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:20px 20px 0 0;}
+  .modal-close{position:absolute;top:16px;right:16px;background:var(--bg2);border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+  .modal-close:hover{color:var(--text);border-color:var(--accent);}
+  .modal-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:6px;}
+  .modal-sub{font-size:0.8rem;color:var(--muted);margin-bottom:20px;}
+  .modal-selected{background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.15);border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;}
+  .modal-selected strong{font-family:'Syne',sans-serif;color:var(--accent);font-size:1rem;}
+  .pay-methods{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+  .pay-method{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s;font-size:0.83rem;}
+  .pay-method:hover,.pay-method.selected-m{border-color:var(--accent);background:rgba(0,229,255,0.04);color:var(--accent);}
+  .modal-pay-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;cursor:pointer;transition:all 0.2s;}
+  .modal-pay-btn:hover{box-shadow:0 8px 24px rgba(0,229,255,0.25);}
+  .secure-note{text-align:center;font-size:0.68rem;color:var(--muted);margin-top:10px;}
+
+  /* INVOICE MODAL */
+  .invoice-doc{background:#fff;color:#000;border-radius:12px;padding:20px;margin-bottom:16px;font-size:0.78rem;}
+  .inv-header{display:flex;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #f0f0f0;}
+  .inv-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#040507;}
+  .inv-logo span{color:#00b8d4;}
+  .inv-badge{background:#f0fdf4;color:#15803d;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:6px;}
+  .inv-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f9f9f9;}
+  .inv-row.total{border-top:2px solid #e5e7eb;border-bottom:none;margin-top:6px;padding-top:10px;font-weight:700;}
+  .inv-footer{margin-top:14px;font-size:0.65rem;color:#9ca3af;text-align:center;word-break:break-word;overflow-wrap:anywhere;}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--success);color:#000;padding:12px 20px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;z-index:300;transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275);max-width:min(90vw,420px);white-space:normal;word-break:break-word;text-align:center;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  @media(max-width:768px){
+    .sidebar{transform:translate3d(-100%,0,0);}
+    .sidebar.open{transform:translate3d(0,0,0);}
+    .topbar{display:flex;}
+    .main{margin-left:0;padding-top:60px;}
+    .two-col{grid-template-columns:1fr;}
+    .stats-grid{grid-template-columns:repeat(3,1fr);gap:8px;}
+    .stat-card{padding:14px 10px;}
+    .stat-val{font-size:1.25rem;}
+    .page-header{padding:20px 16px 0;}
+    .content{padding:16px 16px 40px;}
+    .ref-stats{grid-template-columns:repeat(3,1fr);}
+    .ref-link-row{flex-direction:column;align-items:stretch;}
+    .ref-link-box{width:100%;}
+    .ref-copy-btn{width:100%;}
+  }
+</style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+  const SUPABASE_URL = 'https://qdiqstwjeaoedvgjjnxr.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_IvhxbmOk6qqp-Vf5zKmY9Q_uECAUjJd';
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script>
+<div class="grid-bg"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="toast" id="toast"></div>
+
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:7px;">
+    <div class="omnexo-nav-wrap">
+      <div class="omnexo-orbital">
+        <div class="omnexo-aura"></div>
+        <div class="omnexo-orbit oo1"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo2"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo3"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo4"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo5"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo6"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo7"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo8"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo9"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-sphere"></div>
+      </div>
+    </div>
+    <div class="omnexo-nav-word">OMNEXO<span class="om-ai">AI</span></div>
+  </div>
+  <button class="hamburger" onclick="toggleSidebar()">☰</button>
+</div>
+
+<aside class="sidebar" id="sidebar">
+  <div style="display:flex;align-items:center;gap:7px;margin-bottom:32px;padding-left:8px;">
+    <div class="omnexo-nav-wrap">
+      <div class="omnexo-orbital">
+        <div class="omnexo-aura"></div>
+        <div class="omnexo-orbit oo1"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo2"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo3"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo4"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo5"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo6"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo7"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo8"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-orbit oo9"><div class="omnexo-planet"></div></div>
+        <div class="omnexo-sphere"></div>
+      </div>
+    </div>
+    <div class="omnexo-nav-word">OMNEXO<span class="om-ai">AI</span></div>
+  </div>
+  <div class="nav-section">Main</div>
+  <a class="nav-item" href="omniai-chat.html" onclick="return goToPage(event,'omniai-chat.html')"><span class="icon">💬</span> Chat</a>
+  <a class="nav-item active" href="#"><span class="icon">👛</span> Wallet</a>
+  <a class="nav-item" href="#" onclick="comingSoon('Usage');return false;"><span class="icon">📊</span> Usage</a>
+  <div class="nav-section">Account</div>
+  <a class="nav-item" href="#" onclick="comingSoon('Profile');return false;"><span class="icon">👤</span> Profile</a>
+  <a class="nav-item" href="#" onclick="comingSoon('Settings');return false;"><span class="icon">⚙️</span> Settings</a>
+  <a class="nav-item" href="#" onclick="comingSoon('Refer & Earn');return false;"><span class="icon">🎁</span> Refer & Earn</a>
+  <div class="nav-section">Support</div>
+  <a class="nav-item" href="#" onclick="comingSoon('Help');return false;"><span class="icon">❓</span> Help</a>
+  <a class="nav-item" href="omniai-auth.html" onclick="handleLogout(event)"><span class="icon">🚪</span> Logout</a>
+  <div class="sidebar-bottom">
+    <div class="user-chip">
+      <div class="avatar" id="userAvatar">?</div>
+      <div><div class="user-name" id="userName">Loading…</div><div class="user-plan" id="userPlan">Free Trial</div></div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Wallet & Credits 👛</div>
+      <div class="page-sub">Manage credits, recharge, and download invoices</div>
+    </div>
+    <button class="recharge-btn" onclick="openModal()">⚡ Recharge Now</button>
+  </div>
+
+  <div class="content">
+
+    <!-- SPENDING ALERT -->
+    <div class="spending-alert" id="spendingAlert" style="display:none;">
+      ⚠️ <span>Only <strong id="lowBalanceAmt">0</strong> credits left! Recharge to keep your service uninterrupted.</span>
+      <button class="alert-close" onclick="document.getElementById('spendingAlert').style.display='none'">✕</button>
+    </div>
+
+    <!-- EXPIRY WARNING (not yet wired to real expiry data) -->
+    <div class="expiry-warning" id="expiryWarning" style="display:none;">
+      🕐 <span>Your extra credits expire soon. Use them soon!</span>
+      <button style="margin-left:auto;background:none;border:none;color:#fca5a5;cursor:pointer;" onclick="document.getElementById('expiryWarning').style.display='none'">✕</button>
+    </div>
+
+    <!-- BALANCE CARD -->
+    <div class="balance-card">
+      <div class="balance-glow"></div>
+      <div class="balance-top">
+        <div class="balance-label">Available Credits</div>
+        <div class="plan-tag" id="planTag">🎁 FREE TRIAL</div>
+      </div>
+      <div class="balance-amount" id="creditDisplay">0 <span>credits</span></div>
+      <div class="balance-bar-track"><div class="balance-bar-fill" id="creditBar"></div></div>
+      <div class="balance-bar-labels"><span>0</span><span id="barAvailableLabel">0 available</span><span id="barMaxLabel">150</span></div>
+      <div class="balance-meta">
+        <div class="balance-meta-item">📅 <span>Member since <strong id="memberSince">—</strong></span></div>
+      </div>
+      <div class="auto-recharge">
+        <div class="ar-info">
+          <div class="ar-title">⚡ Auto-Recharge</div>
+          <div class="ar-desc">Auto-recharges ₹449 when credits drop below 50</div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="autoRecharge" checked/><span class="toggle-slider"></span></label>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card"><span class="stat-icon">💬</span><div class="stat-val" style="color:var(--accent)" id="statConversations">0</div><div class="stat-lbl">Conversations<br/>this month</div></div>
+      <div class="stat-card"><span class="stat-icon">⚡</span><div class="stat-val" style="color:var(--gold)" id="statCreditsUsed">0</div><div class="stat-lbl">Credits<br/>used</div></div>
+      <div class="stat-card"><span class="stat-icon">💸</span><div class="stat-val" style="color:var(--success)" id="statApiCost">₹0</div><div class="stat-lbl">Estimated<br/>API cost</div></div>
+    </div>
+
+    <!-- TWO COL -->
+    <div class="two-col">
+      <!-- PLANS -->
+      <div class="section-card">
+        <div class="section-head">
+          <div class="section-head-title">⚡ Choose Plan</div>
+        </div>
+        <div class="region-tabs">
+          <button class="region-tab active" id="indiaTab" onclick="switchRegion('india')">🇮🇳 India (₹)</button>
+          <button class="region-tab" id="globalTab" onclick="switchRegion('global')">🌍 Global ($)</button>
+        </div>
+
+        <!-- INDIA -->
+        <div class="recharge-grid" id="indiaPlans">
+          <div class="recharge-option selected" onclick="selectPlan(this,150,'449','₹','Base Power')">
+            <span class="rc-plan">Starter</span>
+            <span class="rc-credits">150</span>
+            <span class="rc-price">₹449/mo</span>
+            <span class="rc-note">~75 conversations</span>
+            <span class="rc-multiplier">Base power</span>
+          </div>
+          <div class="recharge-option popular-rc" onclick="selectPlan(this,400,'899','₹','2.6x Power')">
+            <span class="rc-plan">Power</span>
+            <span class="rc-credits">400</span>
+            <span class="rc-price">₹899/mo</span>
+            <span class="rc-note">~200 conversations</span>
+            <span class="rc-multiplier">⚡ 2.6x Starter</span>
+          </div>
+          <div class="recharge-option" style="grid-column:1/-1;" onclick="selectPlan(this,1000,'1999','₹','6.6x Power')">
+            <span class="rc-plan">Pro 💎</span>
+            <span class="rc-credits">1000</span>
+            <span class="rc-price">₹1,999/mo</span>
+            <span class="rc-note">~500 conversations · API · Comparison mode</span>
+            <span class="rc-multiplier">🚀 6.6x Starter · Same price as one other AI subscription!</span>
+          </div>
+        </div>
+
+        <!-- GLOBAL -->
+        <div class="recharge-grid" id="globalPlans" style="display:none;">
+          <div class="recharge-option" onclick="selectPlan(this,150,'9','$','Base Power')">
+            <span class="rc-plan">Basic</span>
+            <span class="rc-credits">150</span>
+            <span class="rc-price">$9/mo</span>
+            <span class="rc-note">~75 conversations</span>
+            <span class="rc-multiplier">Base power</span>
+          </div>
+          <div class="recharge-option popular-rc" onclick="selectPlan(this,400,'19','$','2.6x Power')">
+            <span class="rc-plan">Standard</span>
+            <span class="rc-credits">400</span>
+            <span class="rc-price">$19/mo</span>
+            <span class="rc-note">~200 conversations</span>
+            <span class="rc-multiplier">⚡ 2.6x Basic</span>
+          </div>
+          <div class="recharge-option" style="grid-column:1/-1;" onclick="selectPlan(this,1000,'39','$','6.6x Power')">
+            <span class="rc-plan">Pro 💎</span>
+            <span class="rc-credits">1000</span>
+            <span class="rc-price">$39/mo</span>
+            <span class="rc-note">~500 conversations · 9 models + 6x power</span>
+            <span class="rc-multiplier">🚀 6.6x Basic · More value than any single AI subscription!</span>
+          </div>
+        </div>
+
+        <button class="pay-btn" onclick="openModal()">Pay Securely →</button>
+        <div class="payment-icons">
+          <span class="payment-chip">📱 UPI</span>
+          <span class="payment-chip">💳 Visa</span>
+          <span class="payment-chip">🏦 NetBanking</span>
+          <span class="payment-chip">💵 Stripe</span>
+        </div>
+      </div>
+
+      <!-- USAGE BY MODEL -->
+      <div class="section-card">
+        <div class="section-head">
+          <div class="section-head-title">📊 Credits by Model</div>
+          <span class="section-head-link">This month</span>
+        </div>
+        <div class="usage-list">
+          <div class="usage-item"><span class="usage-emoji">🔴</span><div class="usage-info"><div class="usage-name">DeepSeek V4</div><div class="usage-bar-track"><div class="usage-bar-fill" style="width:72%;background:#ef4444"></div></div></div><div class="usage-credits">86 cr</div></div>
+          <div class="usage-item"><span class="usage-emoji">🟠</span><div class="usage-info"><div class="usage-name">Claude Sonnet</div><div class="usage-bar-track"><div class="usage-bar-fill" style="width:55%;background:#f59e0b"></div></div></div><div class="usage-credits">64 cr</div></div>
+          <div class="usage-item"><span class="usage-emoji">🟢</span><div class="usage-info"><div class="usage-name">GPT-5.5</div><div class="usage-bar-track"><div class="usage-bar-fill" style="width:40%;background:#10b981"></div></div></div><div class="usage-credits">48 cr</div></div>
+          <div class="usage-item"><span class="usage-emoji">🔵</span><div class="usage-info"><div class="usage-name">Gemini 2.5 Flash</div><div class="usage-bar-track"><div class="usage-bar-fill" style="width:26%;background:#3b82f6"></div></div></div><div class="usage-credits">22 cr</div></div>
+          <div class="usage-item"><span class="usage-emoji">⚡</span><div class="usage-info"><div class="usage-name">Others</div><div class="usage-bar-track"><div class="usage-bar-fill" style="width:50%;background:#8b5cf6"></div></div></div><div class="usage-credits">60 cr</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REFERRAL SECTION -->
+    <div class="referral-section">
+      <div class="ref-header">
+        <div class="ref-icon">🎁</div>
+        <div>
+          <div class="ref-title">Refer & Earn — 50 Credits Per Referral!</div>
+          <div class="ref-sub">You both get 50 free credits when your friend buys their first plan. Unlimited referrals!</div>
+        </div>
+      </div>
+      <div class="ref-stats">
+        <div class="ref-stat"><span class="ref-stat-num">3</span><span class="ref-stat-lbl">Friends Referred</span></div>
+        <div class="ref-stat"><span class="ref-stat-num" style="color:var(--success)">150</span><span class="ref-stat-lbl">Credits Earned</span></div>
+        <div class="ref-stat"><span class="ref-stat-num" style="color:var(--gold)">₹15</span><span class="ref-stat-lbl">Value Saved</span></div>
+      </div>
+      <div class="ref-link-row">
+        <div class="ref-link-box" id="refLink">https://omnexoai.com/ref/baudh2026</div>
+        <button class="ref-copy-btn" onclick="copyRefLink()">📋 Copy Link</button>
+      </div>
+      <div class="ref-share-btns">
+        <button class="ref-share-btn" onclick="shareRef('telegram')">✈️ Telegram</button>
+        <button class="ref-share-btn" onclick="shareRef('twitter')">🐦 Twitter</button>
+        <button class="ref-share-btn" onclick="shareRef('email')">📧 Email</button>
+      </div>
+    </div>
+
+    <!-- TRANSACTION HISTORY -->
+    <div class="txn-section">
+      <div class="section-head">
+        <div class="section-head-title">📋 Transaction History</div>
+        <span class="section-head-link" onclick="downloadAllInvoices()">⬇️ Download All</span>
+      </div>
+      <div id="txnListContainer">
+        <div style="padding:32px 18px;text-align:center;color:var(--muted);font-size:0.82rem;">No transactions yet — your recharge and usage history will show up here.</div>
+      </div>
+    </div>
+
+    <!-- UPGRADE -->
+    <div class="upgrade-section">
+      <div>💎</div>
+      <div class="upgrade-text">
+        <div class="upgrade-title">Upgrade to Pro — ₹1,999/month</div>
+        <div class="upgrade-sub">1000 credits · 6.6x more power · API access · Model comparison · Business invoice. Same price as one other AI subscription — but 9 models! 🚀</div>
+      </div>
+      <button class="upgrade-btn">Upgrade to Pro →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- RECHARGE MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">⚡ Recharge Credits</div>
+    <div class="modal-sub">Secure payment — GST invoice automatic</div>
+    <div class="modal-selected">
+      <span id="modalCredits">400 Credits</span>
+      <strong id="modalPrice">₹899</strong>
+    </div>
+    <div class="pay-methods">
+      <div class="pay-method selected-m" onclick="selectMethod(this)"><span>📱</span><span>UPI (GPay, PhonePe, Paytm)</span></div>
+      <div class="pay-method" onclick="selectMethod(this)"><span>💳</span><span>Credit / Debit Card</span></div>
+      <div class="pay-method" onclick="selectMethod(this)"><span>🏦</span><span>Net Banking</span></div>
+      <div class="pay-method" onclick="selectMethod(this)"><span>💵</span><span>Stripe (International)</span></div>
+    </div>
+    <button class="modal-pay-btn" onclick="processPayment()">Pay <span id="paySymbol">₹</span><span id="payAmount">899</span> →</button>
+    <div class="secure-note">🔒 Razorpay / Stripe secured · GST Invoice auto-generated</div>
+  </div>
+</div>
+
+<!-- PAYMENT PROCESSING MODAL -->
+<div class="modal-overlay" id="processingOverlay">
+  <div class="modal" style="text-align:center;padding:32px 24px;">
+    <div style="width:56px;height:56px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;"></div>
+    <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;margin-bottom:6px;">Processing Payment...</div>
+    <div style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;">Please wait — do not close this window</div>
+    <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:10px 14px;font-size:0.72rem;color:var(--gold);">
+      ⏱️ If credits don't arrive within 3 minutes, a refund is initiated automatically
+    </div>
+    <style>@keyframes spin{to{transform:rotate(360deg);}}</style>
+  </div>
+</div>
+
+<!-- PAYMENT SUCCESS MODAL -->
+<div class="modal-overlay" id="successOverlay">
+  <div class="modal" style="text-align:center;">
+    <div style="width:60px;height:60px;background:rgba(34,197,94,0.1);border:2px solid var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 14px;animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both;">✓</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:4px;">Payment Successful! 🎉</div>
+    <div style="font-size:0.8rem;color:var(--muted);margin-bottom:16px;" id="successDetails">400 credits added to your wallet!</div>
+
+    <!-- EMAIL CONFIRMATION NOTE -->
+    <div style="background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);border-radius:10px;padding:12px;margin-bottom:14px;text-align:left;">
+      <div style="font-size:0.72rem;font-weight:700;color:var(--accent);margin-bottom:6px;">📧 Confirmation sent!</div>
+      <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">A <strong style="color:var(--text);">payment confirmation + GST invoice</strong> will reach your registered email within 5 minutes.</div>
+    </div>
+
+    <!-- AUTOPAY PROMPT -->
+    <div style="background:linear-gradient(135deg,rgba(0,229,255,0.06),rgba(124,58,237,0.06));border:1px solid rgba(0,229,255,0.2);border-radius:12px;padding:14px;margin-bottom:16px;text-align:left;">
+      <div style="font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:800;margin-bottom:4px;">⚡ Setup Autopay?</div>
+      <div style="font-size:0.74rem;color:var(--muted);line-height:1.5;margin-bottom:10px;">Auto-recharges when credits drop below 50 — your service is never interrupted!</div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="setupAutopay()" style="flex:1;background:var(--accent);color:#000;border:none;padding:9px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;cursor:pointer;">✅ Setup Autopay</button>
+        <button onclick="skipAutopay()" style="flex:1;background:transparent;border:1px solid var(--border);color:var(--muted);padding:9px;border-radius:8px;font-size:0.78rem;cursor:pointer;">Skip for now</button>
+      </div>
+    </div>
+
+    <button onclick="closeSuccess()" style="width:100%;padding:11px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:9px;font-family:'Syne',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;">Go to Wallet →</button>
+    <style>@keyframes popIn{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}</style>
+  </div>
+</div>
+
+<!-- PAYMENT FAILED MODAL -->
+<div class="modal-overlay" id="failedOverlay">
+  <div class="modal" style="text-align:center;">
+    <div style="width:60px;height:60px;background:rgba(239,68,68,0.1);border:2px solid var(--error);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 14px;">✕</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:4px;color:var(--error);">Payment Failed!</div>
+    <div style="font-size:0.8rem;color:var(--muted);margin-bottom:16px;">No credits deducted — your money is safe</div>
+
+    <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:12px;margin-bottom:14px;text-align:left;">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--error);margin-bottom:6px;">⚠️ What happened?</div>
+      <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;" id="failReason">The bank or UPI rejected the transaction. No money was deducted from your account.</div>
+    </div>
+
+    <!-- REFUND ASSURANCE — Technical Failure Case -->
+    <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:12px;margin-bottom:16px;text-align:left;" id="technicalFailureNote" style="display:none;">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--gold);margin-bottom:6px;">💰 Money deducted? Automatic Refund!</div>
+      <div style="font-size:0.74rem;color:var(--muted);line-height:1.5;">If your bank statement shows a charge but you didn't get credits — that's a technical failure. An <strong style="color:var(--text);">automatic refund arrives in 3-5 days</strong>. You can also email us: <a href="mailto:baudhsinghgautam@omnexoai.com" style="color:var(--accent);">baudhsinghgautam@omnexoai.com</a></div>
+    </div>
+
+    <div style="display:flex;gap:8px;">
+      <button onclick="retryPayment()" style="flex:1;background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;padding:10px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;">🔄 Try Again</button>
+      <button onclick="closeFailedModal()" style="flex:1;background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- AUTOPAY SETUP MODAL -->
+<div class="modal-overlay" id="autopayOverlay" onclick="closeAutopayOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAutopay()">✕</button>
+    <div class="modal-title">⚡ Setup Autopay</div>
+    <div class="modal-sub">Auto-recharge when credits drop below 50</div>
+
+    <div style="background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);border-radius:10px;padding:12px;margin-bottom:14px;">
+      <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;">
+        ✅ Automatic recharge when credits &lt; 50<br/>
+        ✅ Email notification before recharge<br/>
+        ✅ Cancel anytime<br/>
+        ✅ Same amount will be recharged as before
+      </div>
+    </div>
+
+    <div style="margin-bottom:12px;">
+      <label style="font-size:0.72rem;color:var(--muted);display:block;margin-bottom:6px;">Auto-recharge Amount</label>
+      <select style="width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:9px;font-size:0.85rem;outline:none;cursor:pointer;">
+        <option>Current Plan (₹899 — 400 credits)</option>
+        <option>Starter (₹449 — 150 credits)</option>
+        <option>Pro (₹1,999 — 1000 credits)</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <label style="font-size:0.72rem;color:var(--muted);display:block;margin-bottom:6px;">Trigger Threshold</label>
+      <select style="width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:9px;font-size:0.85rem;outline:none;cursor:pointer;">
+        <option>When credits &lt; 50 (Recommended)</option>
+        <option>When credits &lt; 100</option>
+        <option>When credits = 0</option>
+      </select>
+    </div>
+
+    <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:8px;padding:10px;margin-bottom:14px;font-size:0.72rem;color:var(--gold);">
+      ⚠️ A UPI Mandate or saved card will be required. Uses Razorpay's secure gateway.
+    </div>
+
+    <button onclick="confirmAutopay()" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--accent),#0099bb);color:#000;border:none;border-radius:9px;font-family:'Syne',sans-serif;font-weight:800;font-size:0.88rem;cursor:pointer;">Activate Autopay →</button>
+  </div>
+</div>
+
+<!-- INVOICE MODAL -->
+<div class="modal-overlay" id="invoiceOverlay" onclick="closeInvoiceOutside(event)">
+  <div class="modal" style="max-width:400px;">
+    <button class="modal-close" onclick="closeInvoice()">✕</button>
+    <div class="modal-title">📄 GST Invoice</div>
+    <div class="modal-sub">Download or print</div>
+    <div class="invoice-doc" id="invoiceDoc">
+      <div class="inv-header">
+        <div><div class="inv-logo">OMNEXO <span>AI</span></div><div style="font-size:0.65rem;color:#6b7280;margin-top:2px;">Universal AI Control Center<br/>Uttar Pradesh, India · GST: 09XXXXX1234X1Z5</div></div>
+        <div style="text-align:right;"><span class="inv-badge">✓ PAID</span><div style="font-size:0.65rem;color:#6b7280;margin-top:4px;">Invoice #INV-2026-0523</div><div style="font-size:0.65rem;color:#6b7280;">Date: 23 May 2026</div></div>
+      </div>
+      <div style="margin-bottom:10px;"><div style="font-size:0.7rem;font-weight:600;margin-bottom:4px;">Bill To:</div><div style="font-size:0.72rem;color:#374151;">Baudh Singh Gautam<br/>Uttar Pradesh, India</div></div>
+      <div class="inv-row"><span>Power Plan — 400 Credits</span><span>₹762.71</span></div>
+      <div class="inv-row"><span>CGST @9%</span><span>₹68.64</span></div>
+      <div class="inv-row"><span>SGST @9%</span><span>₹68.65</span></div>
+      <div class="inv-row total"><span>Total (GST Included)</span><span>₹899.00</span></div>
+      <div class="inv-footer">Jurisdiction: Uttar Pradesh, India · baudhsinghgautam@omnexoai.com<br/>This is a computer-generated invoice.</div>
+    </div>
+    <button class="modal-pay-btn" onclick="downloadInvoice()">⬇️ Download PDF Invoice</button>
+    <div class="secure-note">GST Compliant · DPDP Act 2023</div>
+  </div>
+</div>
+
+<div id="sidebarOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;" onclick="toggleSidebar()"></div>
+
+<script>
+  let selectedCredits=400, selectedPrice='899', selectedSymbol='₹';
+  let currentRegion='india';
+
+  // ── AUTH GUARD + REAL DATA LOAD ──
+  let currentUserId = null;
+
+  window.addEventListener('load', initWalletPage);
+
+  async function initWalletPage(){
+    const { data: { session } } = await sb.auth.getSession();
+
+    if(!session){
+      window.location = 'omniai-auth.html';
+      return;
+    }
+
+    currentUserId = session.user.id;
+    const authEmail = session.user.email || '';
+    const fullName = session.user.user_metadata?.full_name || authEmail.split('@')[0] || 'User';
+
+    // Fill sidebar identity immediately (no need to wait on wallet fetch)
+    document.getElementById('userName').textContent = fullName;
+    document.getElementById('userAvatar').textContent = fullName.charAt(0).toUpperCase();
+
+    // Fetch wallet row for this user
+    const { data: wallet, error: walletErr } = await sb
+      .from('wallets')
+      .select('balance, currency, created_at')
+      .eq('user_id', currentUserId)
+      .single();
+
+    if(walletErr || !wallet){
+      showToast('⚠️ Could not load wallet data. Please refresh.');
+    } else {
+      const balance = wallet.balance || 0;
+      document.getElementById('creditDisplay').innerHTML = balance+' <span>credits</span>';
+      const maxScale = balance > 150 ? Math.ceil(balance/100)*100 : 150;
+      document.getElementById('creditBar').style.width = Math.min(100,(balance/maxScale)*100)+'%';
+      document.getElementById('barAvailableLabel').textContent = balance+' available';
+      document.getElementById('barMaxLabel').textContent = maxScale;
+
+      if(wallet.created_at){
+        const d = new Date(wallet.created_at);
+        document.getElementById('memberSince').textContent = d.toLocaleDateString('en-IN',{month:'short',year:'numeric'});
+      }
+
+      if(balance <= 20){
+        document.getElementById('lowBalanceAmt').textContent = balance;
+        document.getElementById('spendingAlert').style.display = 'flex';
+      }
+    }
+
+    // Fetch transaction history (empty for new accounts — Razorpay/Stripe integration coming soon)
+    try{
+      const { data: txns } = await sb
+        .from('transactions')
+        .select('*')
+        .eq('user_id', currentUserId)
+        .order('created_at', { ascending: false })
+        .limit(20);
+
+      if(txns && txns.length > 0){
+        renderTransactions(txns);
+      }
+      // else: empty-state placeholder already in the HTML stays as-is
+    } catch(e){
+      // transactions table not ready yet — keep empty-state placeholder, fail silently
+    }
+  }
+
+  function renderTransactions(txns){
+    const container = document.getElementById('txnListContainer');
+    container.innerHTML = txns.map(t => {
+      const isCredit = (t.amount || 0) >= 0;
+      const dateStr = new Date(t.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+      return '<div class="txn-item">'
+        + '<div class="txn-icon '+(isCredit?'credit':'debit')+'">'+(isCredit?'⚡':'💬')+'</div>'
+        + '<div class="txn-info">'
+        +   '<div class="txn-title">'+(t.description||'Transaction')+'</div>'
+        +   '<div class="txn-date">'+dateStr+'</div>'
+        + '</div>'
+        + '<div class="txn-right">'
+        +   '<div class="txn-amount '+(isCredit?'credit':'debit')+'">'+(isCredit?'+':'')+t.amount+' cr</div>'
+        + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  async function handleLogout(e){
+    e.preventDefault();
+    await sb.auth.signOut();
+    window.location = 'omniai-auth.html';
+  }
+
+  // ── SMART NAV for real internal pages (Chat/Logout) ──
+  // On a real web server this is a normal link and works instantly.
+  // It only steps in when this file is opened standalone (phone storage,
+  // or Claude.ai's preview) where the sibling file can't be resolved.
+  function goToPage(e,url){
+    const href=location.href||'';
+    const isLocalFile=location.protocol==='file:'||location.protocol==='content:'||href.indexOf('content://')===0||href.indexOf('file://')===0;
+    const isPreview=href.indexOf('claudeusercontent.com')!==-1;
+    if(!isLocalFile&&!isPreview) return true;
+
+    e.preventDefault();
+    const ov=document.createElement('div');
+    ov.style.cssText='position:fixed;inset:0;background:rgba(4,5,7,0.92);backdrop-filter:blur(14px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    ov.innerHTML='<div style="background:#0d1117;border:1px solid rgba(0,229,255,0.2);border-radius:24px;padding:32px 26px;max-width:360px;width:100%;text-align:center;">'
+      +'<div style="font-size:1.8rem;margin-bottom:12px;">📁</div>'
+      +'<div style="font-family:Syne,sans-serif;font-size:1.1rem;font-weight:800;color:#f0f4f8;margin-bottom:10px;">Open from the same folder</div>'
+      +'<div style="font-size:0.82rem;color:#64748b;line-height:1.7;margin-bottom:20px;">This page can\'t find <strong style="color:#00e5ff;">'+url+'</strong> next to it here.<br/><br/>Put both files in the same folder and open from there — or visit the live website once it\'s hosted online.</div>'
+      +'<button onclick="this.closest(\'div\').parentElement.remove()" style="background:#00e5ff;color:#000;font-family:Syne,sans-serif;font-weight:800;font-size:0.85rem;padding:12px;border-radius:10px;border:none;cursor:pointer;width:100%;">Got it</button>'
+      +'</div>';
+    ov.addEventListener('click',function(ev){if(ev.target===ov)ov.remove();});
+    document.body.appendChild(ov);
+    return false;
+  }
+
+  // ── Placeholder pages not built yet (Usage/Profile/Settings/Refer/Help) ──
+  function comingSoon(name){
+    showToast('🚧 '+name+' page is coming soon!');
+  }
+
+  function toggleSidebar(){
+    const sb=document.getElementById('sidebar');
+    const ov=document.getElementById('sidebarOverlay');
+    const open=sb.classList.toggle('open');
+    ov.style.display=open?'block':'none';
+  }
+
+  function switchRegion(r){
+    currentRegion=r;
+    const isIndia=r==='india';
+    document.getElementById('indiaTab').classList.toggle('active',isIndia);
+    document.getElementById('globalTab').classList.toggle('active',!isIndia);
+    document.getElementById('indiaPlans').style.display=isIndia?'grid':'none';
+    document.getElementById('globalPlans').style.display=isIndia?'none':'grid';
+    if(isIndia)selectPlan(document.querySelector('#indiaPlans .recharge-option'),150,'449','₹','Base');
+    else selectPlan(document.querySelector('#globalPlans .recharge-option'),150,'9','$','Base');
+  }
+
+  function selectPlan(el,credits,price,symbol,label){
+    document.querySelectorAll('.recharge-option').forEach(o=>o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedCredits=credits; selectedPrice=price; selectedSymbol=symbol;
+    document.getElementById('modalCredits').textContent=credits+' Credits';
+    document.getElementById('modalPrice').textContent=symbol+price;
+    document.getElementById('payAmount').textContent=price;
+    document.getElementById('paySymbol').textContent=symbol;
+  }
+
+  function selectMethod(el){
+    document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected-m'));
+    el.classList.add('selected-m');
+  }
+
+  function openModal(){document.getElementById('modalOverlay').classList.add('open');}
+  function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+  function closeModalOutside(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+
+  function processPayment(){
+    closeModal();
+
+    // Step 1: Show processing
+    document.getElementById('processingOverlay').classList.add('open');
+
+    // Step 2: Simulate payment (success 80%, failure 20% for demo)
+    const isSuccess = Math.random() > 0.2;
+
+    setTimeout(()=>{
+      document.getElementById('processingOverlay').classList.remove('open');
+
+      if(isSuccess){
+        // PAYMENT SUCCESS
+        const cur=parseInt(document.getElementById('creditDisplay').textContent);
+        const newCr=cur+selectedCredits;
+        document.getElementById('creditDisplay').innerHTML=newCr+' <span>credits</span>';
+        const newMax = newCr > 400 ? Math.ceil(newCr/100)*100 : 400;
+        document.getElementById('creditBar').style.width = Math.min(100,(newCr/newMax)*100)+'%';
+        document.getElementById('barAvailableLabel').textContent = newCr+' available';
+        document.getElementById('barMaxLabel').textContent = newMax;
+        document.getElementById('successDetails').textContent=
+          selectedCredits+' credits added to your wallet! ('+selectedSymbol+selectedPrice+' paid)';
+        document.getElementById('successOverlay').classList.add('open');
+
+        showToast('🎉 Payment successful! '+selectedCredits+' credits added.');
+
+      } else {
+        const isTechnicalFailure = Math.random() > 0.5;
+        if(isTechnicalFailure){
+          document.getElementById('failReason').textContent =
+            'A technical error occurred — if money was deducted, an automatic refund arrives in 3-5 days.';
+          document.getElementById('technicalFailureNote').style.display='block';
+        } else {
+          document.getElementById('failReason').textContent =
+            'The bank or UPI rejected the transaction. No money was deducted from your account. Please try again.';
+          document.getElementById('technicalFailureNote').style.display='none';
+        }
+        document.getElementById('failedOverlay').classList.add('open');
+      }
+    }, 2500);
+  }
+
+  function closeSuccess(){
+    document.getElementById('successOverlay').classList.remove('open');
+  }
+
+  function closeFailedModal(){
+    document.getElementById('failedOverlay').classList.remove('open');
+  }
+
+  function retryPayment(){
+    document.getElementById('failedOverlay').classList.remove('open');
+    setTimeout(()=>openModal(), 300);
+  }
+
+  function setupAutopay(){
+    document.getElementById('successOverlay').classList.remove('open');
+    setTimeout(()=>{
+      document.getElementById('autopayOverlay').classList.add('open');
+    }, 300);
+  }
+
+  function skipAutopay(){
+    document.getElementById('successOverlay').classList.remove('open');
+    showToast('Autopay skipped — you can set it up later in Settings');
+  }
+
+  function closeAutopay(){
+    document.getElementById('autopayOverlay').classList.remove('open');
+  }
+
+  function closeAutopayOutside(e){
+    if(e.target===document.getElementById('autopayOverlay'))closeAutopay();
+  }
+
+  function confirmAutopay(){
+    closeAutopay();
+    showToast('✅ Autopay activated! Auto-recharge will trigger when credits drop below 50.');
+    const toggle=document.getElementById('autoRecharge');
+    if(toggle)toggle.checked=true;
+  }
+
+  function showInvoice(month){document.getElementById('invoiceOverlay').classList.add('open');}
+  function closeInvoice(){document.getElementById('invoiceOverlay').classList.remove('open');}
+  function closeInvoiceOutside(e){if(e.target===document.getElementById('invoiceOverlay'))closeInvoice();}
+
+  function downloadInvoice(){
+    showToast('📄 Invoice download starting...');
+    closeInvoice();
+  }
+
+  function downloadAllInvoices(){showToast('📦 Downloading all invoices as ZIP...');}
+
+  function copyRefLink(){
+    const link=document.getElementById('refLink').textContent;
+    navigator.clipboard?.writeText(link).catch(()=>{});
+    showToast('📋 Referral link copied!');
+  }
+
+  function shareRef(platform){
+    const link='https://omnexoai.com/ref/baudh2026';
+    const text='Try OMNEXO AI — 9 premium AI models for just ₹449/month! My referral link: '+link;
+    const urls={
+      telegram:'https://t.me/share/url?url='+encodeURIComponent(link)+'&text='+encodeURIComponent(text),
+      twitter:'https://twitter.com/intent/tweet?text='+encodeURIComponent(text),
+      email:'mailto:?subject=OMNEXO AI — 9 AI Models in One Place!&body='+encodeURIComponent(text)
+    };
+    if(platform==='email'){
+      navigator.clipboard?.writeText(text).then(()=>{
+        showToast('📧 Message copied! Paste it in any email or app.');
+      }).catch(()=>{
+        showToast('📧 Could not auto-copy — try the Copy Link button above.');
+      });
+    } else {
+      window.open(urls[platform],'_blank');
+    }
+  }
+
+  function showToast(msg){
+    const t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),3200);
+  }
+</script>
+</body>
+</html>
